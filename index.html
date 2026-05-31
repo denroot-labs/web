@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stoic — Take Back Your Mind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.18);
+    --text: #f0ede8;
+    --muted: rgba(240,237,232,0.45);
+    --accent: #e8d5b0;
+    --accent2: #c4a882;
+    --danger: #e05c3a;
+    --danger-dim: rgba(224,92,58,0.12);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', 'Noto Sans JP', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── LANG TOGGLE ── */
+  .lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 14px 32px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px;
+  }
+
+  .lang-btn {
+    padding: 4px 14px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    background: var(--accent);
+    color: #0a0a0a;
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+  }
+
+  .dot-red {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--danger);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .eyebrow-text {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 92px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-headline .line-accent {
+    color: var(--accent);
+  }
+
+  .hero-headline .line-danger {
+    color: var(--danger);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 28px 0 48px;
+    line-height: 1.75;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.55s forwards;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: #f0e4c5; transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 14px 28px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border-hover);
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--text); border-color: var(--border-hover); }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: fadeIn 1s 1.2s forwards;
+    opacity: 0;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--border-hover), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  @keyframes scrollPulse {
+    0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; }
+  }
+
+  /* ── MANIFESTO ── */
+  .manifesto {
+    padding: 120px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+
+  .manifesto-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--danger);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .manifesto-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--danger-dim);
+    max-width: 80px;
+  }
+
+  .manifesto-stat {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 108px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--danger);
+    margin-bottom: 0px;
+  }
+
+  .manifesto-stat-label {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--muted);
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  .manifesto-body {
+    font-size: clamp(20px, 2.8vw, 32px);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .manifesto-body strong {
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .manifesto-body em {
+    font-style: normal;
+    color: var(--danger);
+    font-weight: 400;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 120px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 56px;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+  }
+
+  .how-card {
+    background: var(--bg2);
+    padding: 36px 32px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .how-card:hover { border-color: var(--border-hover); }
+
+  .how-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -16px;
+    right: 24px;
+    font-family: var(--font-display);
+    font-size: 120px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.025);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .how-card-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+
+  .how-card-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── DIFFERENCE ── */
+  .diff {
+    padding: 120px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+
+  .diff-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    margin-bottom: 60px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .diff-table thead tr th {
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .diff-table tbody tr td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .diff-table tbody tr td:first-child {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .diff-table tbody tr td.us {
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .check { color: var(--accent); }
+  .cross { color: var(--danger); opacity: 0.6; }
+
+  /* ── WAITLIST ── */
+  .waitlist {
+    padding: 120px 48px;
+    max-width: 680px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+
+  .waitlist-pre {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 24px;
+  }
+
+  .waitlist-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+
+  .waitlist-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 44px;
+    line-height: 1.7;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .form-input {
+    flex: 1;
+    padding: 14px 18px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-input:focus { border-color: var(--accent2); }
+  .form-input::placeholder { color: rgba(240,237,232,0.25); }
+
+  .form-submit {
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .form-submit:hover { background: #f0e4c5; transform: translateY(-1px); }
+  .form-submit:active { transform: translateY(0); }
+
+  .form-note {
+    font-size: 12px;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  .form-success {
+    display: none;
+    padding: 20px;
+    background: rgba(232,213,176,0.08);
+    border: 1px solid rgba(232,213,176,0.2);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--accent);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--muted);
+    opacity: 0.4;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero, .manifesto, .how, .diff, .waitlist { padding-left: 24px; padding-right: 24px; }
+    .form-row { flex-direction: column; }
+    footer { padding: 32px 24px; }
+    .lang-bar { padding: 12px 20px; }
+    .diff-table { display: block; overflow-x: auto; }
+  }
+
+  /* ── LANG VISIBILITY ── */
+  .en, .ja { transition: opacity 0.2s; }
+  body.lang-ja .en { display: none; }
+  body.lang-en .ja { display: none; }
+
+</style>
+</head>
+<body class="lang-en">
+
+<!-- LANG BAR -->
+<nav class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-ja" onclick="setLang('ja')">JP</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="dot-red"></span>
+    <span class="eyebrow-text en">Coming soon — join the waitlist</span>
+    <span class="eyebrow-text ja">近日公開 — ウェイティングリストに登録</span>
+  </div>
+
+  <h1 class="hero-headline">
+    <span class="en">
+      They hacked<br>
+      <span class="line-danger">your brain.</span><br>
+      <span class="line-accent">Hack back.</span>
+    </span>
+    <span class="ja">
+      彼らはあなたの<br>
+      <span class="line-danger">脳を奪った。</span><br>
+      <span class="line-accent">取り返せ。</span>
+    </span>
+  </h1>
+
+  <p class="hero-sub en">
+    Instagram, TikTok, X — they've invested billions to keep you scrolling.<br>
+    Stoic is built to make you <em style="font-style:normal; color: var(--accent);">stop</em>.
+  </p>
+  <p class="hero-sub ja">
+    Instagram、TikTok、X——彼らはあなたをスクロールさせ続けるために数千億円を投資している。<br>
+    Stoicは、あなたを<em style="font-style:normal; color: var(--accent);">止める</em>ために作られた。
+  </p>
+
+  <div class="hero-cta-group">
+    <a href="#waitlist" class="btn-primary en">Join the Waitlist</a>
+    <a href="#waitlist" class="btn-primary ja">ウェイティングリストに登録</a>
+    <a href="#how" class="btn-ghost en">See how it works</a>
+    <a href="#how" class="btn-ghost ja">仕組みを見る</a>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="en">scroll</span>
+    <span class="ja">スクロール</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     MANIFESTO
+════════════════════════════════════════════ -->
+<section class="manifesto reveal">
+  <div class="manifesto-label en">The problem</div>
+  <div class="manifesto-label ja">問題</div>
+
+  <div class="manifesto-stat">57%</div>
+  <p class="manifesto-stat-label en">average reduction in app usage after using friction-based intervention — Max Planck Institute study</p>
+  <p class="manifesto-stat-label ja">摩擦介入ベースのアプローチによる平均アプリ使用時間削減率 — マックス・プランク研究所の研究より</p>
+
+  <p class="manifesto-body en">
+    You've tried blocking apps. You've set timers. You've downloaded Forest and watched your tree die 200 times.<br><br>
+    It doesn't work because <em>the problem isn't discipline.</em><br><br>
+    TikTok has 1,500 engineers optimizing for your attention. You can't out-willpower an algorithm.<br><br>
+    <strong>Stoic doesn't block your phone. It rewires how your brain relates to it.</strong>
+  </p>
+  <p class="manifesto-body ja">
+    アプリをブロックしてみた。タイマーを設定してみた。Forestをダウンロードして、木を200回枯らした。<br><br>
+    効かないのは、<em>問題が意志力ではないからだ。</em><br><br>
+    TikTokにはあなたの注意を奪うために1,500人のエンジニアがいる。アルゴリズムに意志力で勝てるわけがない。<br><br>
+    <strong>Stoicはスマホをブロックしない。脳とスマホの関係そのものを書き換える。</strong>
+  </p>
+</section>
+
+<!-- ════════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════════ -->
+<section class="how reveal" id="how">
+  <p class="section-label en">How it works</p>
+  <p class="section-label ja">仕組み</p>
+
+  <div class="how-grid">
+    <div class="how-card" data-num="01">
+      <h3 class="how-card-title en">AI Task Breakdown</h3>
+      <h3 class="how-card-title ja">AIによるタスク分解</h3>
+      <p class="how-card-body en">Can't start studying? Type in your task. The AI breaks it down into 3-minute actions — removing the mental barrier between you and actually starting.</p>
+      <p class="how-card-body ja">勉強に手がつかない？タスクを入力するだけ。AIが3分以内で完了できる具体的なアクションに分解し、「着手できない」という心理的障壁を取り除く。</p>
+    </div>
+    <div class="how-card" data-num="02">
+      <h3 class="how-card-title en">20-Min Unlock Protocol</h3>
+      <h3 class="how-card-title ja">20分ロック解除プロトコル</h3>
+      <p class="how-card-body en">Want to unlock Instagram? Fine — wait 20 minutes. Leave the screen? Timer resets. The cost of checking SNS becomes greater than the cost of doing the task.</p>
+      <p class="how-card-body ja">Instagramを解除したい？いい——20分待て。画面を離れたらリセット。SNSを見るコストがタスクをこなすコストを上回る設計。</p>
+    </div>
+    <div class="how-card" data-num="03">
+      <h3 class="how-card-title en">Instant Reward System</h3>
+      <h3 class="how-card-title ja">即時報酬システム</h3>
+      <p class="how-card-body en">Each micro-task completed triggers immediate visual and audio feedback — hitting your dopamine response before the algorithm can. No trees. No streaks. Raw, instant reward.</p>
+      <p class="how-card-body ja">極小タスクを完了するたびに即時の視覚・音響フィードバック。アルゴリズムより先にドーパミン回路を刺激する。木も連続記録もない。純粋な即時報酬。</p>
+    </div>
+    <div class="how-card" data-num="04">
+      <h3 class="how-card-title en">Algorithm Exposure</h3>
+      <h3 class="how-card-title ja">アルゴリズムの暴露</h3>
+      <p class="how-card-body en">When you try to unlock an app, you're shown exactly how that platform monetizes your attention. Not guilt. Not shame. Just facts — and a choice.</p>
+      <p class="how-card-body ja">アプリを解除しようとすると、そのプラットフォームがどのようにあなたの注意を収益化しているかを提示する。罪悪感でも羞恥心でもない。ただ事実——そして選択。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     DIFFERENCE
+════════════════════════════════════════════ -->
+<section class="diff reveal">
+  <h2 class="diff-title en">Why every other app<br>fails you.</h2>
+  <h2 class="diff-title ja">なぜ他のアプリは<br>全部ダメなのか。</h2>
+
+  <table class="diff-table">
+    <thead>
+      <tr>
+        <th><span class="en">Feature</span><span class="ja">機能</span></th>
+        <th>Forest / Freedom</th>
+        <th>Stoic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="en">Can be bypassed in seconds</span><span class="ja">数秒でバイパス可能</span></td>
+        <td><span class="cross">✕ Yes</span></td>
+        <td class="us"><span class="check">✓</span> <span class="en">20-min lock + reset</span><span class="ja">20分ロック＋リセット</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Addresses task avoidance</span><span class="ja">タスク回避に対処</span></td>
+        <td><span class="cross">✕ No</span></td>
+        <td class="us"><span class="check">✓</span> <span class="en">AI breakdown</span><span class="ja">AIタスク分解</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Works with ADHD brain</span><span class="ja">ADHDの脳に対応</span></td>
+        <td><span class="cross">✕ No</span></td>
+        <td class="us"><span class="check">✓</span> <span class="en">Built for it</span><span class="ja">専用設計</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Instant dopamine reward</span><span class="ja">即時ドーパミン報酬</span></td>
+        <td><span class="cross">✕ Delayed</span></td>
+        <td class="us"><span class="check">✓</span> <span class="en">Every micro-task</span><span class="ja">極小タスクごとに発動</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Builds permanent change</span><span class="ja">永続的な変化を構築</span></td>
+        <td><span class="cross">✕ Habit-dependent</span></td>
+        <td class="us"><span class="check">✓</span> <span class="en">Cognitive rewiring</span><span class="ja">認知の書き換え</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════════
+     WAITLIST
+════════════════════════════════════════════ -->
+<section class="waitlist reveal" id="waitlist">
+  <p class="waitlist-pre en">Early Access</p>
+  <p class="waitlist-pre ja">アーリーアクセス</p>
+
+  <h2 class="waitlist-title en">
+    Ready to take<br>your brain back?
+  </h2>
+  <h2 class="waitlist-title ja">
+    自分の脳を<br>取り戻す準備はできた?
+  </h2>
+
+  <p class="waitlist-sub en">
+    Join the waitlist. Be among the first to access Stoic when we launch.<br>
+    No spam. No BS. Just one email when it's ready.
+  </p>
+  <p class="waitlist-sub ja">
+    ウェイティングリストに登録し、ローンチ時に最初にアクセスできる一人になろう。<br>
+    スパムなし。余計な連絡なし。準備ができたときに一通だけ。
+  </p>
+
+  <div id="form-wrap">
+    <div class="form-row">
+      <input class="form-input" type="email" id="email-input" placeholder="your@email.com" />
+      <button class="form-submit" onclick="submitForm()">
+        <span class="en">Join Waitlist</span>
+        <span class="ja">登録する</span>
+      </button>
+    </div>
+    <p class="form-note en">Free to join. ~$5–10/mo at launch. Cancel anytime.</p>
+    <p class="form-note ja">登録無料。ローンチ時は月額500〜1,000円程度。いつでもキャンセル可。</p>
+  </div>
+
+  <div class="form-success" id="form-success">
+    <span class="en">✓ You're on the list. We'll reach out when Stoic launches.</span>
+    <span class="ja">✓ 登録完了。ローンチ時にご連絡します。</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer>
+  <span class="footer-brand">STOIC</span>
+  <span class="footer-copy en">© 2026 Dolphin Stark. All rights reserved.</span>
+  <span class="footer-copy ja">© 2026 Dolphin Stark. All rights reserved.</span>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+  }
+
+  function submitForm() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('email-input').style.borderColor = '#e05c3a';
+      setTimeout(() => document.getElementById('email-input').style.borderColor = '', 1500);
+      return;
+    }
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const ua = navigator.language || '';
+  if (ua.startsWith('ja')) setLang('ja');
+</script>
+</body>
+</html>
