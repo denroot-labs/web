@@ -227,17 +227,17 @@ body.lang-ja .en { display: none; }
 /* ═══════════════════════════════
    STATS
 ═══════════════════════════════ */
-.stats { background: var(--dark); }
+.stats { background: var(--white); border-bottom: 1px solid var(--border); }
 .stats-grid {
   max-width: var(--max);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid var(--border);
 }
 .stat {
   padding: 52px 28px;
-  border-right: 1px solid rgba(255,255,255,0.07);
+  border-right: 1px solid var(--border);
 }
 .stat:last-child { border-right: none; }
 .stat-n {
@@ -245,18 +245,17 @@ body.lang-ja .en { display: none; }
   font-weight: 300;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: #fff;
+  color: var(--text);
   margin-bottom: 12px;
 }
 .stat-n em {
   font-style: normal;
-  color: #FDA4AF;
+  color: #B91C1C;
 }
-/* Increased readability for stat descriptions */
 .stat-d {
   font-size: 12px;
   font-weight: 300;
-  color: rgba(255,255,255,0.68);
+  color: var(--sub);
   line-height: 1.65;
 }
 
@@ -391,8 +390,77 @@ body.lang-ja .en { display: none; }
 .pain-sec .sec-in { padding-bottom: 40px; }
 .pain-sec + .sec .sec-in { padding-top: 40px; }
 
-/* Fear section */
-.fear-sec { background: var(--bg); }
+/* Fear section — white */
+.fear-sec { background: var(--white); }
+
+/* Sec-bg — white (unify) */
+.sec-bg { background: var(--white) !important; }
+
+/* Dark section modifier */
+.sec-dark { background: var(--dark) !important; }
+.sec-dark .stag { color: rgba(255,255,255,0.3); }
+.sec-dark .prob-lead { color: rgba(255,255,255,0.88); }
+.sec-dark .prob-body { color: rgba(255,255,255,0.55); }
+.sec-dark .prob-body strong { color: #fff; }
+.sec-dark .pullquote {
+  border-left-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.82);
+}
+.sec-dark mark {
+  background: rgba(250,204,21,0.22);
+  color: rgba(255,255,255,0.9);
+}
+.sec-dark .cmp-h2 { color: rgba(255,255,255,0.88); }
+.sec-dark .cmp-tbl th {
+  color: rgba(255,255,255,0.38);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+}
+.sec-dark .cmp-tbl td {
+  color: rgba(255,255,255,0.48);
+  border-bottom-color: rgba(255,255,255,0.08);
+  background: transparent;
+}
+.sec-dark .cmp-tbl td:first-child { color: rgba(255,255,255,0.82); }
+.sec-dark .cmp-tbl th:last-child { color: #fff; }
+.sec-dark .cmp-tbl td:last-child { color: rgba(255,255,255,0.82); }
+.sec-dark .ck { color: #6EE7B7; }
+.sec-dark .cx { color: rgba(255,255,255,0.28); }
+
+/* Photo break */
+.photo-break {
+  position: relative;
+  height: 55vh;
+  min-height: 360px;
+  overflow: hidden;
+}
+.photo-break-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.photo-break-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.52);
+  display: flex;
+  align-items: flex-end;
+  padding: 48px;
+}
+.photo-break-caption {
+  font-size: clamp(14px, 1.6vw, 17px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.02em;
+  max-width: 560px;
+}
+.photo-break-caption strong {
+  color: rgba(255,255,255,0.9);
+  font-weight: 400;
+}
 .fear-body {
   font-size: 15px;
   font-weight: 300;
@@ -928,7 +996,7 @@ mark {
 </section>
 
 <!-- PROBLEM ANALYSIS -->
-<section class="sec">
+<section class="sec sec-dark">
   <div class="sec-in">
     <p class="stag en rv">Analysis</p>
     <p class="stag ja rv">背景</p>
@@ -978,6 +1046,26 @@ mark {
     </blockquote>
   </div>
 </section>
+
+<!-- PHOTO BREAK -->
+<div class="photo-break">
+  <img
+    class="photo-break-img"
+    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1920&q=80"
+    alt="People absorbed in smartphones"
+    loading="lazy"
+  >
+  <div class="photo-break-overlay">
+    <p class="photo-break-caption en">
+      <strong>2.65 billion people</strong> open social media today.<br>
+      Most of them did not decide to.
+    </p>
+    <p class="photo-break-caption ja">
+      <strong>26億5,000万人</strong>が今日もSNSを開く。<br>
+      その大半は、意図して開いたわけではない。
+    </p>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="sec-bg" id="how">
@@ -1076,7 +1164,7 @@ mark {
 </section>
 
 <!-- COMPARISON -->
-<section class="sec">
+<section class="sec sec-dark">
   <div class="sec-in">
     <p class="stag en rv">Comparison</p>
     <p class="stag ja rv">比較</p>
