@@ -147,7 +147,7 @@ font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
 text-transform: uppercase; color: var(--muted); margin-bottom: 28px;
 }
 .what-h {
-font-size: clamp(22px, 3vw, 32px); font-weight: 300;
+font-size: clamp(22px, 3vw, 32px); font-weight: 600;
 line-height: 1.28; letter-spacing: -0.022em; color: var(--text); margin-bottom: 24px;
 }
 .what-p { font-size: 15px; font-weight: 300; color: var(--sub); line-height: 1.9; }
@@ -295,6 +295,44 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
 .ftr-link:hover { color: var(--text); }
 .ftr-copy { font-size: 11px; color: var(--text); }
 
+/* ═══ QUESTION FORM ═══ */
+.qform-sec { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); }
+.qform-in { max-width: 720px; margin: 0 auto; padding: 96px 24px; }
+.qform-h {
+font-size: clamp(22px, 2.8vw, 32px); font-weight: 300;
+line-height: 1.28; letter-spacing: -0.02em; color: #fff; margin-bottom: 44px;
+}
+.qf-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.qf-input {
+flex: 1; padding: 13px 16px;
+background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+border-radius: var(--r); color: #fff; font-family: var(--font);
+font-size: 14px; font-weight: 300; outline: none; transition: border-color 0.15s;
+}
+.qf-input:focus { border-color: rgba(255,255,255,0.38); }
+.qf-input::placeholder { color: rgba(255,255,255,0.25); }
+.qf-textarea {
+width: 100%; padding: 13px 16px; margin-bottom: 16px;
+background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+border-radius: var(--r); color: #fff; font-family: var(--font);
+font-size: 14px; font-weight: 300; line-height: 1.75; outline: none;
+transition: border-color 0.15s; resize: vertical; display: block;
+}
+.qf-textarea:focus { border-color: rgba(255,255,255,0.38); }
+.qf-textarea::placeholder { color: rgba(255,255,255,0.25); }
+.qf-submit {
+padding: 13px 28px; background: #fff; color: var(--text);
+font-family: var(--font); font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+border: none; border-radius: var(--r); cursor: pointer; transition: opacity 0.15s;
+}
+.qf-submit:hover { opacity: 0.88; }
+.qf-done {
+display: none; margin-top: 20px; padding: 18px 24px;
+background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+border-radius: var(--r); font-size: 14px; font-weight: 300;
+color: rgba(255,255,255,0.62); line-height: 1.7;
+}
+
 /* ═══ SCROLL REVEAL ═══ */
 .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .rv.in { opacity: 1; transform: none; }
@@ -401,7 +439,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
     <div class="stat">
       <div class="stat-n"><em>1,500</em>+</div>
       <p class="stat-d en">Engineers at TikTok focused solely<br>on engagement optimization</p>
-      <p class="stat-d ja">TikTokのエンゲージメント最適化のみに<br>従事するエンジニアの数</p>
+      <p class="stat-d ja">TikTokのエンゲージメント<br>最適化専任エンジニアの数</p>
     </div>
   </div>
 </div>
@@ -577,7 +615,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
       "You are not weak. You are outmatched by design. Stoic changes the design."
     </blockquote>
     <blockquote class="pullquote ja rv">
-      「あなたが弱いのではありません。設計によって圧倒されているのです。STOICはその設計を変えます。」
+      「あなたが弱いのではありません。設計によって圧倒されているのです。<br>STOICはその設計を変えます。」
     </blockquote>
 
   </div>
@@ -786,6 +824,43 @@ WAITLIST — WHITE
 </div>
 </section>
 
+<!-- ══════════════════
+QUESTION FORM — DARK
+══════════════════ -->
+<section class="qform-sec">
+<div class="qform-in">
+
+<p class="stag-dark en rv">Got a question?</p>
+<p class="stag-dark ja rv">お問い合わせ</p>
+
+<h2 class="qform-h en rv">We'd like to hear from you.</h2>
+<h2 class="qform-h ja rv">ご質問があれば、お気軽に。</h2>
+
+<form id="q-form" action="https://formsubmit.co/dolphinstark@protonmail.com" method="POST" class="rv">
+  <input type="hidden" name="_subject" value="STOIC — お問い合わせ">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="box">
+  <div class="qf-row">
+    <input class="qf-input en" type="text" name="name" placeholder="Name" required>
+    <input class="qf-input ja" type="text" name="name" placeholder="お名前" required>
+    <input class="qf-input en" type="email" name="email" placeholder="Email" required autocomplete="email">
+    <input class="qf-input ja" type="email" name="email" placeholder="メールアドレス" required autocomplete="email">
+  </div>
+  <textarea class="qf-textarea en" name="message" rows="5" placeholder="Your question" required></textarea>
+  <textarea class="qf-textarea ja" name="message" rows="5" placeholder="ご質問内容" required></textarea>
+  <button class="qf-submit" type="submit">
+    <span class="en">Send</span>
+    <span class="ja">送信する</span>
+  </button>
+</form>
+<div class="qf-done" id="q-done">
+  <span class="en">✓ Message sent. We'll get back to you soon.</span>
+  <span class="ja">✓ 送信が完了しました。折り返しご連絡いたします。</span>
+</div>
+
+</div>
+</section>
+
 <!-- FOOTER -->
 <footer class="ftr">
   <div class="ftr-in">
@@ -828,6 +903,22 @@ const obs = new IntersectionObserver(entries => {
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
 if (navigator.language && navigator.language.startsWith('ja')) setLang('ja');
+
+document.getElementById('q-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.qf-submit');
+  btn.disabled = true; btn.style.opacity = '0.4';
+  try {
+    const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+    if (res.ok) {
+      this.style.display = 'none';
+      document.getElementById('q-done').style.display = 'block';
+    } else { throw new Error(); }
+  } catch {
+    btn.disabled = false; btn.style.opacity = '1';
+    alert('Something went wrong. Please try again.');
+  }
+});
 </script>
 </body>
 </html>
