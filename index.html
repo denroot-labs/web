@@ -11,7 +11,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 img{display:block;max-width:100%}
-
+ 
 :root {
   --black:   #000000;
   --white:   #ffffff;
@@ -25,7 +25,7 @@ img{display:block;max-width:100%}
   --max-wide: 1200px;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+ 
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font);
@@ -35,12 +35,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-
+ 
 /* ── LANGUAGE ── */
 .ja { display: none; }
 body.lang-ja .ja { display: revert; }
 body.lang-ja .en { display: none; }
-
+ 
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
@@ -77,7 +77,7 @@ nav {
   transition: opacity 0.15s;
 }
 .nav-cta:hover { opacity: 0.7; }
-
+ 
 /* ── HERO ── */
 .hero {
   min-height: 100svh;
@@ -136,7 +136,7 @@ nav {
   51%  { transform: scaleY(1); transform-origin: bottom; }
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
-
+ 
 /* ── STAT BAND ── */
 .stat-band {
   background: var(--gray-06);
@@ -162,7 +162,7 @@ nav {
   font-size: 13px; font-weight: 400; color: var(--gray-40);
   line-height: 1.5; max-width: 160px; margin: 0 auto;
 }
-
+ 
 /* ── SECTION WRAPPER ── */
 .section {
   padding: 140px 24px;
@@ -173,14 +173,14 @@ nav {
   max-width: var(--max-wide); margin: 0 auto;
 }
 .section-center { text-align: center; }
-
+ 
 /* ── SECTION TAG ── */
 .tag {
   font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--gray-40); margin-bottom: 20px;
 }
 .tag-blue { color: #0071e3; }
-
+ 
 /* ── HEADINGS ── */
 .h-display {
   font-size: clamp(28px, 4.5vw, 56px); font-weight: 600;
@@ -200,13 +200,13 @@ nav {
 .body-copy + .body-copy { margin-top: 18px; }
 .body-copy strong { color: var(--gray-86); font-weight: 500; }
 .body-copy.center { margin: 0 auto; }
-
+ 
 /* ── DIVIDER ── */
 hr.div {
   border: none; border-top: 0.5px solid var(--gray-12);
   margin: 0;
 }
-
+ 
 /* ── EMPATHY CARDS ── */
 .empathy-grid {
   display: grid; grid-template-columns: repeat(2,1fr);
@@ -230,7 +230,7 @@ hr.div {
   color: var(--gray-86); line-height: 1.45; letter-spacing: -0.015em;
 }
 .empathy-close strong { font-weight: 500; }
-
+ 
 /* ── FEATURE GRID ── */
 .feature-grid {
   display: grid; grid-template-columns: repeat(2,1fr);
@@ -252,7 +252,7 @@ hr.div {
 .feature-body {
   font-size: 14px; font-weight: 300; color: var(--gray-60); line-height: 1.85;
 }
-
+ 
 /* ── PHOTO CINEMATIC ── */
 .cinematic {
   position: relative; height: 65vh; min-height: 420px;
@@ -289,7 +289,7 @@ hr.div {
   color: rgba(255,255,255,0.88); font-weight: 400; display: block;
   font-size: clamp(15px, 2vw, 20px); margin-bottom: 8px;
 }
-
+ 
 /* ── MANIFESTO (dark) ── */
 .manifesto-wrap {
   background: var(--black); color: var(--white);
@@ -322,7 +322,7 @@ hr.div {
   letter-spacing: -0.03em; line-height: 1.2; color: rgba(255,255,255,0.9);
 }
 .manifesto-close em { font-style: normal; color: rgba(255,255,255,0.35); }
-
+ 
 /* ── WAITLIST ── */
 .waitlist-wrap { background: var(--gray-06); }
 .waitlist {
@@ -370,7 +370,7 @@ hr.div {
   border-radius: 14px; font-size: 15px; font-weight: 300;
   color: var(--gray-60); line-height: 1.65;
 }
-
+ 
 /* ── CONTACT FORM ── */
 .contact-wrap { background: var(--white); }
 .contact {
@@ -407,7 +407,7 @@ hr.div {
   border-radius: 10px; font-size: 14px; font-weight: 300;
   color: var(--gray-60);
 }
-
+ 
 /* ── FOOTER ── */
 footer {
   background: var(--gray-06);
@@ -429,11 +429,11 @@ footer {
 }
 .footer-link:hover { text-decoration: underline; }
 .footer-copy { font-size: 11px; color: var(--gray-40); }
-
+ 
 /* ── FADE-IN ANIMATION ── */
 .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
 .fade.visible { opacity: 1; transform: none; }
-
+ 
 /* ── RESPONSIVE ── */
 @media(max-width: 768px) {
   .stat-band-in { grid-template-columns: 1fr 1fr; }
@@ -453,9 +453,9 @@ footer {
 }
 </style>
 </head>
-
+ 
 <body class="lang-en">
-
+ 
 <!-- ── NAV ── -->
 <nav>
   <div class="nav-in">
@@ -470,12 +470,12 @@ footer {
     </div>
   </div>
 </nav>
-
+ 
 <!-- ── HERO ── -->
 <section class="hero">
   <p class="hero-eyebrow en fade">Designed for the life you actually want.</p>
   <p class="hero-eyebrow ja fade">本当に送りたい人生のために、設計された。</p>
-
+ 
   <h1 class="hero-h1 en fade">
     Your attention<br>
     <span>is the product.</span>
@@ -484,30 +484,30 @@ footer {
     あなたの注意が<br>
     <span>商品にされている。</span>
   </h1>
-
+ 
   <p class="hero-sub en fade">
     Stoic helps you take it back. Not through restriction — through design.
   </p>
   <p class="hero-sub ja fade">
     STOICは、それを取り戻す手助けをします。制限ではなく、設計によって。
   </p>
-
+ 
   <div class="hero-actions fade">
     <a href="#waitlist" class="btn-primary en">Join the Waitlist</a>
     <a href="#waitlist" class="btn-primary ja">ウェイティングリストに登録</a>
     <a href="#how" class="btn-secondary en">Learn more</a>
     <a href="#how" class="btn-secondary ja">詳細を見る</a>
   </div>
-
+ 
   <div class="hero-scroll">
     <span class="en">Scroll</span>
     <span class="ja">スクロール</span>
     <div class="hero-scroll-line"></div>
   </div>
 </section>
-
+ 
 <hr class="div">
-
+ 
 <!-- ── STATS ── -->
 <div class="stat-band" id="data">
   <div class="stat-band-in">
@@ -533,9 +533,9 @@ footer {
     </div>
   </div>
 </div>
-
+ 
 <hr class="div">
-
+ 
 <!-- ── WHAT IS STOIC ── -->
 <div class="section fade" id="about">
   <p class="tag tag-blue en">What Stoic is</p>
@@ -562,9 +562,9 @@ footer {
     <strong>これは意志力の話ではありません。正しい構造を作ることです。</strong>
   </p>
 </div>
-
+ 
 <hr class="div">
-
+ 
 <!-- ── EMPATHY ── -->
 <div class="section fade">
   <p class="tag en">You've already tried.</p>
@@ -575,7 +575,7 @@ footer {
   <h2 class="h-display ja">
     どれもうまくいかなかった。<br>その理由があります。
   </h2>
-
+ 
   <div class="empathy-grid">
     <div class="empathy-card">
       <p class="empathy-card-head en">You bought a phone lockbox.</p>
@@ -602,7 +602,7 @@ footer {
       <p class="empathy-card-body ja">翌朝には再インストールしていた。「少し確認するだけ」と言い聞かせて。</p>
     </div>
   </div>
-
+ 
   <p class="empathy-close en">
     This didn't fail because you lack discipline.
     <strong>These tools were simply not designed around how attention and habit actually work.</strong>
@@ -612,9 +612,9 @@ footer {
     <strong>それらのツールは、注意と習慣が実際にどう機能するかを理解せずに作られていたのです。</strong>
   </p>
 </div>
-
+ 
 <hr class="div">
-
+ 
 <!-- ── HOW IT WORKS ── -->
 <div class="section-wide fade" id="how">
   <div style="max-width:var(--max);margin:0 auto;">
@@ -627,7 +627,7 @@ footer {
       4つの瞬間を<br>設計し直す。
     </h2>
   </div>
-
+ 
   <div class="feature-grid">
     <div class="feature-card">
       <p class="feature-num">01</p>
@@ -691,7 +691,7 @@ footer {
     </div>
   </div>
 </div>
-
+ 
 <!-- ── CINEMATIC PHOTO ── -->
 <div class="cinematic">
   <img
@@ -716,13 +716,13 @@ footer {
     </p>
   </div>
 </div>
-
+ 
 <!-- ── MANIFESTO ── -->
 <div class="manifesto-wrap">
   <div class="manifesto">
     <p class="tag en">The uncomfortable truth</p>
     <p class="tag ja">不都合な現実</p>
-
+ 
     <p class="manifesto-lead en">
       Every time you open Instagram, TikTok, or X —<br>
       you enter a behavioral experiment.
@@ -731,7 +731,7 @@ footer {
       あなたがInstagram、TikTok、Xを開くたびに、<br>
       あなたは行動実験の被験者になっています。
     </p>
-
+ 
     <div class="manifesto-body en">
       <p>
         The platform observes your actions. Measures your response time. Records what made you stop scrolling —
@@ -770,14 +770,14 @@ footer {
         そしてほとんどの人が、同意した覚えがありません。</strong>
       </p>
     </div>
-
+ 
     <blockquote class="manifesto-quote en">
       "You are not weak.<br>You are outmatched by design.<br>Stoic changes the design."
     </blockquote>
     <blockquote class="manifesto-quote ja">
       「あなたが弱いのではありません。<br>設計によって圧倒されているのです。<br>STOICはその設計を変えます。」
     </blockquote>
-
+ 
     <p class="manifesto-close en">
       Knowing this —<br><em>what will you decide?</em>
     </p>
@@ -786,20 +786,20 @@ footer {
     </p>
   </div>
 </div>
-
+ 
 <!-- ── WAITLIST ── -->
 <div class="waitlist-wrap" id="waitlist">
   <div class="waitlist">
     <p class="tag tag-blue en fade">Early Access</p>
     <p class="tag tag-blue ja fade">アーリーアクセス</p>
-
+ 
     <h2 class="waitlist-h en fade">
       Join the waitlist.
     </h2>
     <h2 class="waitlist-h ja fade">
       ウェイティングリストに登録する。
     </h2>
-
+ 
     <p class="waitlist-sub en fade">
       No spam. One email when Stoic is ready.<br>
       Free to join — approximately $5–10 / month at launch.
@@ -808,7 +808,7 @@ footer {
       スパムはありません。準備が整ったときに一通だけ。<br>
       登録無料。ローンチ時は月額500〜1,000円程度の予定です。
     </p>
-
+ 
     <div id="wl-wrap" class="fade">
       <form id="wl-form" action="https://formsubmit.co/dolphinstark@protonmail.com" method="POST">
         <input type="hidden" name="_subject" value="Stoic — New Waitlist Registration">
@@ -827,14 +827,14 @@ footer {
         <p class="wl-note ja">個人情報は共有されません。お届けするのは一通だけです。</p>
       </form>
     </div>
-
+ 
     <div class="wl-done" id="wl-done">
       <span class="en">✓ You're on the list. We'll be in touch when Stoic launches.</span>
       <span class="ja">✓ 登録が完了しました。Stoicのローンチ時にご連絡いたします。</span>
     </div>
   </div>
 </div>
-
+ 
 <!-- ── CONTACT ── -->
 <div class="contact-wrap">
   <div class="contact">
@@ -844,7 +844,7 @@ footer {
     <h2 class="h-title ja">ご質問があれば、お気軽に。</h2>
     <p class="body-copy en center">Reach out and we'll get back to you as soon as possible.</p>
     <p class="body-copy ja center">お問い合わせいただければ、できる限り早くご返答いたします。</p>
-
+ 
     <form id="q-form" action="https://formsubmit.co/dolphinstark@protonmail.com" method="POST" style="margin-top:44px;text-align:left;">
       <input type="hidden" name="_subject" value="STOIC — お問い合わせ">
       <input type="hidden" name="_captcha" value="false">
@@ -870,7 +870,7 @@ footer {
     </div>
   </div>
 </div>
-
+ 
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-in">
@@ -882,7 +882,7 @@ footer {
     </div>
   </div>
 </footer>
-
+ 
 <script>
 /* Language */
 function setLang(l) {
@@ -898,13 +898,13 @@ function setLang(l) {
   } catch(e){}
   if (navigator.language && navigator.language.startsWith('ja')) setLang('ja');
 })();
-
+ 
 /* Scroll fade */
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
 }, { threshold: 0.07 });
 document.querySelectorAll('.fade').forEach(el => io.observe(el));
-
+ 
 /* Waitlist */
 document.getElementById('wl-form').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -918,7 +918,7 @@ document.getElementById('wl-form').addEventListener('submit', async function(e) 
     } else throw 0;
   } catch { btn.disabled = false; alert('Something went wrong. Please try again.'); }
 });
-
+ 
 /* Contact */
 document.getElementById('q-form').addEventListener('submit', async function(e) {
   e.preventDefault();
