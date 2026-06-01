@@ -26,7 +26,7 @@ img { display: block; max-width: 100%; }
 --border: #E5E7EB;
 --red: #B91C1C;
 --font: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
---max: 920px;
+--max: 1100px;
 --r: 2px;
 }
 
@@ -43,7 +43,7 @@ background: var(--white);
 /* ═══ LANGUAGE ═══ */
 body.lang-en .ja { display: none; }
 body.lang-ja .en { display: none; }
-.ja { word-break: normal; overflow-wrap: anywhere; line-break: strict; }
+.ja { word-break: normal; overflow-wrap: normal; line-break: strict; }
 
 /* ═══ HEADER ═══ */
 .hdr {
@@ -54,7 +54,7 @@ backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
 border-bottom: 1px solid var(--border);
 }
 .hdr-in {
-max-width: var(--max); margin: 0 auto; padding: 0 24px;
+max-width: 100%; padding: 0 48px;
 height: 100%; display: flex; align-items: center; justify-content: space-between;
 }
 .logo { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: var(--text); }
@@ -89,19 +89,23 @@ background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 50%,
 .hero-body {
 position: relative; z-index: 1; width: 100%;
 max-width: var(--max); margin: 0 auto; padding: 0 24px 88px;
+background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 55%, transparent 100%);
 }
 .hero-label {
 font-size: 10px; font-weight: 500; letter-spacing: 0.22em;
-text-transform: uppercase; color: rgba(255,255,255,0.48); margin-bottom: 20px;
+text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 20px;
+text-shadow: 0 1px 8px rgba(0,0,0,0.8);
 }
 .hero-h1 {
 font-size: clamp(28px, 4.2vw, 54px); font-weight: 300;
 line-height: 1.16; letter-spacing: -0.025em; color: #fff; margin-bottom: 22px;
+text-shadow: 0 2px 16px rgba(0,0,0,0.7);
 }
 .hero-h1 strong { font-weight: 600; display: block; }
 .hero-p {
 font-size: clamp(14px, 1.6vw, 16px); font-weight: 300;
-color: rgba(255,255,255,0.78); max-width: 460px; line-height: 1.82; margin-bottom: 36px;
+color: rgba(255,255,255,0.9); max-width: 460px; line-height: 1.82; margin-bottom: 36px;
+text-shadow: 0 1px 10px rgba(0,0,0,0.7);
 }
 .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
 .btn-solid {
@@ -188,7 +192,7 @@ font-size: clamp(20px, 2.8vw, 30px); font-weight: 300;
 line-height: 1.38; letter-spacing: -0.02em; color: rgba(255,255,255,0.9);
 margin-bottom: 36px;
 }
-.prob-body { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.95; max-width: 680px; }
+.prob-body { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.95; }
 .prob-body p + p { margin-top: 20px; }
 .prob-body strong { color: rgba(255,255,255,0.9); font-weight: 500; }
 .pullquote {
@@ -259,11 +263,11 @@ font-size: clamp(24px, 3.2vw, 36px); font-weight: 300;
 line-height: 1.25; letter-spacing: -0.022em; color: #fff; margin-bottom: 14px;
 }
 .wl-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.42); line-height: 1.8; margin-bottom: 44px; }
-.wl-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.wl-row { display: flex; gap: 0; margin-bottom: 14px; }
 .wl-email {
 flex: 1; padding: 13px 16px;
 background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
-border-radius: var(--r); color: #fff; font-family: var(--font);
+border-radius: var(--r) 0 0 var(--r); border-right: none; color: #fff; font-family: var(--font);
 font-size: 14px; font-weight: 300; outline: none; transition: border-color 0.15s;
 }
 .wl-email:focus { border-color: rgba(255,255,255,0.38); }
@@ -271,7 +275,7 @@ font-size: 14px; font-weight: 300; outline: none; transition: border-color 0.15s
 .wl-submit {
 padding: 13px 24px; background: #fff; color: var(--text);
 font-family: var(--font); font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
-border: none; border-radius: var(--r); cursor: pointer; white-space: nowrap; transition: opacity 0.15s;
+border: none; border-radius: 0 var(--r) var(--r) 0; cursor: pointer; white-space: nowrap; transition: opacity 0.15s;
 }
 .wl-submit:hover { opacity: 0.88; }
 .wl-submit:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -284,13 +288,13 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
 }
 
 /* ═══ FOOTER ═══ */
-.ftr { background: var(--white); border-top: 1px solid var(--border); padding: 28px 24px; }
-.ftr-in { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.ftr-brand { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; color: var(--muted); }
+.ftr { background: var(--white); border-top: 1px solid var(--border); padding: 28px 48px; }
+.ftr-in { max-width: 100%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.ftr-brand { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; color: var(--text); }
 .ftr-links { display: flex; gap: 20px; align-items: center; }
-.ftr-link { font-size: 11px; color: var(--sub); text-decoration: underline; text-underline-offset: 3px; }
+.ftr-link { font-size: 11px; color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 .ftr-link:hover { color: var(--text); }
-.ftr-copy { font-size: 11px; color: var(--muted); }
+.ftr-copy { font-size: 11px; color: var(--text); }
 
 /* ═══ SCROLL REVEAL ═══ */
 .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -363,7 +367,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
     </p>
     <p class="hero-p ja">
       平均的な成人のスマートフォン使用時間は1日4.7時間。年間71日分。
-      その大半は、意図されたものではありません。Stoicは、それを変えるために作られました。
+      その大半は、意図されたものではありません。STOICは、それを変えるために作られました。
     </p>
 
     <div class="hero-btns">
@@ -410,14 +414,14 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
   <div class="what-in">
     <div>
       <p class="what-label en rv">What Stoic actually is</p>
-      <p class="what-label ja rv">Stoicとは何か</p>
+      <p class="what-label ja rv">STOICとは何か</p>
       <h2 class="what-h en rv">
         Not a restriction.<br>
         A companion for the life<br>you actually want to live.
       </h2>
       <h2 class="what-h ja rv">
         制限ではありません。<br>
-        あなたが本当に送りたい<br>人生のための伴走者です。
+        あなたが本当に送りたい<br>人生のためのパートナーです。
       </h2>
       <p class="what-p en rv">
         Stoic combines focused restriction with life design support.
@@ -425,7 +429,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
         and attention naturally flow toward what genuinely matters to you.
       </p>
       <p class="what-p ja rv">
-        Stoicは、集中を守るための仕組みと、毎日の生活を設計するためのサポートを
+        STOICは、集中を守るための仕組みと、毎日の生活を設計するためのサポートを
         組み合わせています。あなたの隣に立ちながら、あなたの時間と注意が
         本当に大切なことへと自然に向かえる毎日を、ともに作っていきます。
       </p>
@@ -445,7 +449,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
           <p class="what-pt-h en">More than a blocker</p>
           <p class="what-pt-h ja">ブロッカー以上の存在</p>
           <p class="what-pt-p en">Stoic helps you understand why you reach for your phone — and redesigns that moment.</p>
-          <p class="what-pt-p ja">なぜスマートフォンを手に取るのか。Stoicはその瞬間を理解し、設計し直します。</p>
+          <p class="what-pt-p ja">なぜスマートフォンを手に取るのか。STOICはその瞬間を理解し、設計し直します。</p>
         </div>
       </div>
       <div class="what-pt">
@@ -454,7 +458,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
           <p class="what-pt-h en">Built around your goals</p>
           <p class="what-pt-h ja">あなたの目標を中心に</p>
           <p class="what-pt-p en">Whether it's studying, building a business, or being present — Stoic is designed around what you want your life to look like.</p>
-          <p class="what-pt-p ja">勉強でも、仕事でも、大切な人との時間でも。あなたが望む人生の姿に合わせて、Stoicは設計されています。</p>
+          <p class="what-pt-p ja">勉強でも、仕事でも、大切な人との時間でも。あなたが望む人生の姿に合わせて、STOICは設計されています。</p>
         </div>
       </div>
       <div class="what-pt">
@@ -463,7 +467,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
           <p class="what-pt-h en">No judgment. Ever.</p>
           <p class="what-pt-h ja">批判は、一切ありません。</p>
           <p class="what-pt-p en">Stoic never shames you for slipping. It simply makes it easier to choose differently, every time.</p>
-          <p class="what-pt-p ja">うまくいかない日があっても、Stoicは責めません。次の一歩を選びやすくするだけです。</p>
+          <p class="what-pt-p ja">うまくいかない日があっても、STOICは責めません。次の一歩を選びやすくするだけです。</p>
         </div>
       </div>
     </div>
@@ -523,7 +527,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
     <p class="pain-close rv ja">
       これらがうまくいかなかったのは、あなたに意志力が足りなかったからではありません。
       <strong>これらの方法は、注意と習慣が実際にどのように機能するかを理解せずに設計されていたのです。</strong>
-      Stoicは違います。
+      STOICは違います。
     </p>
 
     <div class="problem-divider rv"></div>
@@ -574,7 +578,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
       "You are not weak. You are outmatched by design. Stoic changes the design."
     </blockquote>
     <blockquote class="pullquote ja rv">
-      「あなたが弱いのではありません。設計によって圧倒されているのです。Stoicはその設計を変えます。」
+      「あなたが弱いのではありません。設計によって圧倒されているのです。STOICはその設計を変えます。」
     </blockquote>
 
   </div>
@@ -608,7 +612,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
 <section class="how-sec" id="how">
   <div class="sec-in">
     <p class="stag en rv">How Stoic Works</p>
-    <p class="stag ja rv">Stoicの仕組み</p>
+    <p class="stag ja rv">STOICの仕組み</p>
 
     <h2 class="how-h2 en rv">
       Four approaches, each addressing a real moment<br>
@@ -634,7 +638,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
         <p class="feat-p ja">
           勉強や仕事に取り掛かろうとしたのに、20分後には気づかずSNSを見ていた。
           タスクが難しかったわけではありません。どこから始めればいいかが曖昧だっただけです。
-          Stoicはあなたのタスクを3分以内の具体的なステップに整理します。
+          STOICはあなたのタスクを3分以内の具体的なステップに整理します。
           次のアクションが常に明確であれば、逃げ場はなくなります。
         </p>
       </div>
@@ -652,7 +656,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
           is designed to exceed the cost of completing the task.
         </p>
         <p class="feat-p ja">
-          SNSを開きたいと感じたとき、Stoicはロックを解除する前に20分間の待機を促します。
+          SNSを開きたいと感じたとき、STOICはロックを解除する前に20分間の待機を促します。
           画面を離れるとタイマーがリセットされゼロからまたカウント。驚かれるかもしれませんが、
           20分後には、そのアプリを開きたいという衝動が消えていることがほとんどです。
           待っている間に、作業が終わっていることも少なくありません。
@@ -671,7 +675,7 @@ color: rgba(255,255,255,0.62); line-height: 1.7;
           your phone could send.
         </p>
         <p class="feat-p ja">
-          小さなステップを一つ完了するたびに、Stoicはすぐに応答します。
+          小さなステップを一つ完了するたびに、STOICはすぐに応答します。
           バッジでも連続記録でもありません。前に進んだという、
           純粋でシンプルな実感です。
           スマートフォンのどんな通知よりも速く、確実に届きます。
