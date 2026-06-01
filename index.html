@@ -387,6 +387,35 @@ body.lang-ja .en { display: none; }
 }
 .pain-close strong { color: var(--text); font-weight: 500; }
 
+/* Reduce gap: pain → analysis */
+.pain-sec .sec-in { padding-bottom: 40px; }
+.pain-sec + .sec .sec-in { padding-top: 40px; }
+
+/* Fear section */
+.fear-sec { background: var(--bg); }
+.fear-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--sub);
+  line-height: 1.9;
+  max-width: 640px;
+}
+.fear-body p + p { margin-top: 18px; }
+.fear-body strong { color: var(--text); font-weight: 500; }
+.fear-close {
+  margin-top: 64px;
+  padding-top: 56px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.fear-q {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
 /* ═══════════════════════════════
    PROBLEM ANALYSIS
 ═══════════════════════════════ */
@@ -722,22 +751,22 @@ body.lang-ja .en { display: none; }
         あなたが本当に送りたい人生のための<br>伴走者です。
       </h2>
       <p class="partner-p en">
-        Stoic does not lock your phone. It does not punish you. It does not take anything away.
-        It works alongside you — helping you design each day so that your attention flows toward
-        what genuinely matters to you.
+        Stoic combines focused restriction with life design support.
+        It works alongside you — helping you build each day so that your time and attention
+        naturally flow toward what genuinely matters to you.
       </p>
       <p class="partner-p ja">
-        Stoicはスマートフォンをロックしません。あなたを罰することも、何かを奪うこともありません。
-        あなたの隣に立ち、毎日の生活を一緒に設計していきます。
-        あなたの注意が、本当に大切なことへと向かえるよう。
+        Stoicは、集中を守るための仕組みと、毎日の生活を設計するためのサポートを
+        組み合わせています。あなたの隣に立ちながら、あなたの時間と注意が
+        本当に大切なことへと自然に向かえる毎日を、ともに作っていきます。
       </p>
       <p class="partner-p en">
         <strong>This is not about willpower. It's about building a structure that makes
-        the right choices feel natural.</strong>
+        the right choices feel natural — every day.</strong>
       </p>
       <p class="partner-p ja">
         <strong>これは意志力の話ではありません。正しい選択が自然にできる環境を、
-        一緒に作っていくことです。</strong>
+        毎日、一緒に作っていくことです。</strong>
       </p>
     </div>
     <div class="partner-right">
@@ -782,8 +811,8 @@ body.lang-ja .en { display: none; }
       <div class="pain-item">
         <p class="pain-item-h en">You bought a lock box for your phone.</p>
         <p class="pain-item-h ja">スマートフォン用のロックボックスを購入された。</p>
-        <p class="pain-item-p en">But what if someone needed to reach you urgently? You unlocked it within the hour.</p>
-        <p class="pain-item-p ja">でも、緊急の連絡が来たら。結局、1時間もしないうちに開けてしまいました。</p>
+        <p class="pain-item-p en">But putting your phone inside meant being completely unreachable. The resistance to that was too high — the box ended up sitting on the shelf, unused.</p>
+        <p class="pain-item-p ja">しかし、一度入れてしまうと完全に連絡が取れなくなります。その抵抗感が大きすぎて、結局ボックスは使われないまま、棚の上に置かれるようになりました。</p>
       </div>
       <div class="pain-item">
         <p class="pain-item-h en">You installed a focus app and set timers.</p>
@@ -912,16 +941,19 @@ body.lang-ja .en { display: none; }
         <h3 class="feat-h en">The 20-Minute Pause</h3>
         <h3 class="feat-h ja">20分、待ってみる</h3>
         <p class="feat-p en">
-          When you want to open a social app, Stoic asks you to wait 20 minutes —
-          screen on. Leave the screen and the timer resets. You'd be surprised:
-          in most cases, the urge has passed by the time the wait is over.
-          The work is already done.
+          When you feel the urge to open a social app, Stoic asks you to wait
+          20 minutes before the unlock — screen on, uninterrupted. Leave the screen
+          and the timer resets to zero and counts up again. You may be surprised:
+          by the time the wait is over, the urge has passed in most cases.
+          The work is often already done. The behavioral cost of checking social media
+          is designed to exceed the cost of completing the task.
         </p>
         <p class="feat-p ja">
-          SNSを開きたいと感じたとき、Stoicは20分間の待機を促します。
-          画面を離れるとリセット。驚かれるかもしれませんが、20分後には、
-          そのアプリを開きたいという衝動が消えていることがほとんどです。
+          SNSを開きたいと感じたとき、Stoicはロックを解除する前に20分間の待機を促します。
+          画面を離れるとタイマーがリセットされゼロからまたカウント。驚かれるかもしれませんが、
+          20分後には、そのアプリを開きたいという衝動が消えていることがほとんどです。
           待っている間に、作業が終わっていることも少なくありません。
+          SNSを確認する行動コストが、タスクをこなすコストを上回るよう設計されています。
         </p>
       </div>
 
@@ -1031,6 +1063,69 @@ body.lang-ja .en { display: none; }
         </tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<!-- FEAR / REALITY CHECK -->
+<section class="fear-sec">
+  <div class="sec-in narrow">
+    <p class="stag en rv">The uncomfortable truth</p>
+    <p class="stag ja rv">不都合な現実</p>
+
+    <div class="fear-body en rv">
+      <p>
+        Every time you open Instagram, TikTok, or X, you enter a behavioral experiment.
+      </p>
+      <p>
+        The platform observes your actions. Measures your response time. Records what made
+        you stop scrolling and what made you keep going. It updates its model of you,
+        in real time, with one goal: keep you inside for one more second — and one after that.
+      </p>
+      <p>
+        You are not a user. <strong>You are a subject.</strong>
+      </p>
+      <p>
+        The engineers running these systems do not use the word "engagement" lightly.
+        Engagement is the metric their performance is measured by.
+        Every second of your attention generates revenue.
+        Your restlessness, your boredom, your anxiety — these are not side effects.
+        They are <strong>product features</strong>.
+      </p>
+      <p>
+        <strong>We are, without exaggeration, living inside the largest attention extraction
+        experiment in human history. And most of us have never consciously agreed to it.</strong>
+      </p>
+    </div>
+    <div class="fear-body ja rv">
+      <p>
+        あなたがInstagram、TikTok、Xを開くたびに、あなたは行動実験の被験者になっています。
+      </p>
+      <p>
+        プラットフォームはあなたの行動を観察します。反応時間を計測します。
+        何があなたのスクロールを止め、何があなたを続けさせたかを記録します。
+        そして、あなたをアプリの中にもう1秒引き留めるという明確な目的のもと、
+        リアルタイムであなたのモデルを更新し続けています。
+      </p>
+      <p>
+        あなたは「ユーザー」ではありません。<strong>実験対象者です。</strong>
+      </p>
+      <p>
+        これらのシステムを運営するエンジニアたちは、「エンゲージメント」という言葉を軽く使いません。
+        エンゲージメントは、彼らの成果を評価する指標です。
+        あなたの注意の1秒1秒が、収益です。
+        あなたの落ち着きのなさ、退屈さ、不安——これらは副作用ではありません。
+        <strong>製品の機能です。</strong>
+      </p>
+      <p>
+        <strong>誇張ではなく、私たちは今、人類史上最大規模の注意収奪実験の中で生きています。
+        そしてそのほとんどの人が、同意した覚えがありません。</strong>
+      </p>
+    </div>
+
+    <div class="fear-close rv">
+      <p class="fear-q en">Knowing this —<br>what will you decide?</p>
+      <p class="fear-q ja">今、あなたはどのような判断をしますか。</p>
+    </div>
   </div>
 </section>
 
