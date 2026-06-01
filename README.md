@@ -3,826 +3,845 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MetricZenith — Take Back Your Mind</title>
+<title>Stoic — Your Life Design Companion</title>
+<meta name="description" content="Stoic is not a blocker. It's a companion built to help you design a life where your time and attention go exactly where you choose.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #0a0a0a;
-    --bg2: #111111;
-    --bg3: #1a1a1a;
-    --border: rgba(255,255,255,0.08);
-    --border-hover: rgba(255,255,255,0.18);
-    --text: #f0ede8;
-    --muted: rgba(240,237,232,0.45);
-    --accent: #e8d5b0;
-    --accent2: #c4a882;
-    --danger: #e05c3a;
-    --danger-dim: rgba(224,92,58,0.12);
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'DM Sans', 'Noto Sans JP', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE TEXTURE ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
-  }
-
-  /* ── LANG TOGGLE ── */
-  .lang-bar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 14px 32px;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .lang-toggle {
-    display: flex;
-    gap: 4px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 3px;
-  }
-
-  .lang-btn {
-    padding: 4px 14px;
-    border-radius: 4px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .lang-btn.active {
-    background: var(--accent);
-    color: #0a0a0a;
-  }
-
-  /* ── SECTIONS ── */
-  section { position: relative; z-index: 1; }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 120px 48px 80px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.1s forwards;
-  }
-
-  .dot-red {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--danger);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  .eyebrow-text {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .hero-headline {
-    font-family: var(--font-display);
-    font-size: clamp(48px, 7vw, 92px);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    margin-bottom: 8px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-
-  .hero-headline .line-accent {
-    color: var(--accent);
-  }
-
-  .hero-headline .line-danger {
-    color: var(--danger);
-    font-style: italic;
-  }
-
-  .hero-sub {
-    font-size: clamp(15px, 2vw, 18px);
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 560px;
-    margin: 28px 0 48px;
-    line-height: 1.75;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-
-  .hero-cta-group {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.55s forwards;
-  }
-
-  .btn-primary {
-    padding: 14px 32px;
-    background: var(--accent);
-    color: #0a0a0a;
-    border: none;
-    border-radius: 6px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-primary:hover { background: #f0e4c5; transform: translateY(-1px); }
-
-  .btn-ghost {
-    padding: 14px 28px;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border-hover);
-    border-radius: 6px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .btn-ghost:hover { color: var(--text); border-color: var(--border-hover); }
-
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    animation: fadeIn 1s 1.2s forwards;
-    opacity: 0;
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--border-hover), transparent);
-    animation: scrollPulse 2s infinite;
-  }
-
-  @keyframes scrollPulse {
-    0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; }
-  }
-
-  /* ── MANIFESTO ── */
-  .manifesto {
-    padding: 120px 48px;
-    max-width: 900px;
-    margin: 0 auto;
-    border-top: 1px solid var(--border);
-  }
-
-  .manifesto-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--danger);
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .manifesto-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--danger-dim);
-    max-width: 80px;
-  }
-
-  .manifesto-stat {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 8vw, 108px);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: var(--danger);
-    margin-bottom: 0px;
-  }
-
-  .manifesto-stat-label {
-    font-size: clamp(14px, 2vw, 18px);
-    color: var(--muted);
-    margin-bottom: 56px;
-    font-weight: 300;
-  }
-
-  .manifesto-body {
-    font-size: clamp(20px, 2.8vw, 32px);
-    font-weight: 300;
-    line-height: 1.55;
-    color: var(--text);
-  }
-
-  .manifesto-body strong {
-    font-weight: 500;
-    color: var(--accent);
-  }
-
-  .manifesto-body em {
-    font-style: normal;
-    color: var(--danger);
-    font-weight: 400;
-  }
-
-  /* ── HOW IT WORKS ── */
-  .how {
-    padding: 120px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-    border-top: 1px solid var(--border);
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 56px;
-  }
-
-  .how-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2px;
-  }
-
-  .how-card {
-    background: var(--bg2);
-    padding: 36px 32px;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-
-  .how-card:hover { border-color: var(--border-hover); }
-
-  .how-card::before {
-    content: attr(data-num);
-    position: absolute;
-    top: -16px;
-    right: 24px;
-    font-family: var(--font-display);
-    font-size: 120px;
-    font-weight: 800;
-    color: rgba(255,255,255,0.025);
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .how-card-title {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--accent);
-  }
-
-  .how-card-body {
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  /* ── DIFFERENCE ── */
-  .diff {
-    padding: 120px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-    border-top: 1px solid var(--border);
-  }
-
-  .diff-title {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 4vw, 52px);
-    font-weight: 800;
-    margin-bottom: 60px;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .diff-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
-
-  .diff-table thead tr th {
-    text-align: left;
-    padding: 12px 20px;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .diff-table tbody tr td {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-    font-weight: 300;
-    color: var(--muted);
-  }
-
-  .diff-table tbody tr td:first-child {
-    color: var(--text);
-    font-weight: 400;
-  }
-
-  .diff-table tbody tr td.us {
-    color: var(--accent);
-    font-weight: 400;
-  }
-
-  .check { color: var(--accent); }
-  .cross { color: var(--danger); opacity: 0.6; }
-
-  /* ── WAITLIST ── */
-  .waitlist {
-    padding: 120px 48px;
-    max-width: 680px;
-    margin: 0 auto;
-    border-top: 1px solid var(--border);
-  }
-
-  .waitlist-pre {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 24px;
-  }
-
-  .waitlist-title {
-    font-family: var(--font-display);
-    font-size: clamp(32px, 5vw, 60px);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    margin-bottom: 20px;
-  }
-
-  .waitlist-sub {
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--muted);
-    margin-bottom: 44px;
-    line-height: 1.7;
-  }
-
-  .form-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .form-input {
-    flex: 1;
-    padding: 14px 18px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .form-input:focus { border-color: var(--accent2); }
-  .form-input::placeholder { color: rgba(240,237,232,0.25); }
-
-  .form-submit {
-    padding: 14px 28px;
-    background: var(--accent);
-    color: #0a0a0a;
-    border: none;
-    border-radius: 6px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .form-submit:hover { background: #f0e4c5; transform: translateY(-1px); }
-  .form-submit:active { transform: translateY(0); }
-
-  .form-note {
-    font-size: 12px;
-    color: var(--muted);
-    opacity: 0.6;
-  }
-
-  .form-success {
-    display: none;
-    padding: 20px;
-    background: rgba(232,213,176,0.08);
-    border: 1px solid rgba(232,213,176,0.2);
-    border-radius: 6px;
-    font-size: 14px;
-    color: var(--accent);
-    line-height: 1.6;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 40px 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-brand {
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--muted);
-    opacity: 0.4;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 640px) {
-    .hero, .manifesto, .how, .diff, .waitlist { padding-left: 24px; padding-right: 24px; }
-    .form-row { flex-direction: column; }
-    footer { padding: 32px 24px; }
-    .lang-bar { padding: 12px 20px; }
-    .diff-table { display: block; overflow-x: auto; }
-  }
-
-  /* ── LANG VISIBILITY ── */
-  .en, .ja { transition: opacity 0.2s; }
-  body.lang-ja .en { display: none; }
-  body.lang-en .ja { display: none; }
+/* ═══ RESET ═══ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; }
+
+/* ═══ VARIABLES ═══ */
+:root {
+  --bg:     #F7F8FA;
+  --white:  #FFFFFF;
+  --dark:   #0D1117;
+  --text:   #111827;
+  --sub:    #4B5563;
+  --muted:  #9CA3AF;
+  --border: #E5E7EB;
+  --green:  #059669;
+  --font:   'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+  --max:    920px;
+  --r:      3px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ LANGUAGE ═══ */
+body.lang-en .ja { display: none; }
+body.lang-ja .en { display: none; }
+.ja { word-break: normal; overflow-wrap: anywhere; line-break: strict; }
+
+/* ═══ HEADER ═══ */
+.hdr {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100; height: 54px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.hdr-in {
+  max-width: var(--max); margin: 0 auto; padding: 0 24px;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: var(--text); }
+.hdr-right { display: flex; align-items: center; gap: 12px; }
+.lang-sw { display: flex; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+.lng-btn {
+  padding: 4px 12px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+  border: none; background: transparent; color: var(--muted);
+  cursor: pointer; font-family: var(--font); transition: background 0.15s, color 0.15s;
+}
+.lng-btn.on { background: var(--text); color: #fff; }
+.hdr-cta {
+  padding: 7px 16px; background: var(--text); color: #fff;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.03em;
+  text-decoration: none; border-radius: var(--r); transition: opacity 0.15s;
+}
+.hdr-cta:hover { opacity: 0.82; }
+
+/* ═══ HERO ═══ */
+.hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 55%;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.48) 40%, rgba(0,0,0,0.88) 100%);
+}
+.hero-body {
+  position: relative; z-index: 1; width: 100%;
+  max-width: var(--max); margin: 0 auto; padding: 0 24px 80px;
+}
+.hero-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba(255,255,255,0.52); margin-bottom: 18px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+.hero-h1 {
+  font-size: clamp(26px, 4vw, 48px); font-weight: 300;
+  line-height: 1.2; letter-spacing: -0.022em; color: #fff; margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+}
+.hero-h1 strong { font-weight: 600; display: block; }
+.hero-p {
+  font-size: clamp(14px, 1.7vw, 16px); font-weight: 400;
+  color: rgba(255,255,255,0.92); max-width: 480px; line-height: 1.8; margin-bottom: 32px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.2); padding: 12px 16px; border-radius: var(--r);
+}
+.hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-solid {
+  padding: 11px 26px; background: #fff; color: var(--text);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.01em;
+  text-decoration: none; border-radius: var(--r); transition: opacity 0.15s;
+}
+.btn-solid:hover { opacity: 0.88; }
+.btn-ghost {
+  padding: 11px 22px; background: transparent; color: rgba(255,255,255,0.85);
+  font-size: 13px; font-weight: 400; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.35); border-radius: var(--r);
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+/* ═══ STATS — WHITE ═══ */
+.stats { background: var(--white); border-bottom: 1px solid var(--border); }
+.stats-grid {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+}
+.stat { padding: 52px 28px; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-size: clamp(34px, 4vw, 50px); font-weight: 300;
+  letter-spacing: -0.04em; line-height: 1; color: var(--text); margin-bottom: 12px;
+}
+.stat-n em { font-style: normal; color: #B91C1C; }
+.stat-d { font-size: 12px; font-weight: 300; color: var(--sub); line-height: 1.65; }
+
+/* ═══ WHAT IS STOIC — WHITE ═══ */
+.what-sec { background: var(--white); border-top: 1px solid var(--border); }
+.what-in {
+  max-width: var(--max); margin: 0 auto; padding: 96px 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+}
+.what-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 24px;
+}
+.what-h {
+  font-size: clamp(22px, 3vw, 30px); font-weight: 300;
+  line-height: 1.35; letter-spacing: -0.02em; color: var(--text); margin-bottom: 20px;
+}
+.what-p { font-size: 15px; font-weight: 300; color: var(--sub); line-height: 1.85; }
+.what-p + .what-p { margin-top: 14px; }
+.what-p strong { color: var(--text); font-weight: 500; }
+.what-points { display: flex; flex-direction: column; gap: 0; }
+.what-pt {
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.what-pt:first-child { border-top: 1px solid var(--border); }
+.what-pt-dash { color: var(--muted); font-size: 14px; flex-shrink: 0; padding-top: 2px; }
+.what-pt-body {}
+.what-pt-h { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.what-pt-p { font-size: 13px; font-weight: 300; color: var(--sub); line-height: 1.65; }
+
+/* ═══ THE PROBLEM — DARK ═══ */
+.problem-sec { background: var(--dark); }
+.problem-in { max-width: var(--max); margin: 0 auto; padding: 96px 24px; }
+
+/* Pain grid on dark */
+.pain-lead {
+  font-size: clamp(20px, 2.6vw, 27px); font-weight: 300;
+  line-height: 1.42; letter-spacing: -0.018em; color: rgba(255,255,255,0.88);
+  margin-bottom: 48px;
+}
+.pain-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.07); margin-bottom: 48px;
+}
+.pain-item { background: var(--dark); padding: 28px; }
+.pain-item-h { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.82); margin-bottom: 8px; line-height: 1.4; }
+.pain-item-p { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.75; }
+
+/* Divider inside problem */
+.problem-divider {
+  width: 40px; height: 1px; background: rgba(255,255,255,0.2);
+  margin: 56px 0;
+}
+
+/* Analysis text on dark */
+.stag-dark {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 36px;
+}
+.prob-lead {
+  font-size: clamp(20px, 2.6vw, 27px); font-weight: 300;
+  line-height: 1.42; letter-spacing: -0.018em; color: rgba(255,255,255,0.88);
+  margin-bottom: 36px;
+}
+.prob-body { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.52); line-height: 1.9; max-width: 640px; }
+.prob-body p + p { margin-top: 18px; }
+.prob-body strong { color: rgba(255,255,255,0.88); font-weight: 500; }
+.prob-body mark { background: rgba(250,204,21,0.22); padding: 0 3px; border-radius: 2px; color: rgba(255,255,255,0.92); }
+.pullquote {
+  margin: 40px 0 0; padding: 22px 28px;
+  border-left: 2px solid rgba(255,255,255,0.25);
+  font-size: clamp(17px, 2.2vw, 21px); font-weight: 400;
+  color: rgba(255,255,255,0.82); line-height: 1.55; letter-spacing: -0.01em;
+}
+.pain-close { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.52); line-height: 1.85; max-width: 640px; }
+.pain-close strong { color: rgba(255,255,255,0.88); font-weight: 500; }
+
+/* ═══ PHOTO BREAK ═══ */
+.photo-break {
+  position: relative; height: 55vh; min-height: 360px; overflow: hidden;
+}
+.photo-break-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 40%;
+}
+.photo-break-overlay {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.52);
+  display: flex; align-items: flex-end; padding: 48px;
+}
+.photo-break-caption {
+  font-size: clamp(13px, 1.5vw, 15px); font-weight: 300;
+  color: rgba(255,255,255,0.55); letter-spacing: 0.02em; max-width: 560px;
+}
+.photo-break-caption strong { color: rgba(255,255,255,0.85); font-weight: 400; }
+
+/* ═══ HOW IT WORKS — WHITE ═══ */
+.how-sec { background: var(--white); }
+.sec-in { max-width: var(--max); margin: 0 auto; padding: 96px 24px; }
+.sec-in.narrow { max-width: 660px; }
+.stag { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; }
+.how-h2 {
+  font-size: clamp(20px, 2.8vw, 28px); font-weight: 300;
+  line-height: 1.38; letter-spacing: -0.02em; color: var(--text); margin-bottom: 52px;
+}
+.feat-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.feat { background: var(--white); padding: 40px 32px; }
+.feat-n { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 14px; }
+.feat-h { font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin-bottom: 10px; }
+.feat-p { font-size: 14px; font-weight: 300; color: var(--sub); line-height: 1.85; }
+
+/* ═══ THE REALITY + WAITLIST — DARK ═══ */
+.reality-sec { background: var(--dark); }
+.reality-in { max-width: 660px; margin: 0 auto; padding: 96px 24px; }
+
+/* Fear text */
+.fear-body { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.9; max-width: 640px; }
+.fear-body p + p { margin-top: 18px; }
+.fear-body strong { color: #fff; font-weight: 500; }
+.fear-q {
+  margin-top: 52px; font-size: clamp(20px, 3vw, 28px); font-weight: 600;
+  color: #fff; line-height: 1.4; letter-spacing: -0.015em;
+}
+
+/* Divider between fear and waitlist */
+.reality-divider {
+  width: 100%; height: 1px; background: rgba(255,255,255,0.1);
+  margin: 64px 0;
+}
+
+/* Waitlist */
+.wl-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+.wl-h2 {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 300;
+  line-height: 1.28; letter-spacing: -0.022em; color: #fff; margin-bottom: 12px;
+}
+.wl-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.8; margin-bottom: 40px; }
+.wl-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.wl-email {
+  flex: 1; padding: 12px 16px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16);
+  border-radius: var(--r); color: #fff; font-family: var(--font);
+  font-size: 14px; font-weight: 300; outline: none; transition: border-color 0.15s;
+}
+.wl-email:focus { border-color: rgba(255,255,255,0.45); }
+.wl-email::placeholder { color: rgba(255,255,255,0.26); }
+.wl-submit {
+  padding: 12px 22px; background: #fff; color: var(--text);
+  font-family: var(--font); font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+  border: none; border-radius: var(--r); cursor: pointer; white-space: nowrap; transition: opacity 0.15s;
+}
+.wl-submit:hover { opacity: 0.88; }
+.wl-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+.wl-note { font-size: 12px; color: rgba(255,255,255,0.25); line-height: 1.65; }
+.wl-done {
+  display: none; padding: 22px 24px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r); font-size: 14px; font-weight: 300;
+  color: rgba(255,255,255,0.72); line-height: 1.7;
+}
+
+/* ═══ FOOTER ═══ */
+.ftr { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 28px 24px; }
+.ftr-in { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.ftr-brand { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; color: rgba(255,255,255,0.28); }
+.ftr-links { display: flex; gap: 20px; align-items: center; }
+.ftr-link { font-size: 11px; color: rgba(255,255,255,0.28); text-decoration: underline; text-underline-offset: 3px; }
+.ftr-link:hover { color: rgba(255,255,255,0.5); }
+.ftr-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+/* ═══ INLINE HIGHLIGHT ═══ */
+mark { background: rgba(250,204,21,0.22); padding: 1px 3px; border-radius: 2px; color: inherit; }
+
+/* ═══ SCROLL REVEAL ═══ */
+.rv { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.rv.in { opacity: 1; transform: none; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 720px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(3) { border-right: 1px solid var(--border); }
+  .what-in { grid-template-columns: 1fr; gap: 40px; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .wl-row { flex-direction: column; }
+  .hero-body { padding: 0 20px 64px; }
+  .problem-in, .sec-in, .reality-in { padding-left: 20px; padding-right: 20px; }
+  .hdr-cta { display: none; }
+  .photo-break-overlay { padding: 28px; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .stat:last-child { border-bottom: none; }
+}
 
 </style>
 </head>
 <body class="lang-en">
 
-<!-- LANG BAR -->
-<nav class="lang-bar">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" id="btn-ja" onclick="setLang('ja')">JP</button>
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-in">
+    <span class="logo">STOIC</span>
+    <div class="hdr-right">
+      <div class="lang-sw">
+        <button class="lng-btn on" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lng-btn"    id="btn-ja" onclick="setLang('ja')">JP</button>
+      </div>
+      <a href="#waitlist" class="hdr-cta en">Join Waitlist</a>
+      <a href="#waitlist" class="hdr-cta ja">登録する</a>
+    </div>
   </div>
-</nav>
+</header>
 
-<!-- ════════════════════════════════════════════
+<!-- ══════════════════
      HERO
-════════════════════════════════════════════ -->
+══════════════════ -->
 <section class="hero">
-  <div class="hero-eyebrow">
-    <span class="dot-red"></span>
-    <span class="eyebrow-text en">Coming soon — join the waitlist</span>
-    <span class="eyebrow-text ja">近日公開 — ウェイティングリストに登録</span>
-  </div>
+  <img
+    class="hero-img"
+    src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1920&q=80"
+    alt="New York City skyline at night"
+    loading="eager" fetchpriority="high"
+  >
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <p class="hero-label en">A life design companion — not a blocker</p>
+    <p class="hero-label ja">人生設計の伴走者として — ブロッカーではなく</p>
 
-  <h1 class="hero-headline">
-    <span class="en">
-      They hacked<br>
-      <span class="line-danger">your brain.</span><br>
-      <span class="line-accent">Hack back.</span>
-    </span>
-    <span class="ja">
-      彼らはあなたの<br>
-      <span class="line-danger">脳を奪った。</span><br>
-      <span class="line-accent">取り返せ。</span>
-    </span>
-  </h1>
+    <h1 class="hero-h1 en">
+      You have 24 hours today.<br>
+      <strong>How many are actually yours?</strong>
+    </h1>
+    <h1 class="hero-h1 ja">
+      今日のあなたには24時間があります。<br>
+      <strong>そのうち何時間が、本当にあなたのものでしょうか。</strong>
+    </h1>
 
-  <p class="hero-sub en">
-    Instagram, TikTok, X — they've invested billions to keep you scrolling.<br>
-    MetricZenith is built to make you <em style="font-style:normal; color: var(--accent);">stop</em>.
-  </p>
-  <p class="hero-sub ja">
-    Instagram、TikTok、X——彼らはあなたをスクロールさせ続けるために数千億円を投資している。<br>
-    MetricZenithは、あなたを<em style="font-style:normal; color: var(--accent);">止める</em>ために作られた。
-  </p>
+    <p class="hero-p en">
+      The average adult spends 4.7 hours daily on their smartphone — 71 days per year.
+      Most of it unintentional. Stoic was built to change that.
+    </p>
+    <p class="hero-p ja">
+      平均的な成人のスマートフォン使用時間は1日4.7時間。年間71日分。
+      その大半は、意図されたものではありません。Stoicは、それを変えるために作られました。
+    </p>
 
-  <div class="hero-cta-group">
-    <a href="#waitlist" class="btn-primary en">Join the Waitlist</a>
-    <a href="#waitlist" class="btn-primary ja">ウェイティングリストに登録</a>
-    <a href="#how" class="btn-ghost en">See how it works</a>
-    <a href="#how" class="btn-ghost ja">仕組みを見る</a>
-  </div>
-
-  <div class="hero-scroll-hint">
-    <div class="scroll-line"></div>
-    <span class="en">scroll</span>
-    <span class="ja">スクロール</span>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════
-     MANIFESTO
-════════════════════════════════════════════ -->
-<section class="manifesto reveal">
-  <div class="manifesto-label en">The problem</div>
-  <div class="manifesto-label ja">問題</div>
-
-  <div class="manifesto-stat">57%</div>
-  <p class="manifesto-stat-label en">average reduction in app usage after using friction-based intervention — Max Planck Institute study</p>
-  <p class="manifesto-stat-label ja">摩擦介入ベースのアプローチによる平均アプリ使用時間削減率 — マックス・プランク研究所の研究より</p>
-
-  <p class="manifesto-body en">
-    You've tried blocking apps. You've set timers. You've downloaded Forest and watched your tree die 200 times.<br><br>
-    It doesn't work because <em>the problem isn't discipline.</em><br><br>
-    TikTok has 1,500 engineers optimizing for your attention. You can't out-willpower an algorithm.<br><br>
-    <strong>MetricZenith doesn't block your phone. It rewires how your brain relates to it.</strong>
-  </p>
-  <p class="manifesto-body ja">
-    アプリをブロックしてみた。タイマーを設定してみた。Forestをダウンロードして、木を200回枯らした。<br><br>
-    効かないのは、<em>問題が意志力ではないからだ。</em><br><br>
-    TikTokにはあなたの注意を奪うために1,500人のエンジニアがいる。アルゴリズムに意志力で勝てるわけがない。<br><br>
-    <strong>MetricZenithはスマホをブロックしない。脳とスマホの関係そのものを書き換える。</strong>
-  </p>
-</section>
-
-<!-- ════════════════════════════════════════════
-     HOW IT WORKS
-════════════════════════════════════════════ -->
-<section class="how reveal" id="how">
-  <p class="section-label en">How it works</p>
-  <p class="section-label ja">仕組み</p>
-
-  <div class="how-grid">
-    <div class="how-card" data-num="01">
-      <h3 class="how-card-title en">AI Task Breakdown</h3>
-      <h3 class="how-card-title ja">AIによるタスク分解</h3>
-      <p class="how-card-body en">Can't start studying? Type in your task. The AI breaks it down into 3-minute actions — removing the mental barrier between you and actually starting.</p>
-      <p class="how-card-body ja">勉強に手がつかない？タスクを入力するだけ。AIが3分以内で完了できる具体的なアクションに分解し、「着手できない」という心理的障壁を取り除く。</p>
-    </div>
-    <div class="how-card" data-num="02">
-      <h3 class="how-card-title en">20-Min Unlock Protocol</h3>
-      <h3 class="how-card-title ja">20分ロック解除プロトコル</h3>
-      <p class="how-card-body en">Want to unlock Instagram? Fine — wait 20 minutes. Leave the screen? Timer resets. The cost of checking SNS becomes greater than the cost of doing the task.</p>
-      <p class="how-card-body ja">Instagramを解除したい？いい——20分待て。画面を離れたらリセット。SNSを見るコストがタスクをこなすコストを上回る設計。</p>
-    </div>
-    <div class="how-card" data-num="03">
-      <h3 class="how-card-title en">Instant Reward System</h3>
-      <h3 class="how-card-title ja">即時報酬システム</h3>
-      <p class="how-card-body en">Each micro-task completed triggers immediate visual and audio feedback — hitting your dopamine response before the algorithm can. No trees. No streaks. Raw, instant reward.</p>
-      <p class="how-card-body ja">極小タスクを完了するたびに即時の視覚・音響フィードバック。アルゴリズムより先にドーパミン回路を刺激する。木も連続記録もない。純粋な即時報酬。</p>
-    </div>
-    <div class="how-card" data-num="04">
-      <h3 class="how-card-title en">Algorithm Exposure</h3>
-      <h3 class="how-card-title ja">アルゴリズムの暴露</h3>
-      <p class="how-card-body en">When you try to unlock an app, you're shown exactly how that platform monetizes your attention. Not guilt. Not shame. Just facts — and a choice.</p>
-      <p class="how-card-body ja">アプリを解除しようとすると、そのプラットフォームがどのようにあなたの注意を収益化しているかを提示する。罪悪感でも羞恥心でもない。ただ事実——そして選択。</p>
+    <div class="hero-btns">
+      <a href="#waitlist" class="btn-solid en">Join the Waitlist</a>
+      <a href="#waitlist" class="btn-solid ja">ウェイティングリストに登録する</a>
+      <a href="#data"     class="btn-ghost en">See the data ↓</a>
+      <a href="#data"     class="btn-ghost ja">データを見る ↓</a>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════
-     DIFFERENCE
-════════════════════════════════════════════ -->
-<section class="diff reveal">
-  <h2 class="diff-title en">Why every other app<br>fails you.</h2>
-  <h2 class="diff-title ja">なぜ他のアプリは<br>全部ダメなのか。</h2>
-
-  <table class="diff-table">
-    <thead>
-      <tr>
-        <th class="en">Feature</th>
-        <th class="ja">機能</th>
-        <th>Forest / Freedom</th>
-        <th>MetricZenith</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="en">Can be bypassed in seconds</td>
-        <td class="ja">数秒でバイパス可能</td>
-        <td><span class="cross">✕ Yes</span></td>
-        <td class="us en"><span class="check">✓</span> 20-min lock + reset</td>
-        <td class="us ja"><span class="check">✓</span> 20分ロック＋リセット</td>
-      </tr>
-      <tr>
-        <td class="en">Addresses task avoidance</td>
-        <td class="ja">タスク回避に対処</td>
-        <td><span class="cross">✕ No</span></td>
-        <td class="us en"><span class="check">✓</span> AI breakdown</td>
-        <td class="us ja"><span class="check">✓</span> AIタスク分解</td>
-      </tr>
-      <tr>
-        <td class="en">Works with ADHD brain</td>
-        <td class="ja">ADHDの脳に対応</td>
-        <td><span class="cross">✕ No</span></td>
-        <td class="us en"><span class="check">✓</span> Built for it</td>
-        <td class="us ja"><span class="check">✓</span> 専用設計</td>
-      </tr>
-      <tr>
-        <td class="en">Instant dopamine reward</td>
-        <td class="ja">即時ドーパミン報酬</td>
-        <td><span class="cross">✕ Delayed</span></td>
-        <td class="us en"><span class="check">✓</span> Every micro-task</td>
-        <td class="us ja"><span class="check">✓</span> 極小タスクごとに発動</td>
-      </tr>
-      <tr>
-        <td class="en">Builds permanent change</td>
-        <td class="ja">永続的な変化を構築</td>
-        <td><span class="cross">✕ Habit-dependent</span></td>
-        <td class="us en"><span class="check">✓</span> Cognitive rewiring</td>
-        <td class="us ja"><span class="check">✓</span> 認知の書き換え</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ════════════════════════════════════════════
-     WAITLIST
-════════════════════════════════════════════ -->
-<section class="waitlist reveal" id="waitlist">
-  <p class="waitlist-pre en">Early Access</p>
-  <p class="waitlist-pre ja">アーリーアクセス</p>
-
-  <h2 class="waitlist-title en">
-    Ready to take<br>your brain back?
-  </h2>
-  <h2 class="waitlist-title ja">
-    自分の脳を<br>取り戻す準備はできた?
-  </h2>
-
-  <p class="waitlist-sub en">
-    Join the waitlist. Be among the first to access MetricZenith when we launch.<br>
-    No spam. No BS. Just one email when it's ready.
-  </p>
-  <p class="waitlist-sub ja">
-    ウェイティングリストに登録し、ローンチ時に最初にアクセスできる一人になろう。<br>
-    スパムなし。余計な連絡なし。準備ができたときに一通だけ。
-  </p>
-
-  <div id="form-wrap">
-    <div class="form-row">
-      <input class="form-input" type="email" id="email-input" placeholder="your@email.com" />
-      <button class="form-submit" onclick="submitForm()">
-        <span class="en">Join Waitlist</span>
-        <span class="ja">登録する</span>
-      </button>
+<!-- ══════════════════
+     STATS — WHITE
+══════════════════ -->
+<div class="stats" id="data">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-n"><em>4.7</em>h</div>
+      <p class="stat-d en">Average daily smartphone use per adult<br>— Digital Wellbeing Report 2023</p>
+      <p class="stat-d ja">成人1人あたりの1日平均スマートフォン使用時間<br>（Digital Wellbeing Report 2023）</p>
     </div>
-    <p class="form-note en">Free to join. ~$5–10/mo at launch. Cancel anytime.</p>
-    <p class="form-note ja">登録無料。ローンチ時は月額500〜1,000円程度。いつでもキャンセル可。</p>
+    <div class="stat">
+      <div class="stat-n"><em>71</em>d</div>
+      <p class="stat-d en">Days per year lost to passive screen time<br>— equivalent to 10 full working weeks</p>
+      <p class="stat-d ja">受動的なスクリーンタイムで失われる年間日数<br>（就労日換算で約10週間分）</p>
+    </div>
+    <div class="stat">
+      <div class="stat-n"><em>40</em>%</div>
+      <p class="stat-d en">Reduction in deep-work capacity<br>from repeated digital interruptions<br>— UC Irvine Study</p>
+      <p class="stat-d ja">断続的な通知による深い集中力の低下率<br>（カリフォルニア大学アーバイン校）</p>
+    </div>
+    <div class="stat">
+      <div class="stat-n"><em>1,500</em>+</div>
+      <p class="stat-d en">Engineers at TikTok focused solely<br>on engagement optimization</p>
+      <p class="stat-d ja">TikTokのエンゲージメント最適化のみに<br>従事するエンジニアの数</p>
+    </div>
   </div>
+</div>
 
-  <div class="form-success" id="form-success">
-    <span class="en">✓ You're on the list. We'll reach out when MetricZenith launches.</span>
-    <span class="ja">✓ 登録完了。ローンチ時にご連絡します。</span>
+<!-- ══════════════════
+     WHAT IS STOIC — WHITE
+══════════════════ -->
+<section class="what-sec">
+  <div class="what-in">
+    <div>
+      <p class="what-label en rv">What Stoic actually is</p>
+      <p class="what-label ja rv">Stoicとは何か</p>
+      <h2 class="what-h en rv">
+        Not a restriction.<br>
+        A companion for the life<br>you actually want to live.
+      </h2>
+      <h2 class="what-h ja rv">
+        制限ではありません。<br>
+        あなたが本当に送りたい<br>人生のための伴走者です。
+      </h2>
+      <p class="what-p en rv">
+        Stoic combines focused restriction with life design support.
+        It works alongside you — helping you build each day so that your time
+        and attention naturally flow toward what genuinely matters to you.
+      </p>
+      <p class="what-p ja rv">
+        Stoicは、集中を守るための仕組みと、毎日の生活を設計するためのサポートを
+        組み合わせています。あなたの隣に立ちながら、あなたの時間と注意が
+        本当に大切なことへと自然に向かえる毎日を、ともに作っていきます。
+      </p>
+      <p class="what-p en rv">
+        <strong>This is not about willpower. It's about building a structure
+        that makes the right choices feel natural — every day.</strong>
+      </p>
+      <p class="what-p ja rv">
+        <strong>これは意志力の話ではありません。正しい選択が自然にできる環境を、
+        毎日、一緒に作っていくことです。</strong>
+      </p>
+    </div>
+    <div class="what-points rv">
+      <div class="what-pt">
+        <span class="what-pt-dash">—</span>
+        <div>
+          <p class="what-pt-h en">More than a blocker</p>
+          <p class="what-pt-h ja">ブロッカー以上の存在</p>
+          <p class="what-pt-p en">Stoic helps you understand why you reach for your phone — and redesigns that moment.</p>
+          <p class="what-pt-p ja">なぜスマートフォンを手に取るのか。Stoicはその瞬間を理解し、設計し直します。</p>
+        </div>
+      </div>
+      <div class="what-pt">
+        <span class="what-pt-dash">—</span>
+        <div>
+          <p class="what-pt-h en">Built around your goals</p>
+          <p class="what-pt-h ja">あなたの目標を中心に</p>
+          <p class="what-pt-p en">Whether it's studying, building a business, or being present — Stoic is designed around what you want your life to look like.</p>
+          <p class="what-pt-p ja">勉強でも、仕事でも、大切な人との時間でも。あなたが望む人生の姿に合わせて、Stoicは設計されています。</p>
+        </div>
+      </div>
+      <div class="what-pt">
+        <span class="what-pt-dash">—</span>
+        <div>
+          <p class="what-pt-h en">No judgment. Ever.</p>
+          <p class="what-pt-h ja">批判は、一切ありません。</p>
+          <p class="what-pt-p en">Stoic never shames you for slipping. It simply makes it easier to choose differently, every time.</p>
+          <p class="what-pt-p ja">うまくいかない日があっても、Stoicは責めません。次の一歩を選びやすくするだけです。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════ -->
-<footer>
-  <span class="footer-brand">METRICZENITH</span>
-  <span class="footer-copy en">© 2025 MetricZenith. All rights reserved.</span>
-  <span class="footer-copy ja">© 2025 MetricZenith. All rights reserved.</span>
+<!-- ══════════════════
+     THE PROBLEM — DARK
+     (Pain + Analysis merged)
+══════════════════ -->
+<section class="problem-sec" id="problem">
+  <div class="problem-in">
+
+    <!-- Pain / empathy -->
+    <p class="stag-dark en rv">Sound familiar?</p>
+    <p class="stag-dark ja rv">あなたの経験を、私たちは知っています</p>
+
+    <p class="pain-lead en rv">
+      You've already tried.<br>Probably more than once.
+    </p>
+    <p class="pain-lead ja rv">
+      あなたはすでに、様々な方法を試してきたはずです。<br>一度ではなく、何度も。
+    </p>
+
+    <div class="pain-grid rv">
+      <div class="pain-item">
+        <p class="pain-item-h en">You bought a lock box for your phone.</p>
+        <p class="pain-item-h ja">スマートフォン用のロックボックスを購入された。</p>
+        <p class="pain-item-p en">But putting your phone inside meant being completely unreachable. The resistance to that was too high — the box ended up sitting on the shelf, unused.</p>
+        <p class="pain-item-p ja">しかし、一度入れてしまうと完全に連絡が取れなくなります。その抵抗感が大きすぎて、結局ボックスは使われないまま、棚の上に置かれるようになりました。</p>
+      </div>
+      <div class="pain-item">
+        <p class="pain-item-h en">You installed a focus app and set timers.</p>
+        <p class="pain-item-h ja">集中系のアプリを入れて、タイマーを設定された。</p>
+        <p class="pain-item-p en">The tree died. You reset the streak. And nothing really changed the next day.</p>
+        <p class="pain-item-p ja">木は枯れ、記録はリセットされ、翌日には何も変わっていませんでした。</p>
+      </div>
+      <div class="pain-item">
+        <p class="pain-item-h en">You turned on Screen Time limits.</p>
+        <p class="pain-item-h ja">スクリーンタイムの制限を設定された。</p>
+        <p class="pain-item-p en">You entered the passcode to override it approximately 30 seconds later.</p>
+        <p class="pain-item-p ja">30秒後には、制限解除のパスコードを入力していました。</p>
+      </div>
+      <div class="pain-item">
+        <p class="pain-item-h en">You deleted the app entirely.</p>
+        <p class="pain-item-h ja">アプリを完全に削除された。</p>
+        <p class="pain-item-p en">By the next morning, it was reinstalled. You told yourself it was "just to check something."</p>
+        <p class="pain-item-p ja">翌朝には再インストールしていました。「少し確認するだけ」という言い訳とともに。</p>
+      </div>
+    </div>
+
+    <p class="pain-close rv en">
+      None of this failed because you lack discipline.
+      <strong>These methods were simply not designed around how attention and habit actually work.</strong>
+      Stoic is.
+    </p>
+    <p class="pain-close rv ja">
+      これらがうまくいかなかったのは、あなたに意志力が足りなかったからではありません。
+      <strong>これらの方法は、注意と習慣が実際にどのように機能するかを理解せずに設計されていたのです。</strong>
+      Stoicは違います。
+    </p>
+
+    <div class="problem-divider rv"></div>
+
+    <!-- Analysis -->
+    <p class="stag-dark en rv">Analysis</p>
+    <p class="stag-dark ja rv">背景</p>
+
+    <p class="prob-lead en rv">
+      This is not a personal discipline problem.<br>
+      It is a structural one — engineered by some of<br>
+      the best minds in the world.
+    </p>
+    <p class="prob-lead ja rv">
+      これは意志力の問題ではありません。<br>
+      世界最高レベルの技術者たちによって設計された、<br>構造の問題です。
+    </p>
+
+    <div class="prob-body en rv">
+      <p>
+        Social media platforms are not designed to inform or connect people.
+        They are designed to maximize <mark>time spent in the app</mark> — a metric
+        directly tied to advertising revenue. Every feature, every notification pattern,
+        every scroll mechanic is the outcome of continuous behavioral testing on hundreds
+        of millions of users.
+      </p>
+      <p>
+        Their instruments: variable reward schedules, social validation loops, infinite
+        content feeds. The result is an environment <mark>deliberately calibrated
+        to override your intentions</mark> — every time you reach for your phone.
+      </p>
+    </div>
+    <div class="prob-body ja rv">
+      <p>
+        SNSプラットフォームは、情報を届けたり人々を繋げるために作られていません。
+        広告収益に直結する指標、<mark>アプリ内の滞在時間の最大化</mark>のために設計されています。
+        あらゆる機能、通知の設計、スクロールのメカニズムは、
+        数億人のユーザーを対象にした継続的な行動実験の産物です。
+      </p>
+      <p>
+        彼らが使うのは、変動報酬スケジュール、社会的承認ループ、無限のコンテンツフィードです。
+        その結果として作られた環境は、あなたがスマートフォンを手にするたびに、
+        <mark>あなたの意図を上書きするよう設計</mark>されています。
+      </p>
+    </div>
+
+    <blockquote class="pullquote en rv">
+      "You are not weak. You are outmatched by design. Stoic changes the design."
+    </blockquote>
+    <blockquote class="pullquote ja rv">
+      「あなたが弱いのではありません。設計によって圧倒されているのです。Stoicはその設計を変えます。」
+    </blockquote>
+
+  </div>
+</section>
+
+<!-- ══════════════════
+     PHOTO BREAK — TIMES SQUARE
+══════════════════ -->
+<div class="photo-break">
+  <img
+    class="photo-break-img"
+    src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=1920&q=80"
+    alt="Times Square, New York City"
+    loading="lazy"
+  >
+  <div class="photo-break-overlay">
+    <p class="photo-break-caption en">
+      <strong>Times Square, New York City.</strong><br>
+      Designed, at every scale, to capture your attention for as long as possible.
+    </p>
+    <p class="photo-break-caption ja">
+      <strong>ニューヨーク、タイムズスクエア。</strong><br>
+      あらゆる規模で、できるだけ長くあなたの注意を引きつけるために設計されている。
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════
+     HOW IT WORKS — WHITE
+══════════════════ -->
+<section class="how-sec" id="how">
+  <div class="sec-in">
+    <p class="stag en rv">How Stoic Works</p>
+    <p class="stag ja rv">Stoicの仕組み</p>
+
+    <h2 class="how-h2 en rv">
+      Four approaches, each addressing a real moment<br>
+      in your day where attention slips.
+    </h2>
+    <h2 class="how-h2 ja rv">
+      4つのアプローチ。日常の中で<br>
+      集中が乱れるリアルな瞬間に対応しています。
+    </h2>
+
+    <div class="feat-grid">
+
+      <div class="feat rv">
+        <p class="feat-n">01</p>
+        <h3 class="feat-h en">From Overwhelm to First Step</h3>
+        <h3 class="feat-h ja">「どこから始めればいいか」をなくす</h3>
+        <p class="feat-p en">
+          You sit down to study or work. Instead of starting, you find yourself
+          on Instagram 20 minutes later. The task wasn't too hard — it was
+          too vague. Stoic breaks your task into 3-minute concrete steps,
+          so there's always a clear next action and no reason to escape.
+        </p>
+        <p class="feat-p ja">
+          勉強や仕事に取り掛かろうとしたのに、20分後には気づかずSNSを見ていた。
+          タスクが難しかったわけではありません。どこから始めればいいかが曖昧だっただけです。
+          Stoicはあなたのタスクを3分以内の具体的なステップに整理します。
+          次のアクションが常に明確であれば、逃げ場はなくなります。
+        </p>
+      </div>
+
+      <div class="feat rv">
+        <p class="feat-n">02</p>
+        <h3 class="feat-h en">The 20-Minute Pause</h3>
+        <h3 class="feat-h ja">20分、待ってみる</h3>
+        <p class="feat-p en">
+          When you feel the urge to open a social app, Stoic asks you to wait
+          20 minutes before the unlock — screen on, uninterrupted. Leave the screen
+          and the timer resets to zero and counts up again. You may be surprised:
+          by the time the wait is over, the urge has passed in most cases.
+          The work is often already done. The behavioral cost of checking social media
+          is designed to exceed the cost of completing the task.
+        </p>
+        <p class="feat-p ja">
+          SNSを開きたいと感じたとき、Stoicはロックを解除する前に20分間の待機を促します。
+          画面を離れるとタイマーがリセットされゼロからまたカウント。驚かれるかもしれませんが、
+          20分後には、そのアプリを開きたいという衝動が消えていることがほとんどです。
+          待っている間に、作業が終わっていることも少なくありません。
+          SNSを確認する行動コストが、タスクをこなすコストを上回るよう設計されています。
+        </p>
+      </div>
+
+      <div class="feat rv">
+        <p class="feat-n">03</p>
+        <h3 class="feat-h en">Instant Recognition of Progress</h3>
+        <h3 class="feat-h ja">進んだことを、すぐに実感できる</h3>
+        <p class="feat-p en">
+          Every time you complete even one small step, Stoic responds immediately.
+          Not a badge, not a streak counter — just the clean, direct sensation
+          of having moved forward. Faster and more reliable than any notification
+          your phone could send.
+        </p>
+        <p class="feat-p ja">
+          小さなステップを一つ完了するたびに、Stoicはすぐに応答します。
+          バッジでも連続記録でもありません。前に進んだという、
+          純粋でシンプルな実感です。
+          スマートフォンのどんな通知よりも速く、確実に届きます。
+        </p>
+      </div>
+
+      <div class="feat rv">
+        <p class="feat-n">04</p>
+        <h3 class="feat-h en">Informed Choice at the Right Moment</h3>
+        <h3 class="feat-h ja">選ぶ前に、事実を知る</h3>
+        <p class="feat-p en">
+          Before you unlock a social app, Stoic shows you — calmly, factually,
+          without judgment — how that platform is designed to use your time.
+          Not guilt. Not shame. Just the right information at the exact moment
+          you need it to make a conscious choice.
+        </p>
+        <p class="feat-p ja">
+          SNSアプリを解除しようとする瞬間、そのプラットフォームがあなたの時間を
+          どのように設計しているかを、静かに、事実として提示します。
+          批判でも説教でもありません。
+          意識的な選択をするために、最も必要な瞬間に届く情報です。
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     THE REALITY + WAITLIST — DARK
+══════════════════ -->
+<section class="reality-sec" id="waitlist">
+  <div class="reality-in">
+
+    <p class="stag-dark en rv">The uncomfortable truth</p>
+    <p class="stag-dark ja rv">不都合な現実</p>
+
+    <div class="fear-body en rv">
+      <p>Every time you open Instagram, TikTok, or X, you enter a behavioral experiment.</p>
+      <p>The platform observes your actions. Measures your response time. Records what made you stop scrolling and what made you keep going. It updates its model of you, in real time, with one goal: keep you inside for one more second — and one after that.</p>
+      <p>You are not a user. <strong>You are a subject.</strong></p>
+      <p>The engineers running these systems do not use the word "engagement" lightly. Engagement is the metric their performance is measured by. Every second of your attention generates revenue. Your restlessness, your boredom, your anxiety — these are not side effects. They are <strong>product features</strong>.</p>
+      <p><strong>We are, without exaggeration, living inside the largest attention extraction experiment in human history. And most of us have never consciously agreed to it.</strong></p>
+    </div>
+    <div class="fear-body ja rv">
+      <p>あなたがInstagram、TikTok、Xを開くたびに、あなたは行動実験の被験者になっています。</p>
+      <p>プラットフォームはあなたの行動を観察します。反応時間を計測します。何があなたのスクロールを止め、何があなたを続けさせたかを記録します。そして、あなたをアプリの中にもう1秒引き留めるという明確な目的のもと、リアルタイムであなたのモデルを更新し続けています。</p>
+      <p>あなたは「ユーザー」ではありません。<strong>実験対象者です。</strong></p>
+      <p>これらのシステムを運営するエンジニアたちは、「エンゲージメント」という言葉を軽く使いません。エンゲージメントは、彼らの成果を評価する指標です。あなたの注意の1秒1秒が、収益です。あなたの落ち着きのなさ、退屈さ、不安——これらは副作用ではありません。<strong>製品の機能です。</strong></p>
+      <p><strong>誇張ではなく、私たちは今、人類史上最大規模の注意収奪実験の中で生きています。そしてそのほとんどの人が、同意した覚えがありません。</strong></p>
+    </div>
+
+    <p class="fear-q en rv">Knowing this —<br>what will you decide?</p>
+    <p class="fear-q ja rv">今、あなたはどのような判断をしますか。</p>
+
+    <div class="reality-divider rv"></div>
+
+    <!-- Waitlist -->
+    <p class="wl-tag en rv">Early Access</p>
+    <p class="wl-tag ja rv">アーリーアクセス</p>
+
+    <h2 class="wl-h2 en rv">
+      Join the waitlist.<br>
+      Be first when we launch.
+    </h2>
+    <h2 class="wl-h2 ja rv">
+      ウェイティングリストに登録する。<br>
+      ローンチ時に最初にアクセスできます。
+    </h2>
+
+    <p class="wl-sub en rv">
+      No spam. One email when Stoic is ready for you.<br>
+      Free to join — approximately $5–10 / month at launch.
+    </p>
+    <p class="wl-sub ja rv">
+      スパムはありません。準備が整ったときに一通だけお届けします。<br>
+      登録無料。ローンチ時は月額500〜1,000円程度の予定です。
+    </p>
+
+    <div id="wl-wrap" class="rv">
+      <form id="wl-form" action="https://formsubmit.co/dolphinstark@protonmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Stoic — New Waitlist Registration">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <input type="hidden" name="_autoresponse"
+          value="Thank you for joining the Stoic waitlist. We will be in touch as soon as we launch. — Dolphin Stark // Stoicのウェイティングリストへのご登録ありがとうございます。ローンチの際に改めてご連絡いたします。— Dolphin Stark">
+        <div class="wl-row">
+          <input class="wl-email" type="email" name="email" required placeholder="your@email.com" autocomplete="email">
+          <button class="wl-submit" type="submit" id="wl-btn">
+            <span class="en">Join Waitlist</span>
+            <span class="ja">登録する</span>
+          </button>
+        </div>
+        <p class="wl-note en">A confirmation email will be sent to your address automatically. Your information is never shared.</p>
+        <p class="wl-note ja">ご入力のアドレスに確認メールが自動でお届けされます。個人情報は第三者に共有されません。</p>
+      </form>
+    </div>
+
+    <div class="wl-done" id="wl-done">
+      <span class="en">✓ You're on the list. We'll be in touch when Stoic launches.</span>
+      <span class="ja">✓ 登録が完了しました。Stoicのローンチ時にご連絡いたします。</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="ftr-in">
+    <span class="ftr-brand">STOIC BY DOLPHIN STARK</span>
+    <div class="ftr-links">
+      <a href="disclaimer.html" class="ftr-link en">Legal Notice & Sources</a>
+      <a href="disclaimer.html" class="ftr-link ja">免責事項・出典</a>
+      <span class="ftr-copy en">© 2026 Dolphin Stark. All rights reserved.</span>
+      <span class="ftr-copy ja">© 2026 Dolphin Stark. All rights reserved.</span>
+    </div>
+  </div>
 </footer>
 
 <script>
-  function setLang(lang) {
-    document.body.className = 'lang-' + lang;
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+function setLang(l) {
+  document.body.className = 'lang-' + l;
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  document.getElementById('btn-ja').classList.toggle('on', l === 'ja');
+}
+
+document.getElementById('wl-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('wl-btn');
+  btn.disabled = true; btn.style.opacity = '0.4';
+  try {
+    const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+    if (res.ok) {
+      document.getElementById('wl-wrap').style.display = 'none';
+      document.getElementById('wl-done').style.display = 'block';
+    } else { throw new Error(); }
+  } catch {
+    btn.disabled = false; btn.style.opacity = '1';
+    alert('Something went wrong. Please try again.');
   }
+});
 
-  function submitForm() {
-    const email = document.getElementById('email-input').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('email-input').style.borderColor = '#e05c3a';
-      setTimeout(() => document.getElementById('email-input').style.borderColor = '', 1500);
-      return;
-    }
-    document.getElementById('form-wrap').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  const ua = navigator.language || '';
-  if (ua.startsWith('ja')) setLang('ja');
+if (navigator.language && navigator.language.startsWith('ja')) setLang('ja');
 </script>
 </body>
 </html>
