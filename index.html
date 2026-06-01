@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stoic — Reclaim Your Attention</title>
-<meta name="description" content="Stoic is a behavioral tool designed to help you reclaim control of your attention from platforms engineered to take it.">
+<title>Stoic — Your Life Design Companion</title>
+<meta name="description" content="Stoic is not a blocker. It's a companion built to help you design a life where your time and attention go exactly where you choose.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    RESET
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 img { display: block; max-width: 100%; }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    VARIABLES
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 :root {
   --bg:     #F7F8FA;
   --white:  #FFFFFF;
@@ -27,16 +27,12 @@ img { display: block; max-width: 100%; }
   --sub:    #6B7280;
   --muted:  #9CA3AF;
   --border: #E5E7EB;
-  --red:    #B91C1C;
   --green:  #059669;
-  --font:   'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font:   'Inter', 'Noto Sans JP', -apple-system, sans-serif;
   --max:    920px;
   --r:      3px;
 }
 
-/* ═══════════════════════════════════════
-   BASE
-═══════════════════════════════════════ */
 html { scroll-behavior: smooth; }
 
 body {
@@ -46,12 +42,11 @@ body {
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    LANGUAGE
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 body.lang-en .ja { display: none; }
 body.lang-ja .en { display: none; }
 
@@ -61,20 +56,19 @@ body.lang-ja .en { display: none; }
   line-break: strict;
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    HEADER
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 .hdr {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
   height: 54px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
-
 .hdr-in {
   max-width: var(--max);
   margin: 0 auto;
@@ -84,27 +78,23 @@ body.lang-ja .en { display: none; }
   align-items: center;
   justify-content: space-between;
 }
-
 .logo {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
   color: var(--text);
 }
-
 .hdr-right {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .lang-sw {
   display: flex;
   border: 1px solid var(--border);
   border-radius: var(--r);
   overflow: hidden;
 }
-
 .lng-btn {
   padding: 4px 12px;
   font-size: 11px;
@@ -117,12 +107,7 @@ body.lang-ja .en { display: none; }
   font-family: var(--font);
   transition: background 0.15s, color 0.15s;
 }
-
-.lng-btn.on {
-  background: var(--text);
-  color: #fff;
-}
-
+.lng-btn.on { background: var(--text); color: #fff; }
 .hdr-cta {
   padding: 7px 16px;
   background: var(--text);
@@ -134,41 +119,38 @@ body.lang-ja .en { display: none; }
   border-radius: var(--r);
   transition: opacity 0.15s;
 }
-
 .hdr-cta:hover { opacity: 0.82; }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    HERO
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 .hero {
   position: relative;
   height: 100vh;
-  min-height: 580px;
+  min-height: 600px;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
 }
-
 .hero-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 55%;
+  object-position: center 50%;
 }
-
+/* Stronger overlay for NY bright lights — text readability */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.35) 45%,
-    rgba(0, 0, 0, 0.75) 100%
+    rgba(0,0,0,0.25) 0%,
+    rgba(0,0,0,0.50) 40%,
+    rgba(0,0,0,0.88) 100%
   );
 }
-
 .hero-body {
   position: relative;
   z-index: 1;
@@ -177,45 +159,46 @@ body.lang-ja .en { display: none; }
   margin: 0 auto;
   padding: 0 24px 80px;
 }
-
 .hero-label {
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.48);
-  margin-bottom: 20px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 18px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
-
 .hero-h1 {
-  font-size: clamp(28px, 4.2vw, 50px);
+  font-size: clamp(26px, 4vw, 48px);
   font-weight: 300;
   line-height: 1.2;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.02em;
   color: #fff;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
 }
-
 .hero-h1 strong {
   font-weight: 600;
   display: block;
 }
-
 .hero-p {
   font-size: clamp(14px, 1.7vw, 16px);
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.65);
-  max-width: 460px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.92);
+  max-width: 480px;
   line-height: 1.8;
   margin-bottom: 32px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.18);
+  padding: 12px 16px;
+  border-radius: var(--r);
+  backdrop-filter: blur(2px);
 }
-
 .hero-btns {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
-
 .btn-solid {
   padding: 11px 26px;
   background: #fff;
@@ -227,48 +210,36 @@ body.lang-ja .en { display: none; }
   border-radius: var(--r);
   transition: opacity 0.15s;
 }
-
 .btn-solid:hover { opacity: 0.88; }
-
 .btn-ghost {
   padding: 11px 22px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255,255,255,0.85);
   font-size: 13px;
   font-weight: 400;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255,255,255,0.4);
   border-radius: var(--r);
   transition: border-color 0.15s, color 0.15s;
 }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
 
-.btn-ghost:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #fff;
-}
-
-/* ═══════════════════════════════════════
-   STATS BAND
-═══════════════════════════════════════ */
-.stats {
-  background: var(--dark);
-}
-
+/* ═══════════════════════════════
+   STATS
+═══════════════════════════════ */
+.stats { background: var(--dark); }
 .stats-grid {
   max-width: var(--max);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
-
 .stat {
   padding: 52px 28px;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  border-right: 1px solid rgba(255,255,255,0.07);
 }
-
 .stat:last-child { border-right: none; }
-
 .stat-n {
   font-size: clamp(34px, 4vw, 50px);
   font-weight: 300;
@@ -277,33 +248,29 @@ body.lang-ja .en { display: none; }
   color: #fff;
   margin-bottom: 12px;
 }
-
 .stat-n em {
   font-style: normal;
-  color: #FDA4AF; /* soft red, not aggressive */
+  color: #FDA4AF;
 }
-
+/* Increased readability for stat descriptions */
 .stat-d {
   font-size: 12px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255,255,255,0.68);
   line-height: 1.65;
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    SECTION BASE
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 .sec { background: var(--white); }
 .sec-bg { background: var(--bg); }
-
 .sec-in {
   max-width: var(--max);
   margin: 0 auto;
   padding: 96px 24px;
 }
-
 .sec-in.narrow { max-width: 660px; }
-
 .stag {
   font-size: 10px;
   font-weight: 600;
@@ -313,9 +280,116 @@ body.lang-ja .en { display: none; }
   margin-bottom: 36px;
 }
 
-/* ═══════════════════════════════════════
-   PROBLEM SECTION
-═══════════════════════════════════════ */
+/* ═══════════════════════════════
+   PARTNER / REASSURANCE SECTION
+═══════════════════════════════ */
+.partner-sec { background: var(--dark); color: #fff; }
+.partner-in {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.partner-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 24px;
+}
+.partner-h {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 300;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.partner-p {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.85;
+}
+.partner-p + .partner-p { margin-top: 14px; }
+.partner-p strong { color: rgba(255,255,255,0.88); font-weight: 400; }
+.partner-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.partner-card {
+  padding: 24px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: var(--r);
+}
+.partner-card-h {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 6px;
+}
+.partner-card-p {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.48);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════
+   PAIN / EMPATHY SECTION
+═══════════════════════════════ */
+.pain-sec { background: var(--white); }
+.pain-lead {
+  font-size: clamp(20px, 2.6vw, 27px);
+  font-weight: 300;
+  line-height: 1.42;
+  letter-spacing: -0.018em;
+  color: var(--text);
+  margin-bottom: 48px;
+}
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.pain-item {
+  background: var(--white);
+  padding: 28px 28px;
+}
+.pain-item-h {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.pain-item-p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--sub);
+  line-height: 1.75;
+}
+.pain-close {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--sub);
+  line-height: 1.85;
+  max-width: 640px;
+}
+.pain-close strong { color: var(--text); font-weight: 500; }
+
+/* ═══════════════════════════════
+   PROBLEM ANALYSIS
+═══════════════════════════════ */
 .prob-lead {
   font-size: clamp(20px, 2.6vw, 27px);
   font-weight: 300;
@@ -324,7 +398,6 @@ body.lang-ja .en { display: none; }
   color: var(--text);
   margin-bottom: 36px;
 }
-
 .prob-body {
   font-size: 15px;
   font-weight: 300;
@@ -332,17 +405,12 @@ body.lang-ja .en { display: none; }
   line-height: 1.9;
   max-width: 640px;
 }
-
 .prob-body p + p { margin-top: 18px; }
+.prob-body strong { color: var(--text); font-weight: 500; }
 
-.prob-body strong {
-  color: var(--text);
-  font-weight: 500;
-}
-
-/* ═══════════════════════════════════════
-   HOW IT WORKS
-═══════════════════════════════════════ */
+/* ═══════════════════════════════
+   FEATURES
+═══════════════════════════════ */
 .how-h2 {
   font-size: clamp(20px, 2.8vw, 28px);
   font-weight: 300;
@@ -351,7 +419,6 @@ body.lang-ja .en { display: none; }
   color: var(--text);
   margin-bottom: 52px;
 }
-
 .feat-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -359,12 +426,7 @@ body.lang-ja .en { display: none; }
   background: var(--border);
   border: 1px solid var(--border);
 }
-
-.feat {
-  background: var(--white);
-  padding: 40px 32px;
-}
-
+.feat { background: var(--white); padding: 40px 32px; }
 .feat-n {
   font-size: 10px;
   font-weight: 600;
@@ -372,7 +434,6 @@ body.lang-ja .en { display: none; }
   color: var(--muted);
   margin-bottom: 14px;
 }
-
 .feat-h {
   font-size: 17px;
   font-weight: 500;
@@ -380,17 +441,16 @@ body.lang-ja .en { display: none; }
   color: var(--text);
   margin-bottom: 10px;
 }
-
 .feat-p {
   font-size: 14px;
   font-weight: 300;
   color: var(--sub);
-  line-height: 1.82;
+  line-height: 1.85;
 }
 
-/* ═══════════════════════════════════════
-   COMPARISON TABLE
-═══════════════════════════════════════ */
+/* ═══════════════════════════════
+   COMPARISON
+═══════════════════════════════ */
 .cmp-h2 {
   font-size: clamp(18px, 2.4vw, 24px);
   font-weight: 300;
@@ -399,13 +459,11 @@ body.lang-ja .en { display: none; }
   color: var(--text);
   margin-bottom: 44px;
 }
-
 .cmp-tbl {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
 }
-
 .cmp-tbl th {
   text-align: left;
   padding: 11px 18px;
@@ -417,11 +475,7 @@ body.lang-ja .en { display: none; }
   border-bottom: 2px solid var(--border);
   background: var(--white);
 }
-
-.cmp-tbl th:last-child {
-  color: var(--text);
-}
-
+.cmp-tbl th:last-child { color: var(--text); }
 .cmp-tbl td {
   padding: 15px 18px;
   border-bottom: 1px solid var(--border);
@@ -430,33 +484,23 @@ body.lang-ja .en { display: none; }
   line-height: 1.5;
   background: var(--white);
 }
-
-.cmp-tbl td:first-child {
-  color: var(--text);
-  font-weight: 400;
-}
-
-.cmp-tbl td:nth-child(2) {
-  color: var(--muted);
-}
-
+.cmp-tbl td:first-child { color: var(--text); font-weight: 400; }
+.cmp-tbl td:nth-child(2) { color: var(--muted); }
 .ck { color: var(--green); margin-right: 5px; }
 .cx { color: var(--muted); }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    WAITLIST
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 .wl { background: var(--dark); color: #fff; }
-
 .wl-tag {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255,255,255,0.3);
   margin-bottom: 24px;
 }
-
 .wl-h2 {
   font-size: clamp(24px, 3.5vw, 36px);
   font-weight: 300;
@@ -465,26 +509,23 @@ body.lang-ja .en { display: none; }
   color: #fff;
   margin-bottom: 14px;
 }
-
 .wl-sub {
   font-size: 14px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.48);
+  color: rgba(255,255,255,0.48);
   line-height: 1.8;
   margin-bottom: 44px;
 }
-
 .wl-row {
   display: flex;
   gap: 8px;
   margin-bottom: 14px;
 }
-
 .wl-email {
   flex: 1;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
   border-radius: var(--r);
   color: #fff;
   font-family: var(--font);
@@ -493,10 +534,8 @@ body.lang-ja .en { display: none; }
   outline: none;
   transition: border-color 0.15s;
 }
-
-.wl-email:focus { border-color: rgba(255, 255, 255, 0.45); }
-.wl-email::placeholder { color: rgba(255, 255, 255, 0.26); }
-
+.wl-email:focus { border-color: rgba(255,255,255,0.45); }
+.wl-email::placeholder { color: rgba(255,255,255,0.26); }
 .wl-submit {
   padding: 12px 22px;
   background: #fff;
@@ -511,37 +550,33 @@ body.lang-ja .en { display: none; }
   white-space: nowrap;
   transition: opacity 0.15s;
 }
-
 .wl-submit:hover { opacity: 0.88; }
-.wl-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
+.wl-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 .wl-note {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255,255,255,0.25);
   line-height: 1.65;
 }
-
 .wl-done {
   display: none;
   padding: 22px 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--r);
   font-size: 14px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255,255,255,0.72);
   line-height: 1.7;
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    FOOTER
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 .ftr {
   background: var(--dark);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255,255,255,0.06);
   padding: 28px 24px;
 }
-
 .ftr-in {
   max-width: var(--max);
   margin: 0 auto;
@@ -551,48 +586,35 @@ body.lang-ja .en { display: none; }
   flex-wrap: wrap;
   gap: 8px;
 }
+.ftr-brand { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; color: rgba(255,255,255,0.28); }
+.ftr-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
 
-.ftr-brand {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.28);
-}
-
-.ftr-copy {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.2);
-}
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    SCROLL REVEAL
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 .rv {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+.rv.in { opacity: 1; transform: none; }
 
-.rv.in {
-  opacity: 1;
-  transform: none;
-}
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════
    RESPONSIVE
-═══════════════════════════════════════ */
+═══════════════════════════════ */
 @media (max-width: 720px) {
   .sec-in { padding: 64px 20px; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stat:nth-child(2) { border-right: none; }
   .stat:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.07); }
   .feat-grid { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .partner-in { grid-template-columns: 1fr; gap: 40px; }
   .wl-row { flex-direction: column; }
   .hero-body { padding: 0 20px 64px; }
-  .cmp-tbl { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cmp-tbl { display: block; overflow-x: auto; }
   .hdr-cta { display: none; }
 }
-
 @media (max-width: 480px) {
   .stats-grid { grid-template-columns: 1fr; }
   .stat { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07); }
@@ -603,9 +625,7 @@ body.lang-ja .en { display: none; }
 </head>
 <body class="lang-en">
 
-<!-- ══════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════ -->
+<!-- HEADER -->
 <header class="hdr">
   <div class="hdr-in">
     <span class="logo">STOIC</span>
@@ -620,9 +640,7 @@ body.lang-ja .en { display: none; }
   </div>
 </header>
 
-<!-- ══════════════════════════════════════════
-     HERO
-══════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero">
   <img
     class="hero-img"
@@ -633,234 +651,313 @@ body.lang-ja .en { display: none; }
   >
   <div class="hero-overlay"></div>
   <div class="hero-body">
-    <p class="hero-label en">Attention Science · Behavioral Design</p>
-    <p class="hero-label ja">注意科学 · 行動設計</p>
+    <p class="hero-label en">A life design companion — not a blocker</p>
+    <p class="hero-label ja">人生設計の伴走者として — ブロッカーではなく</p>
 
     <h1 class="hero-h1 en">
       You have 24 hours today.<br>
       <strong>How many are actually yours?</strong>
     </h1>
     <h1 class="hero-h1 ja">
-      今日のあなたには24時間がある。<br>
-      <strong>そのうち何時間が、本当にあなたのものだろうか。</strong>
+      今日のあなたには24時間があります。<br>
+      <strong>そのうち何時間が、本当にあなたのものでしょうか。</strong>
     </h1>
 
     <p class="hero-p en">
-      The average adult spends 4.7 hours daily on their smartphone —
-      71 days per year. Most of it is unintentional.
-      Stoic is built to change that.
+      The average adult spends 4.7 hours daily on their smartphone — 71 days per year.
+      Most of it unintentional. Stoic was built to change that.
     </p>
     <p class="hero-p ja">
       平均的な成人のスマートフォン使用時間は1日4.7時間。年間71日分。
-      その大半は、意図していない。Stoicはそれを変えるために作られた。
+      その大半は、意図されたものではありません。Stoicは、それを変えるために作られました。
     </p>
 
     <div class="hero-btns">
       <a href="#waitlist" class="btn-solid en">Join the Waitlist</a>
-      <a href="#waitlist" class="btn-solid ja">ウェイティングリストに登録</a>
+      <a href="#waitlist" class="btn-solid ja">ウェイティングリストに登録する</a>
       <a href="#data"     class="btn-ghost en">See the data ↓</a>
-      <a href="#data"     class="btn-ghost ja">データを確認する ↓</a>
+      <a href="#data"     class="btn-ghost ja">データを見る ↓</a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     STATISTICS
-══════════════════════════════════════════ -->
+<!-- STATS -->
 <div class="stats" id="data">
   <div class="stats-grid">
     <div class="stat">
       <div class="stat-n"><em>4.7</em>h</div>
-      <p class="stat-d en">
-        Average daily smartphone use per adult<br>
-        — Digital Wellbeing Report 2023
-      </p>
-      <p class="stat-d ja">
-        成人1人あたりの1日平均<br>スマートフォン使用時間<br>
-        （Digital Wellbeing Report 2023）
-      </p>
+      <p class="stat-d en">Average daily smartphone use per adult<br>— Digital Wellbeing Report 2023</p>
+      <p class="stat-d ja">成人1人あたりの1日平均スマートフォン使用時間<br>（Digital Wellbeing Report 2023）</p>
     </div>
     <div class="stat">
       <div class="stat-n"><em>71</em>d</div>
-      <p class="stat-d en">
-        Days per year lost to passive screen time<br>
-        — equivalent to 10 full working weeks
-      </p>
-      <p class="stat-d ja">
-        受動的スクリーンタイムで<br>失われる年間日数<br>
-        （就労日換算で約10週間分）
-      </p>
+      <p class="stat-d en">Days per year lost to passive screen time<br>— equivalent to 10 full working weeks</p>
+      <p class="stat-d ja">受動的なスクリーンタイムで失われる年間日数<br>（就労日換算で約10週間分）</p>
     </div>
     <div class="stat">
       <div class="stat-n"><em>40</em>%</div>
-      <p class="stat-d en">
-        Reduction in deep-work capacity<br>
-        from repeated digital interruptions<br>
-        — UC Irvine Study
-      </p>
-      <p class="stat-d ja">
-        断続的な通知による<br>深い集中力の低下率<br>
-        （カリフォルニア大学研究）
-      </p>
+      <p class="stat-d en">Reduction in deep-work capacity<br>from repeated digital interruptions<br>— University of California, Irvine</p>
+      <p class="stat-d ja">断続的な通知による深い集中力の低下率<br>（カリフォルニア大学アーバイン校）</p>
     </div>
     <div class="stat">
       <div class="stat-n"><em>1,500</em>+</div>
-      <p class="stat-d en">
-        Engineers at TikTok focused solely<br>
-        on engagement optimization
-      </p>
-      <p class="stat-d ja">
-        TikTokのエンゲージメント<br>最適化のみに従事する<br>エンジニアの数
-      </p>
+      <p class="stat-d en">Engineers at TikTok focused solely<br>on engagement optimization</p>
+      <p class="stat-d ja">TikTokのエンゲージメント最適化のみに<br>従事するエンジニアの数</p>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     PROBLEM ANALYSIS
-══════════════════════════════════════════ -->
-<section class="sec" id="problem">
+<!-- PARTNER / REASSURANCE SECTION -->
+<section class="partner-sec">
+  <div class="partner-in">
+    <div class="partner-left">
+      <p class="partner-label en">What Stoic actually is</p>
+      <p class="partner-label ja">Stoicとは何か</p>
+      <h2 class="partner-h en">
+        Not a restriction app.<br>
+        A companion for the life<br>you actually want to live.
+      </h2>
+      <h2 class="partner-h ja">
+        制限するアプリではありません。<br>
+        あなたが本当に送りたい人生のための<br>伴走者です。
+      </h2>
+      <p class="partner-p en">
+        Stoic does not lock your phone. It does not punish you. It does not take anything away.
+        It works alongside you — helping you design each day so that your attention flows toward
+        what genuinely matters to you.
+      </p>
+      <p class="partner-p ja">
+        Stoicはスマートフォンをロックしません。あなたを罰することも、何かを奪うこともありません。
+        あなたの隣に立ち、毎日の生活を一緒に設計していきます。
+        あなたの注意が、本当に大切なことへと向かえるよう。
+      </p>
+      <p class="partner-p en">
+        <strong>This is not about willpower. It's about building a structure that makes
+        the right choices feel natural.</strong>
+      </p>
+      <p class="partner-p ja">
+        <strong>これは意志力の話ではありません。正しい選択が自然にできる環境を、
+        一緒に作っていくことです。</strong>
+      </p>
+    </div>
+    <div class="partner-right">
+      <div class="partner-card">
+        <p class="partner-card-h en">More than a blocker</p>
+        <p class="partner-card-h ja">ブロッカー以上の存在</p>
+        <p class="partner-card-p en">Stoic helps you understand why you reach for your phone — and redesigns that moment.</p>
+        <p class="partner-card-p ja">なぜスマートフォンを手に取るのか。Stoicはその瞬間を理解し、設計し直します。</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-card-h en">Built around your goals</p>
+        <p class="partner-card-h ja">あなたの目標を中心に</p>
+        <p class="partner-card-p en">Whether it's studying, building a business, or simply being present — Stoic is designed around what you want your life to look like.</p>
+        <p class="partner-card-p ja">勉強でも、仕事でも、大切な人との時間でも。あなたが望む人生の姿に合わせて、Stoicは設計されています。</p>
+      </div>
+      <div class="partner-card">
+        <p class="partner-card-h en">No judgment. Ever.</p>
+        <p class="partner-card-h ja">批判は、一切ありません。</p>
+        <p class="partner-card-p en">Stoic never shames you for slipping. It simply makes it easier to choose differently, every time.</p>
+        <p class="partner-card-p ja">うまくいかない日があっても、Stoicは責めません。次の一歩を選びやすくするだけです。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN / EMPATHY SECTION -->
+<section class="pain-sec" id="problem">
+  <div class="sec-in">
+    <p class="stag en rv">We understand</p>
+    <p class="stag ja rv">あなたの経験を、私たちは知っています</p>
+
+    <p class="pain-lead en rv">
+      You've already tried.<br>
+      Probably more than once.
+    </p>
+    <p class="pain-lead ja rv">
+      あなたはすでに、様々な方法を試してきたはずです。<br>
+      一度ではなく、何度も。
+    </p>
+
+    <div class="pain-grid rv">
+      <div class="pain-item">
+        <p class="pain-item-h en">You bought a lock box for your phone.</p>
+        <p class="pain-item-h ja">スマートフォン用のロックボックスを購入された。</p>
+        <p class="pain-item-p en">But what if someone needed to reach you urgently? You unlocked it within the hour.</p>
+        <p class="pain-item-p ja">でも、緊急の連絡が来たら。結局、1時間もしないうちに開けてしまいました。</p>
+      </div>
+      <div class="pain-item">
+        <p class="pain-item-h en">You installed a focus app and set timers.</p>
+        <p class="pain-item-h ja">集中系のアプリを入れて、タイマーを設定された。</p>
+        <p class="pain-item-p en">The tree died. You reset the streak. And nothing really changed the next day.</p>
+        <p class="pain-item-p ja">木は枯れ、記録はリセットされ、翌日には何も変わっていませんでした。</p>
+      </div>
+      <div class="pain-item">
+        <p class="pain-item-h en">You turned on Screen Time limits.</p>
+        <p class="pain-item-h ja">スクリーンタイムの制限を設定された。</p>
+        <p class="pain-item-p en">You entered the passcode to override it approximately 30 seconds later.</p>
+        <p class="pain-item-p ja">30秒後には、制限解除のパスコードを入力していました。</p>
+      </div>
+      <div class="pain-item">
+        <p class="pain-item-h en">You deleted the app entirely.</p>
+        <p class="pain-item-h ja">アプリを完全に削除された。</p>
+        <p class="pain-item-p en">By the next morning, it was reinstalled. You told yourself it was "just to check something."</p>
+        <p class="pain-item-p ja">翌朝には再インストールしていました。「少し確認するだけ」という言い訳とともに。</p>
+      </div>
+    </div>
+
+    <p class="pain-close rv en">
+      None of this failed because you lack discipline.
+      <strong>These methods were simply not designed around how attention and habit actually work.</strong>
+      Stoic is.
+    </p>
+    <p class="pain-close rv ja">
+      これらがうまくいかなかったのは、あなたに意志力が足りなかったからではありません。
+      <strong>これらの方法は、注意と習慣が実際にどのように機能するかを理解せずに設計されていたのです。</strong>
+      Stoicは違います。
+    </p>
+  </div>
+</section>
+
+<!-- PROBLEM ANALYSIS -->
+<section class="sec">
   <div class="sec-in">
     <p class="stag en rv">Analysis</p>
-    <p class="stag ja rv">分析</p>
+    <p class="stag ja rv">背景</p>
 
     <p class="prob-lead en rv">
       This is not a personal discipline problem.<br>
-      It is a structural one — and the structure is not on your side.
+      It is a structural one — engineered by some of<br>
+      the best minds in the world.
     </p>
     <p class="prob-lead ja rv">
-      これは意志力の問題ではない。<br>
-      構造の問題であり、その構造はあなたの側にない。
+      これは意志力の問題ではありません。<br>
+      世界最高レベルの技術者たちによって設計された、<br>構造の問題です。
     </p>
 
     <div class="prob-body en rv">
       <p>
         Social media platforms are not designed to inform or connect people.
-        They are designed to maximize <strong>time-on-app</strong> — a metric
-        directly tied to advertising revenue. Every feature, every notification
-        pattern, every scroll mechanic is the product of continuous A/B testing
-        on hundreds of millions of users.
+        They are designed to maximize <strong>time spent in the app</strong> — a metric
+        directly tied to advertising revenue. Every feature, every notification pattern,
+        every scroll mechanic is the outcome of continuous behavioral testing on hundreds
+        of millions of users.
       </p>
       <p>
-        The engineers building these systems are among the most highly skilled
-        in the world. Their tools: variable reward schedules, social validation
-        loops, infinite content feeds. The outcome is an environment deliberately
-        calibrated to override your intentional choices — every time you reach
-        for your phone.
+        Their instruments: variable reward schedules, social validation loops, infinite
+        content feeds. The result is an environment deliberately calibrated to override
+        your intentions — every time you reach for your phone.
       </p>
       <p>
-        <strong>You are not weak. You are outgunned.</strong>
-        Most productivity tools respond by asking you to try harder.
-        Stoic responds differently — by changing the structure of the decision
-        itself, not the person making it.
+        <strong>You are not weak. You are outmatched by design.</strong>
+        Stoic changes the design.
       </p>
     </div>
     <div class="prob-body ja rv">
       <p>
-        SNSプラットフォームは、情報を届けたり人を繋げるために作られていない。
-        広告収益に直結する指標、<strong>アプリ内滞在時間の最大化</strong>のために設計されている。
+        SNSプラットフォームは、情報を届けたり人々を繋げるために作られていません。
+        広告収益に直結する指標、<strong>アプリ内の滞在時間の最大化</strong>のために設計されています。
         あらゆる機能、通知の設計、スクロールのメカニズムは、
-        数億人のユーザーを対象にした継続的なA/Bテストの産物だ。
+        数億人のユーザーを対象にした継続的な行動実験の産物です。
       </p>
       <p>
-        これらのシステムを設計するエンジニアは、世界でも最高水準の技術者たちだ。
-        彼らのツールは、変動報酬スケジュール、社会的承認ループ、無限コンテンツフィードだ。
-        その結果として構築された環境は、あなたがスマートフォンを手にするたびに、
-        意図的な選択を意図的に上書きするよう設計されている。
+        彼らが使うのは、変動報酬スケジュール、社会的承認ループ、無限のコンテンツフィードです。
+        その結果として作られた環境は、あなたがスマートフォンを手にするたびに、
+        あなたの意図を上書きするよう設計されています。
       </p>
       <p>
-        <strong>あなたが弱いのではない。相手の規模が違う。</strong>
-        多くの生産性ツールは「もっと努力しろ」と答える。
-        Stoicは違う答えを持っている。人ではなく、意思決定の構造そのものを変える。
+        <strong>あなたが弱いのではありません。設計によって圧倒されているのです。</strong>
+        Stoicはその設計を変えます。
       </p>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     HOW IT WORKS
-══════════════════════════════════════════ -->
+<!-- HOW IT WORKS -->
 <section class="sec-bg" id="how">
   <div class="sec-in">
-    <p class="stag en rv">How It Works</p>
-    <p class="stag ja rv">仕組み</p>
+    <p class="stag en rv">How Stoic Works</p>
+    <p class="stag ja rv">Stoicの仕組み</p>
 
     <h2 class="how-h2 en rv">
-      Four mechanisms, designed around how attention<br>
-      actually works — not how we wish it did.
+      Four approaches, each addressing a real moment<br>
+      in your day where attention slips.
     </h2>
     <h2 class="how-h2 ja rv">
-      4つのメカニズム。<br>
-      注意が実際にどう機能するかという現実に基づいて設計されている。
+      4つのアプローチ。それぞれが、日常の中で<br>
+      集中が乱れるリアルな瞬間に対応しています。
     </h2>
 
     <div class="feat-grid">
 
       <div class="feat rv">
         <p class="feat-n">01</p>
-        <h3 class="feat-h en">AI Task Breakdown</h3>
-        <h3 class="feat-h ja">AIタスク分解</h3>
+        <h3 class="feat-h en">From Overwhelm to First Step</h3>
+        <h3 class="feat-h ja">「どこから始めればいいか」をなくす</h3>
         <p class="feat-p en">
-          Task avoidance is the primary trigger for mindless phone use.
-          Stoic's AI breaks any task into 3-minute concrete steps,
-          eliminating the moment of hesitation where distraction begins.
+          You sit down to study or work. Instead of starting, you find yourself
+          on Instagram 20 minutes later. The task wasn't too hard — it was
+          too vague. Stoic breaks your task into 3-minute concrete steps,
+          so there's always a clear next action and no reason to escape.
         </p>
         <p class="feat-p ja">
-          タスク回避が、無意識のスマートフォン利用の主なトリガーだ。
-          StoicのAIはあらゆるタスクを3分以内の具体的なステップに分解し、
-          「着手できない」という心理的な停滞をなくす。
+          勉強や仕事に取り掛かろうとしたのに、20分後には気づかずSNSを見ていた。
+          タスクが難しかったわけではありません。どこから始めればいいかが曖昧だっただけです。
+          Stoicはあなたのタスクを3分以内の具体的なステップに整理します。
+          次のアクションが常に明確であれば、逃げ場はなくなります。
         </p>
       </div>
 
       <div class="feat rv">
         <p class="feat-n">02</p>
-        <h3 class="feat-h en">20-Minute Friction Protocol</h3>
-        <h3 class="feat-h ja">20分フリクションプロトコル</h3>
+        <h3 class="feat-h en">The 20-Minute Pause</h3>
+        <h3 class="feat-h ja">20分、待ってみる</h3>
         <p class="feat-p en">
-          To unlock a social app, you wait 20 minutes — screen on,
-          uninterrupted. Leave the screen and the timer resets.
-          The behavioral cost of checking Instagram becomes higher
-          than the cost of completing the task.
+          When you want to open a social app, Stoic asks you to wait 20 minutes —
+          screen on. Leave the screen and the timer resets. You'd be surprised:
+          in most cases, the urge has passed by the time the wait is over.
+          The work is already done.
         </p>
         <p class="feat-p ja">
-          SNSアプリを解除するには、画面を離れずに20分待つ必要がある。
-          画面を離れたらリセット。Instagramを確認する行動コストが、
-          タスクをこなすコストを上回るよう設計されている。
+          SNSを開きたいと感じたとき、Stoicは20分間の待機を促します。
+          画面を離れるとリセット。驚かれるかもしれませんが、20分後には、
+          そのアプリを開きたいという衝動が消えていることがほとんどです。
+          待っている間に、作業が終わっていることも少なくありません。
         </p>
       </div>
 
       <div class="feat rv">
         <p class="feat-n">03</p>
-        <h3 class="feat-h en">Immediate Reward Architecture</h3>
-        <h3 class="feat-h ja">即時報酬アーキテクチャ</h3>
+        <h3 class="feat-h en">Instant Recognition of Progress</h3>
+        <h3 class="feat-h ja">進んだことを、すぐに実感できる</h3>
         <p class="feat-p en">
-          Each micro-task completion triggers immediate feedback —
-          faster than any platform algorithm can. No streaks,
-          no gamification. A reliable dopamine signal delivered
-          before the competition can.
+          Every time you complete even one small step, Stoic responds immediately.
+          Not a badge, not a streak counter — just the clean, direct sensation
+          of having moved forward. Faster and more reliable than any notification
+          your phone could send.
         </p>
         <p class="feat-p ja">
-          極小タスクを完了するたびに、どのプラットフォームよりも速い
-          即時フィードバックが発動する。連続記録もゲーミフィケーションもない。
-          競合が介入する前に届く、確実なドーパミン信号だ。
+          小さなステップを一つ完了するたびに、Stoicはすぐに応答します。
+          バッジでも連続記録でもありません。前に進んだという、
+          純粋でシンプルな実感です。
+          スマートフォンのどんな通知よりも速く、確実に届きます。
         </p>
       </div>
 
       <div class="feat rv">
         <p class="feat-n">04</p>
-        <h3 class="feat-h en">Platform Transparency</h3>
-        <h3 class="feat-h ja">プラットフォームの透明化</h3>
+        <h3 class="feat-h en">Informed Choice at the Right Moment</h3>
+        <h3 class="feat-h ja">選ぶ前に、事実を知る</h3>
         <p class="feat-p en">
-          At the moment of unlock attempt, you see — factually,
-          without judgment — how that platform monetizes your attention.
-          Not guilt. Not shame. Information delivered at the exact
-          point of decision.
+          Before you unlock a social app, Stoic shows you — calmly, factually,
+          without judgment — how that platform is designed to use your time.
+          No shame. No lecture. Just the right information at the exact moment
+          you need it to make a conscious choice.
         </p>
         <p class="feat-p ja">
-          アプリを解除しようとする瞬間、そのプラットフォームがどのように
-          あなたの注意を収益化しているかを、事実として、
-          価値判断なく提示する。罪悪感でも羞恥心でもない。
-          意思決定の瞬間に届く、情報だ。
+          SNSアプリを解除しようとする瞬間、そのプラットフォームがあなたの時間を
+          どのように設計しているかを、静かに、事実として提示します。
+          批判でも説教でもありません。
+          意識的な選択をするために、最も必要な瞬間に届く情報です。
         </p>
       </div>
 
@@ -868,39 +965,37 @@ body.lang-ja .en { display: none; }
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     COMPARISON
-══════════════════════════════════════════ -->
+<!-- COMPARISON -->
 <section class="sec">
   <div class="sec-in">
     <p class="stag en rv">Comparison</p>
     <p class="stag ja rv">比較</p>
 
     <h2 class="cmp-h2 en rv">
-      Why existing tools don't address the root cause —<br>
+      Why other approaches don't address the root cause —<br>
       and what Stoic does differently.
     </h2>
     <h2 class="cmp-h2 ja rv">
-      既存のツールが根本原因に対処できていない理由と、<br>
-      Stoicが何を変えるか。
+      他のアプリが根本原因に対処できていない理由と、<br>
+      Stoicが何を変えるのか。
     </h2>
 
     <table class="cmp-tbl rv">
       <thead>
         <tr>
           <th><span class="en">Capability</span><span class="ja">機能</span></th>
-          <th>Forest / Freedom</th>
+          <th><span class="en">Other apps</span><span class="ja">他のアプリ</span></th>
           <th>Stoic</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
-            <span class="en">Addresses task avoidance (the root trigger)</span>
-            <span class="ja">タスク回避（根本的なトリガー）への対処</span>
+            <span class="en">Addresses why you reach for your phone in the first place</span>
+            <span class="ja">「なぜスマートフォンを手にするのか」への対処</span>
           </td>
           <td><span class="cx">—</span></td>
-          <td><span class="ck">✓</span><span class="en">AI task breakdown</span><span class="ja">AIタスク分解</span></td>
+          <td><span class="ck">✓</span><span class="en">Step-by-step task clarity</span><span class="ja">ステップ別のタスク明確化</span></td>
         </tr>
         <tr>
           <td>
@@ -908,40 +1003,38 @@ body.lang-ja .en { display: none; }
             <span class="ja">数秒での回避が不可能</span>
           </td>
           <td><span class="cx">—</span></td>
-          <td><span class="ck">✓</span><span class="en">20-min protocol + reset</span><span class="ja">20分プロトコル＋リセット</span></td>
+          <td><span class="ck">✓</span><span class="en">20-min wait + full reset</span><span class="ja">20分待機＋フルリセット</span></td>
         </tr>
         <tr>
           <td>
-            <span class="en">Instant behavioral reward on task completion</span>
-            <span class="ja">タスク完了時の即時行動報酬</span>
+            <span class="en">Gives immediate sense of progress when you complete a step</span>
+            <span class="ja">ステップ完了時の即時の達成感</span>
           </td>
-          <td><span class="cx">Delayed / gamified</span></td>
-          <td><span class="ck">✓</span><span class="en">Per micro-task</span><span class="ja">極小タスクごとに発動</span></td>
+          <td><span class="cx">Delayed or gamified</span></td>
+          <td><span class="ck">✓</span><span class="en">On every micro-step</span><span class="ja">一つひとつのステップで</span></td>
         </tr>
         <tr>
           <td>
-            <span class="en">Designed for ADHD and low-focus tendencies</span>
-            <span class="ja">ADHD・低集中傾向への対応</span>
-          </td>
-          <td><span class="cx">—</span></td>
-          <td><span class="ck">✓</span><span class="en">Core design principle</span><span class="ja">設計の根幹</span></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="en">Exposes platform monetization at point of decision</span>
-            <span class="ja">意思決定の瞬間にプラットフォームの収益化を可視化</span>
+            <span class="en">Works for people who struggle with focus</span>
+            <span class="ja">集中が続きにくい方への対応</span>
           </td>
           <td><span class="cx">—</span></td>
-          <td><span class="ck">✓</span><span class="en">Built into unlock flow</span><span class="ja">解除フローに組み込み済み</span></td>
+          <td><span class="ck">✓</span><span class="en">Designed specifically for this</span><span class="ja">そのために設計されています</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="en">Shows platform design at the moment of decision</span>
+            <span class="ja">意思決定の瞬間にプラットフォームの設計を提示</span>
+          </td>
+          <td><span class="cx">—</span></td>
+          <td><span class="ck">✓</span><span class="en">Built into the unlock flow</span><span class="ja">解除フローに組み込み済み</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     WAITLIST
-══════════════════════════════════════════ -->
+<!-- WAITLIST -->
 <section class="wl" id="waitlist">
   <div class="sec-in narrow">
     <p class="wl-tag en">Early Access</p>
@@ -953,40 +1046,29 @@ body.lang-ja .en { display: none; }
     </h2>
     <h2 class="wl-h2 ja">
       ウェイティングリストに登録する。<br>
-      ローンチ時に最初にアクセスできる。
+      ローンチ時に最初にアクセスできます。
     </h2>
 
     <p class="wl-sub en">
-      No spam. One email when Stoic is ready.<br>
+      No spam. One email when Stoic is ready for you.<br>
       Free to join — approximately $5–10 / month at launch.
     </p>
     <p class="wl-sub ja">
-      スパムなし。準備が整ったときに一通だけお届けする。<br>
-      登録無料。ローンチ時は月額500〜1,000円程度の予定。
+      スパムはありません。準備が整ったときに一通だけお届けします。<br>
+      登録無料。ローンチ時は月額500〜1,000円程度の予定です。
     </p>
 
     <div id="wl-wrap">
-      <!--
-        Formsubmit handles:
-        · Storing submissions
-        · Sending notification to dolphinstark@protonmail.com
-        · Sending confirmation (_autoresponse) to the subscriber
-        NOTE: The first submission will trigger a one-time email
-              verification to dolphinstark@protonmail.com. Click
-              "Confirm" in that email to activate the form.
-      -->
       <form
         id="wl-form"
         action="https://formsubmit.co/dolphinstark@protonmail.com"
         method="POST"
       >
-        <input type="hidden" name="_subject"
-          value="Stoic — New Waitlist Registration">
+        <input type="hidden" name="_subject" value="Stoic — New Waitlist Registration">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
         <input type="hidden" name="_autoresponse"
-          value="Thank you for joining the Stoic waitlist. We will reach out as soon as we launch. — Dolphin Stark // ウェイティングリストへのご登録ありがとうございます。ローンチの際に改めてご連絡いたします。 — Dolphin Stark">
-
+          value="Thank you for joining the Stoic waitlist. We will be in touch as soon as we launch. — Dolphin Stark // Stoicのウェイティングリストへのご登録ありがとうございます。ローンチの際に改めてご連絡いたします。— Dolphin Stark">
         <div class="wl-row">
           <input
             class="wl-email"
@@ -1001,32 +1083,25 @@ body.lang-ja .en { display: none; }
             <span class="ja">登録する</span>
           </button>
         </div>
-
         <p class="wl-note en">
-          Submissions are stored via Formsubmit and forwarded to Dolphin Stark.
           A confirmation email will be sent to your address automatically.
+          Your information is handled securely and never shared.
         </p>
         <p class="wl-note ja">
-          登録データはFormsubmitを通じてDolphin Starkに送信されます。
-          ご入力のアドレスに確認メールが自動で届きます。
+          ご入力のアドレスに確認メールが自動でお届けされます。
+          個人情報は安全に管理され、第三者に共有されることはありません。
         </p>
       </form>
     </div>
 
     <div class="wl-done" id="wl-done">
-      <span class="en">
-        ✓ You're on the list. We'll be in touch when Stoic launches.
-      </span>
-      <span class="ja">
-        ✓ 登録が完了しました。Stoicのローンチ時にご連絡します。
-      </span>
+      <span class="en">✓ You're on the list. We'll be in touch when Stoic launches.</span>
+      <span class="ja">✓ 登録が完了しました。Stoicのローンチ時にご連絡いたします。</span>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer class="ftr">
   <div class="ftr-in">
     <span class="ftr-brand">STOIC BY DOLPHIN STARK</span>
@@ -1036,20 +1111,19 @@ body.lang-ja .en { display: none; }
 </footer>
 
 <script>
-/* ── Language switcher ── */
+/* Language */
 function setLang(l) {
   document.body.className = 'lang-' + l;
   document.getElementById('btn-en').classList.toggle('on', l === 'en');
   document.getElementById('btn-ja').classList.toggle('on', l === 'ja');
 }
 
-/* ── Form submission (AJAX for inline success message) ── */
+/* Form */
 document.getElementById('wl-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('wl-btn');
   btn.disabled = true;
-  btn.style.opacity = '0.5';
-
+  btn.style.opacity = '0.4';
   try {
     const res = await fetch(this.action, {
       method: 'POST',
@@ -1059,9 +1133,7 @@ document.getElementById('wl-form').addEventListener('submit', async function(e) 
     if (res.ok) {
       document.getElementById('wl-wrap').style.display = 'none';
       document.getElementById('wl-done').style.display = 'block';
-    } else {
-      throw new Error();
-    }
+    } else { throw new Error(); }
   } catch {
     btn.disabled = false;
     btn.style.opacity = '1';
@@ -1069,22 +1141,16 @@ document.getElementById('wl-form').addEventListener('submit', async function(e) 
   }
 });
 
-/* ── Scroll reveal ── */
+/* Scroll reveal */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      obs.unobserve(e.target);
-    }
+    if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
   });
 }, { threshold: 0.08 });
-
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-/* ── Auto-detect Japanese browser ── */
-if (navigator.language && navigator.language.startsWith('ja')) {
-  setLang('ja');
-}
+/* Auto-detect Japanese */
+if (navigator.language && navigator.language.startsWith('ja')) setLang('ja');
 </script>
 </body>
 </html>
