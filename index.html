@@ -33,8 +33,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-.ja { display: none; }
-body.lang-ja .ja { display: revert; }
+.ja { display: none; text-wrap: pretty; }
+body.lang-ja .ja { display: revert; text-wrap: pretty; }
 body.lang-ja .en { display: none; }
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
@@ -48,7 +48,7 @@ nav {
   max-width: var(--max-wide); margin: 0 auto; padding: 0 24px;
   height: 100%; display: flex; align-items: center; justify-content: space-between;
 }
-.nav-logo { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--gray-86); text-decoration: none; }
+.nav-logo { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--gray-86); text-decoration: none; text-transform: uppercase; }
 .nav-right { display: flex; align-items: center; gap: 8px; }
 .lang-sw { display: flex; border: 0.5px solid var(--gray-12); border-radius: 980px; overflow: hidden; background: var(--gray-06); }
 .lng-btn { padding: 4px 14px; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; border: none; background: transparent; color: var(--gray-40); cursor: pointer; font-family: var(--font); transition: background 0.2s var(--ease), color 0.2s var(--ease); border-radius: 980px; }
@@ -166,6 +166,7 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
   .stat-cell + .stat-cell { border-top: 0.5px solid var(--gray-12); border-right: none; }
   .hero-h1 { letter-spacing: -0.03em; }
 }
+.hero-h1.ja, .how-h2.ja, .pain-lead.ja, .prob-lead.ja, .fear-q.ja, .wl-h2.ja, .qform-h.ja { text-wrap: balance; }
 </style>
 </head>
 <body class="lang-en">
