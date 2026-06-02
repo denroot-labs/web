@@ -56,6 +56,9 @@ nav {
 .nav-cta { padding: 6px 16px; font-size: 12px; font-weight: 400; color: #0071e3; text-decoration: none; border-radius: 980px; transition: opacity 0.15s; }
 .nav-cta:hover { opacity: 0.7; }
 .hero { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; background: var(--white); position: relative; }
+.br-ja { display: none; }
+body.lang-ja .br-ja { display: block; }
+.nobr { white-space: nowrap; }
 .hero-eyebrow { font-size: 17px; font-weight: 400; color: #0071e3; letter-spacing: -0.01em; margin-bottom: 12px; }
 .hero-h1 { font-size: clamp(40px, 7vw, 88px); font-weight: 600; letter-spacing: -0.04em; line-height: 1.04; color: var(--gray-86); margin-bottom: 20px; }
 .hero-h1 span { color: var(--gray-40); display: block; }
@@ -189,7 +192,7 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
   <h1 class="hero-h1 en fade">Your attention<br><span>is the product.</span></h1>
   <h1 class="hero-h1 ja fade">あなたの時間は今、<br><span>誰かの利益になっています。</span></h1>
   <p class="hero-sub en fade">Stoic helps you take it back. Not through restriction — through design.</p>
-  <p class="hero-sub ja fade">STOICは、その流れを変えます。禁止するのではなく、仕組みを整えることで。</p>
+  <p class="hero-sub ja fade">STOICは、その流れを変えます。<br class="br-ja">禁止するのではなく、仕組みを整えることで。</p>
   <div class="hero-actions fade">
     <a href="#waitlist" class="btn-primary en">Join the Waitlist</a>
     <a href="#waitlist" class="btn-primary ja">事前登録はこちら</a>
@@ -214,9 +217,9 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
   <h2 class="h-display ja">制限ツールではありません。<br>人生設計の伴走者です。</h2>
   <div style="height:32px"></div>
   <p class="body-copy en">Stoic works alongside you — helping you build each day so that your time and attention naturally flow toward what genuinely matters to you.</p>
-  <p class="body-copy ja">STOICはあなたの隣に立ち、大切なことへ時間と意識が自然に向かえる毎日をともに作っていきます。</p>
+  <p class="body-copy ja">STOICはあなたの隣に立ち、大切なことへ時間と意識が自然に<span class="nobr">向かえる毎日を</span>ともに作っていきます。</p>
   <p class="body-copy en" style="margin-top:16px;"><strong>This is not about willpower. It's about building the right structure.</strong></p>
-  <p class="body-copy ja" style="margin-top:16px;"><strong>これは意志力の問題ではありません。正しい仕組みを整えることです。</strong></p>
+  <p class="body-copy ja" style="margin-top:16px;"><strong>これは意志力の問題ではありません。<span class="nobr">正しい仕組みを整えることです。</span></strong></p>
 </div>
 <hr class="div">
 <div class="section fade">
@@ -228,13 +231,13 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
       <p class="empathy-card-head en">You bought a phone lockbox.</p>
       <p class="empathy-card-head ja">スマートフォン用のロックボックスを購入した。</p>
       <p class="empathy-card-body en">It ended up on the shelf. Complete unreachability was too high a cost.</p>
-      <p class="empathy-card-body ja">完全に連絡が取れなくなることへの不安が大きく、使わないまま棚に置かれた。</p>
+      <p class="empathy-card-body ja">完全に連絡が取れなくなることへの不安が大きく、<span class="nobr">使わないまま棚に置かれた。</span></p>
     </div>
     <div class="empathy-card">
       <p class="empathy-card-head en">You installed a focus app.</p>
       <p class="empathy-card-head ja">集中系のアプリを入れてタイマーを設定した。</p>
       <p class="empathy-card-body en">The tree died. The streak reset. Nothing changed the next day.</p>
-      <p class="empathy-card-body ja">木は枯れ、記録はリセットされ、翌日には何も変わっていなかった。</p>
+      <p class="empathy-card-body ja">木は枯れ、記録はリセットされ、翌日には<span class="nobr">何も変わっていなかった。</span></p>
     </div>
     <div class="empathy-card">
       <p class="empathy-card-head en">You turned on Screen Time.</p>
@@ -246,11 +249,11 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
       <p class="empathy-card-head en">You deleted the app entirely.</p>
       <p class="empathy-card-head ja">アプリを完全に削除した。</p>
       <p class="empathy-card-body en">By morning, it was back. "Just to check something."</p>
-      <p class="empathy-card-body ja">翌朝には再インストールしていた。「少しだけ確認するつもりで。」</p>
+      <p class="empathy-card-body ja">翌朝には再インストールしていた。<span class="nobr">「少しだけ確認するつもりで。」</span></p>
     </div>
   </div>
   <p class="empathy-close en">This didn't fail because you lack discipline. <strong>These tools were simply not designed around how attention and habit actually work.</strong></p>
-  <p class="empathy-close ja">うまくいかなかったのは、意志が弱かったからではありません。<strong>これらのツールは、人の注意や習慣がどのように働くかを踏まえて作られていなかっただけです。</strong></p>
+  <p class="empathy-close ja">うまくいかなかったのは、意志が弱かったからではありません。<strong>これらのツールは、人の注意や習慣がどのように働くかを<span class="nobr">踏まえて作られていなかっただけです。</span></strong></p>
 </div>
 <hr class="div">
 <div class="section-wide fade" id="how">
@@ -311,10 +314,10 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
       <p><strong>We are living inside the largest attention extraction experiment in human history. Most of us never consciously agreed to it.</strong></p>
     </div>
     <div class="manifesto-body ja">
-      <p>プラットフォームはあなたの行動を観察しています。反応時間を計測し、何があなたのスクロールを止め、何があなたを続けさせたかを記録します。あなたをアプリ内にもう1秒留めることだけを目的に、リアルタイムであなたのモデルを更新し続けています。</p>
+      <p>プラットフォームはあなたの行動を観察しています。反応時間を計測し、<br class="br-ja">何があなたのスクロールを止め、何があなたを続けさせたかを記録します。<br class="br-ja">あなたをアプリ内にもう1秒留めることだけを目的に、<br class="br-ja">リアルタイムであなたのモデルを更新し続けています。</p>
       <p>あなたは「ユーザー」ではありません。<strong>実験対象者です。</strong></p>
-      <p>落ち着きのなさ、退屈、不安——これらは副作用ではありません。<strong>製品の仕様です。</strong>あなたの注意の1秒1秒が、収益になっています。</p>
-      <p><strong>私たちは今、人類史上最大規模の注意収奪実験の中にいます。そのほとんどの人が、同意した覚えを持っていません。</strong></p>
+      <p>落ち着きのなさ、退屈、不安——これらは副作用ではありません。<strong><span class="nobr">製品の仕様です。</span></strong>あなたの注意の1秒1秒が、収益になっています。</p>
+      <p><strong>私たちは今、人類史上最大規模の注意収奪実験の中にいます。そのほとんどの人が、<span class="nobr">同意した覚えを持っていません。</span></strong></p>
     </div>
     <blockquote class="manifesto-quote en">"You are not weak.<br>You are outmatched by design.<br>Stoic changes the design."</blockquote>
     <blockquote class="manifesto-quote ja">「あなたが弱いのではありません。<br>設計によって圧倒されているだけです。<br>STOICはその設計を変えます。」</blockquote>
@@ -327,7 +330,7 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
     <p class="tag tag-blue en fade">Early Access</p>
     <p class="tag tag-blue ja fade">先行登録受付中</p>
     <h2 class="waitlist-h en fade">Join the waitlist.</h2>
-    <h2 class="waitlist-h ja fade">先行登録を受け付けています。</h2>
+    <h2 class="waitlist-h ja fade">先行登録を<span class="nobr">受け付けています。</span></h2>
     <p class="waitlist-sub en fade">No spam. One email when Stoic is ready.<br>Free to join — approximately $5–10 / month at launch.</p>
     <p class="waitlist-sub ja fade">メールは登録確認とリリース時のご連絡のみです。<br>事前登録は無料。リリース後は月額500〜1,000円程度を予定しています。</p>
     <div id="wl-wrap" class="fade">
@@ -385,8 +388,51 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
   </div>
 </footer>
 <script>
-function setLang(l){document.body.className='lang-'+l;document.getElementById('btn-en').classList.toggle('on',l==='en');document.getElementById('btn-ja').classList.toggle('on',l==='ja');try{localStorage.setItem('stoic-lang',l);}catch(e){}}
-(function(){try{const s=localStorage.getItem('stoic-lang');if(s){setLang(s);return;}}catch(e){}if(navigator.language&&navigator.language.startsWith('ja'))setLang('ja');})();
+
+function fixJaOrphans(){
+  if(!document.body.classList.contains('lang-ja'))return;
+  document.querySelectorAll('.ja').forEach(function(el){
+    if(el.dataset.orphanFixed)return;
+    if(getComputedStyle(el).display==='none')return;
+    var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
+    var lastTN=null,n;
+    while(n=tw.nextNode()){if(n.textContent.trim())lastTN=n;}
+    if(!lastTN||lastTN.textContent.trim().length<5)return;
+    var txt=lastTN.textContent;
+    var elRect=el.getBoundingClientRect();
+    if(!elRect.width)return;
+    var range=document.createRange();
+    range.setStart(lastTN,Math.max(0,txt.length-2));
+    range.setEnd(lastTN,txt.length);
+    var rects=Array.from(range.getClientRects());
+    if(!rects.length)return;
+    var lastY=rects[rects.length-1].top;
+    var lastW=rects[rects.length-1].width;
+    if(lastW>elRect.width*0.38)return;
+    var lo=0,hi=txt.length-1;
+    while(lo<hi-1){
+      var m=Math.floor((lo+hi)/2);
+      range.setStart(lastTN,m);range.setEnd(lastTN,m+1);
+      var mr=Array.from(range.getClientRects());
+      if(!mr.length){lo=m;continue;}
+      if(Math.abs(mr[0].top-lastY)<4)hi=m;else lo=m;
+    }
+    var breakAt=hi;
+    if(breakAt<2||breakAt>=txt.length-1)return;
+    var after=txt.slice(breakAt);
+    if(after.length<2||after.length>18)return;
+    var sp=document.createElement('span');
+    sp.style.whiteSpace='nowrap';
+    sp.textContent=after;
+    lastTN.textContent=txt.slice(0,breakAt);
+    lastTN.parentNode.insertBefore(sp,lastTN.nextSibling);
+    el.dataset.orphanFixed='1';
+  });
+}
+function setLang(l){document.body.className='lang-'+l;document.getElementById('btn-en').classList.toggle('on',l==='en');document.getElementById('btn-ja').classList.toggle('on',l==='ja');
+  if(l==='ja')setTimeout(fixJaOrphans,80);try{localStorage.setItem('stoic-lang',l);}catch(e){}}
+(function(){try{const s=localStorage.getItem('stoic-lang');if(s){setLang(s);return;}}catch(e){}if(navigator.language&&navigator.language.startsWith('ja'))setLang('ja');
+setTimeout(fixJaOrphans,120);})();
 document.querySelectorAll('.hero .fade').forEach(el=>el.classList.add('visible'));
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.05});
 document.querySelectorAll('.fade:not(.visible)').forEach(el=>io.observe(el));
