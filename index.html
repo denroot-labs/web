@@ -357,9 +357,9 @@ footer { background: var(--gray-06); border-top: 0.5px solid var(--gray-12); pad
   <div class="contact">
     <p class="tag en">Questions?</p><p class="tag ja">お問い合わせ</p>
     <h2 class="h-title en">We'd like to hear from you.</h2>
-    <h2 class="h-title ja">ご質問があれば、お気軽にどうぞ。</h2>
+    <h2 class="h-title ja">ご質問があれば、<span class="nobr">お気軽にどうぞ。</span></h2>
     <p class="body-copy en center">Reach out and we'll get back to you as soon as possible.</p>
-    <p class="body-copy ja center">お問い合わせいただければ、できる限り迅速にご返答いたします。</p>
+    <p class="body-copy ja center">お問い合わせいただければ、できる限り迅速にご<span class="nobr">返答いたします。</span></p>
     <form id="q-form" action="https://formsubmit.co/dolphinstark@protonmail.com" method="POST" style="margin-top:44px;text-align:left;">
       <input type="hidden" name="_subject" value="STOIC — お問い合わせ">
       <input type="hidden" name="_captcha" value="false">
@@ -435,6 +435,8 @@ function setLang(l){document.body.className='lang-'+l;document.getElementById('b
 setTimeout(fixJaOrphans,120);})();
 document.querySelectorAll('.hero .fade').forEach(el=>el.classList.add('visible'));
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.05});
+if(window.IntersectionObserver){var jaObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)fixJaOrphans();});},{threshold:0.1});document.querySelectorAll('.ja').forEach(function(el){jaObs.observe(el);});}
+
 document.querySelectorAll('.fade:not(.visible)').forEach(el=>io.observe(el));
 document.getElementById('wl-form').addEventListener('submit',async function(e){e.preventDefault();const btn=document.getElementById('wl-btn');btn.disabled=true;try{const r=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});if(r.ok){document.getElementById('wl-wrap').style.display='none';document.getElementById('wl-done').style.display='block';}else throw 0;}catch{btn.disabled=false;alert('Something went wrong. Please try again.');}});
 document.getElementById('q-form').addEventListener('submit',async function(e){e.preventDefault();const btn=this.querySelector('.cf-submit');btn.disabled=true;try{const r=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});if(r.ok){this.style.display='none';document.getElementById('q-done').style.display='block';}else throw 0;}catch{btn.disabled=false;alert('Something went wrong. Please try again.');}});
