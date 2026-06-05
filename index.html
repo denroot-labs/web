@@ -517,8 +517,18 @@ document.querySelectorAll('.fade:not(.visible)').forEach(el=>io.observe(el));
 function showSuccessModal(t){
   const ja=document.body.classList.contains('lang-ja');
   const m=document.getElementById('su-modal');
-  const c=ja?{title:t==='wl'?'登録が完了しました':'送信が完了しました',body:t==='wl'?'ローンチ時に最初にご連絡いたします。楽しみにお待ちください。':'内容を確認後、できる限り迅速にご返答いたします。',close:'閉じる'}:{title:t==='wl'?"You're on the list.":"Message received.",body:t==='wl'?"We'll reach out the moment Stoic launches. Stay tuned.":"We'll get back to you as soon as possible.",close:'Close'};
-  m.innerHTML='<div style="background:#fff;border-radius:24px;padding:56px 44px;max-width:400px;width:90%;text-align:center;animation:su-slide 0.45s cubic-bezier(0.4,0,0.2,1)"><svg width="76" height="76" viewBox="0 0 76 76" style="margin-bottom:24px"><circle cx="38" cy="38" r="36" fill="none" stroke="#1d1d1f" stroke-width="2" stroke-dasharray="226.2" stroke-dashoffset="226.2" style="animation:su-circle 0.7s cubic-bezier(0.4,0,0.2,1) forwards"/><path d="M22 39l13 13 21-23" fill="none" stroke="#1d1d1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="54" stroke-dashoffset="54" style="animation:su-check 0.4s ease 0.8s forwards"/></svg><p style="font-size:22px;font-weight:600;letter-spacing:-0.022em;color:#1d1d1f;margin:0 0 12px">'+c.title+'</p><p style="font-size:15px;font-weight:300;color:#48484a;line-height:1.75;margin:0 0 36px">'+c.body+'</p><button onclick="document.getElementById(\'su-modal\').style.display=\'none\'" style="padding:13px 36px;background:#1d1d1f;color:#fff;border:none;border-radius:980px;font-size:14px;font-weight:400;font-family:inherit;cursor:pointer;letter-spacing:-0.01em">'+c.close+'</button></div>';
+  const c=ja?{
+    title:t==='wl'?'登録が完了しました':'送信が完了しました',
+    body:t==='wl'?'ローンチ時に最初にご連絡いたします。楽しみにお待ちください。':'内容を確認後、できる限り迅速にご返答いたします。',
+    note:t==='wl'?'確認メールをお送りしました。届かない場合は、迷惑メールフォルダをご確認の上、再度ご登録をお願いいたします。':'',
+    close:'閉じる'
+  }:{
+    title:t==='wl'?"You're on the list.":"Message received.",
+    body:t==='wl'?"We'll reach out the moment Stoic launches. Stay tuned.":"We'll get back to you as soon as possible.",
+    note:t==='wl'?"A confirmation email is heading your way. If it doesn't arrive, please check your spam folder or sign up again.":'',
+    close:'Close'
+  };
+  m.innerHTML='<div style="background:#fff;border-radius:24px;padding:56px 44px;max-width:400px;width:90%;text-align:center;animation:su-slide 0.45s cubic-bezier(0.4,0,0.2,1)"><svg width="76" height="76" viewBox="0 0 76 76" style="margin-bottom:24px"><circle cx="38" cy="38" r="36" fill="none" stroke="#1d1d1f" stroke-width="2" stroke-dasharray="226.2" stroke-dashoffset="226.2" style="animation:su-circle 0.7s cubic-bezier(0.4,0,0.2,1) forwards"/><path d="M22 39l13 13 21-23" fill="none" stroke="#1d1d1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="54" stroke-dashoffset="54" style="animation:su-check 0.4s ease 0.8s forwards"/></svg><p style="font-size:22px;font-weight:600;letter-spacing:-0.022em;color:#1d1d1f;margin:0 0 12px">'+c.title+'</p><p style="font-size:15px;font-weight:300;color:#48484a;line-height:1.75;margin:0 0 '+(c.note?'16px':'36px')+'">'+c.body+'</p>'+(c.note?'<p style="font-size:12px;font-weight:300;color:#9ca3af;line-height:1.65;margin:0 0 28px">'+c.note+'</p>':'')+'<button onclick="document.getElementById(\'su-modal\').style.display=\'none\'" style="padding:13px 36px;background:#1d1d1f;color:#fff;border:none;border-radius:980px;font-size:14px;font-weight:400;font-family:inherit;cursor:pointer;letter-spacing:-0.01em">'+c.close+'</button></div>';
   m.style.display='flex';
   m.onclick=e=>{if(e.target===m)m.style.display='none';};
 }
