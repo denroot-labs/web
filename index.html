@@ -427,13 +427,13 @@ footer { background: var(--white); border-top: 0.5px solid var(--gray-12); paddi
     <p class="waitlist-sub en fade">No spam. One email when Stoic is ready.<br>Free to join — approximately $5–10 / month at launch.</p>
     <p class="waitlist-sub ja fade">メールは登録確認とリリース時のご連絡のみです。<br>事前登録は無料。リリース後は月額500〜1,000円程度を予定しています。</p>
     <div id="wl-wrap" class="fade">
-      <form id="wl-form" action="https://formsubmit.co/dolphinstark@protonmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Stoic — ウェイティングリスト新規登録">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="box">
-        <input type="hidden" id="wl-ar" name="_autoresponse" value="">
+      <form id="wl-form" action="https://github.us15.list-manage.com/subscribe/post?u=77a89dbcc6af46ab194568cfe&amp;id=37218caa6b" method="POST">
+        <!-- Mailchimp bot honeypot -->
+        <div style="position:absolute;left:-5000px;" aria-hidden="true">
+          <input type="text" name="b_77a89dbcc6af46ab194568cfe_37218caa6b" tabindex="-1" value="">
+        </div>
         <div class="wl-field">
-          <input class="wl-input" type="email" name="email" required placeholder="your@email.com" autocomplete="email">
+          <input class="wl-input" type="email" name="EMAIL" required placeholder="your@email.com" autocomplete="email">
           <button class="wl-btn" type="submit" id="wl-btn"><span class="en">Join Waitlist</span><span class="ja">登録する</span></button>
         </div>
         <p class="wl-note en">Your email is used only for this waitlist — never sold, shared, or used for any other purpose. You'll receive one notification when Stoic launches. No marketing. No newsletters. Unsubscribe instantly at any time.</p>
@@ -532,7 +532,35 @@ function showSuccessModal(t){
   m.style.display='flex';
   m.onclick=e=>{if(e.target===m)m.style.display='none';};
 }
-document.getElementById('wl-form').addEventListener('submit',async function(e){e.preventDefault();const btn=document.getElementById('wl-btn');btn.disabled=true;const ja=document.body.classList.contains('lang-ja');document.getElementById('wl-ar').value=ja?'<div style="font-family:-apple-system,\'Helvetica Neue\',sans-serif;max-width:560px;margin:0 auto;background:#fff;border:1px solid #e8e8ed;border-radius:12px;overflow:hidden"><div style="background:#1d1d1f;padding:28px 36px"><p style="font-size:11px;font-weight:600;letter-spacing:0.2em;color:#fff;margin:0;text-transform:uppercase">STOIC</p><p style="font-size:10px;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin:4px 0 0;text-transform:uppercase">by Dolphin Stark</p></div><div style="padding:40px 36px"><p style="font-size:22px;font-weight:300;color:#1d1d1f;letter-spacing:-0.02em;line-height:1.35;margin:0 0 16px">ご登録ありがとうございます。</p><p style="font-size:15px;font-weight:300;color:#48484a;line-height:1.8;margin:0 0 28px">Stoicのウェイティングリストへのご登録が完了しました。リリース時に最初にご連絡いたします。</p><div style="background:#f5f5f7;padding:18px 22px;border-radius:8px;margin-bottom:28px"><p style="font-size:12px;font-weight:500;color:#1d1d1f;margin:0 0 4px">リリース予定価格</p><p style="font-size:12px;font-weight:300;color:#6e6e73;margin:0">月額 500〜1,000円（ウェイティングリスト登録者へ優先案内）</p></div><hr style="border:none;border-top:0.5px solid #e8e8ed;margin:0 0 24px"><p style="font-size:11px;color:#6e6e73;line-height:1.65;margin:0">このメールは自動送信です。ご不明な点は<a href="/contact/" style="color:#0071e3;text-decoration:none">こちら</a>からご連絡ください。© 2026 Dolphin Stark.</p></div></div>':'<div style="font-family:-apple-system,\'Helvetica Neue\',sans-serif;max-width:560px;margin:0 auto;background:#fff;border:1px solid #e8e8ed;border-radius:12px;overflow:hidden"><div style="background:#1d1d1f;padding:28px 36px"><p style="font-size:11px;font-weight:600;letter-spacing:0.2em;color:#fff;margin:0;text-transform:uppercase">STOIC</p><p style="font-size:10px;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin:4px 0 0;text-transform:uppercase">by Dolphin Stark</p></div><div style="padding:40px 36px"><p style="font-size:22px;font-weight:300;color:#1d1d1f;letter-spacing:-0.02em;line-height:1.35;margin:0 0 16px">You\'re on the list.</p><p style="font-size:15px;font-weight:300;color:#48484a;line-height:1.8;margin:0 0 28px">Your spot on the Stoic waitlist is confirmed. We&#39;ll reach out as soon as we launch — you&#39;ll be among the first to know.</p><div style="background:#f5f5f7;padding:18px 22px;border-radius:8px;margin-bottom:28px"><p style="font-size:12px;font-weight:500;color:#1d1d1f;margin:0 0 4px">Estimated launch price</p><p style="font-size:12px;font-weight:300;color:#6e6e73;margin:0">$5–10 / month — waitlist members will be notified first.</p></div><hr style="border:none;border-top:0.5px solid #e8e8ed;margin:0 0 24px"><p style="font-size:11px;color:#6e6e73;line-height:1.65;margin:0">This is an automated confirmation. Questions? <a href="/contact/" style="color:#0071e3;text-decoration:none">Contact us here.</a> © 2026 Dolphin Stark.</p></div></div>';try{const r=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});if(r.ok){document.getElementById('wl-wrap').style.display='none';history.replaceState(null,'','/');showSuccessModal('wl');}else throw 0;}catch{btn.disabled=false;alert('Something went wrong. Please try again.');}});
+document.getElementById('wl-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('wl-btn');
+  btn.disabled = true; btn.style.opacity = '0.4';
+  var email = document.querySelector('#wl-form [name="EMAIL"]').value;
+  var cbName = '_mc' + Date.now();
+  window[cbName] = function(data) {
+    delete window[cbName];
+    var s = document.getElementById('_mc_jsonp');
+    if (s) s.parentNode.removeChild(s);
+    if (data.result === 'success' || (data.msg && data.msg.toLowerCase().indexOf('already') !== -1)) {
+      document.getElementById('wl-wrap').style.display = 'none';
+      document.getElementById('wl-done').style.display = 'block';
+    } else {
+      btn.disabled = false; btn.style.opacity = '1';
+      alert(data.msg ? data.msg.replace(/<[^>]+>/g,'') : 'Something went wrong. Please try again.');
+    }
+  };
+  var script = document.createElement('script');
+  script.id = '_mc_jsonp';
+  script.src = 'https://github.us15.list-manage.com/subscribe/post-json?u=77a89dbcc6af46ab194568cfe&id=37218caa6b&EMAIL=' + encodeURIComponent(email) + '&c=' + cbName;
+  script.onerror = function() {
+    delete window[cbName]; btn.disabled = false; btn.style.opacity = '1';
+    alert('Something went wrong. Please try again.');
+  };
+  document.head.appendChild(script);
+});
+
+
 
 // Anchor links: smooth scroll without adding hash to URL
 document.querySelectorAll('a[href^="#"]').forEach(function(link){
