@@ -72,7 +72,7 @@ async function handleWaitlist(request, env) {
     ctx_send(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: email,
-      subject: isJa ? 'ウェイトリスデ登録完了' : 'Waitlist Registration Confirmed',
+      subject: isJa ? 'ウェイトリスト登録完了' : 'Waitlist Registration Confirmed',
       text: isJa
         ? `ウェイトリストへのご登録ありがとうございます。\nサービス開始時にご連絡いたします。\n\nDolphin Stark`
         : `Thank you for joining our waitlist!\nWe'll notify you when the service launches.\n\nDolphin Stark`,
@@ -82,7 +82,7 @@ async function handleWaitlist(request, env) {
     ctx_send(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: 'dolphinstark@protonmail.com',
-      subject: '[ウェイトリスデ] 新規登録',
+      subject: '[ウェイトリスト] 新規登録',
       text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang || 'en'}`,
     }));
 
