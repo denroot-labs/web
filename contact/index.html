@@ -12,8 +12,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 img{display:block;max-width:100%}
 :root{--black:#000000;--white:#ffffff;--gray-06:#f5f5f7;--gray-12:#e8e8ed;--gray-40:#6e6e73;--gray-60:#48484a;--gray-86:#1d1d1f;--font:-apple-system,'Inter','Noto Sans JP',BlinkMacSystemFont,'Helvetica Neue',sans-serif;--max:980px;--max-wide:1200px;--ease:cubic-bezier(0.4,0,0.2,1);}
-html{scroll-behavior:smooth;}
-body{font-family:var(--font);color:var(--gray-86);background:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:var(--font);color:var(--gray-86);background:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .ja{display:none;text-wrap:pretty;}
 body.lang-en .ja{display:none!important;}
 body.lang-ja .en{display:none!important;}
@@ -140,11 +140,12 @@ document.getElementById('cf').addEventListener('submit',async function(e){
 e.preventDefault();
 var btn=document.getElementById('cf-btn');
 btn.disabled=true;
-var data={name:this.querySelector('[name="name"]').value,email:this.querySelector('[name="email"]').value,message:this.querySelector('[name="message"]').value};
+var form=this;
+var data={name:form.querySelector('[name="name"]').value,email:form.querySelector('[name="email"]').value,message:form.querySelector('[name="message"]').value};
 try{
 var r=await fetch('https://stoic-mailer.oikawa830-z.workers.dev/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
 var j=await r.json();
-if(r.ok&&j.success){this.style.display='none';showSuccessModal('cf');}
+if(r.ok&&j.success){form.style.display='none';if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();setTimeout(function(){showSuccessModal('cf');},100);}
 else throw 0;
 }catch(err){btn.disabled=false;alert('Something went wrong. Please try again.');}
 });
