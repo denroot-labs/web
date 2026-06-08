@@ -1123,32 +1123,7 @@ function resetWaitlist(){
   document.querySelector('#wl-form [name="EMAIL"]').value='';
   var b=document.getElementById('wl-btn');b.disabled=false;b.style.opacity='1';
 }
-document.getElementById('wl-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var btn = document.getElementById('wl-btn');
-  btn.disabled = true; btn.style.opacity = '0.4';
-  var email = document.querySelector('#wl-form [name="EMAIL"]').value;
-  var cbName = '_mc' + Date.now();
-  window[cbName] = function(data) {
-    delete window[cbName];
-    var s = document.getElementById('_mc_jsonp');
-    if (s) s.parentNode.removeChild(s);
-    if (data.result === 'success' || (data.msg && data.msg.toLowerCase().indexOf('already') !== -1)) {
-      document.getElementById('wl-modal').style.display = 'flex';
-    } else {
-      btn.disabled = false; btn.style.opacity = '1';
-      alert(data.msg ? data.msg.replace(/<[^>]+>/g,'') : 'Something went wrong. Please try again.');
-    }
-  };
-  var script = document.createElement('script');
-  script.id = '_mc_jsonp';
-  script.src = 'https://github.us15.list-manage.com/subscribe/post-json?u=77a89dbcc6af46ab194568cfe&id=68ef00bfd0&EMAIL=' + encodeURIComponent(email) + '&c=' + cbName;
-  script.onerror = function() {
-    delete window[cbName]; btn.disabled = false; btn.style.opacity = '1';
-    alert('Something went wrong. Please try again.');
-  };
-  document.head.appendChild(script);
-});
+
 
 
 
