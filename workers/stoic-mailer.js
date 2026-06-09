@@ -27,15 +27,15 @@ async function handleContact(request, env, ctx) {
     ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: 'dolphinstark@protonmail.com',
-      subject: `[ãåãåãã] ${name}ãã`,
-      text: `åå: ${name}\nã¡ã¼ã«: ${email}\n\nã¡ãã»ã¼ã¸:\n${message}`,
-    }).catch(e => console.error('Email failed:', e.message)));
+      subject: `[お問合せ] ${name}様`,
+      text: `名前: ${name}\nメール: ${email}\n\nメッセージ:\n${message}`,
+    }).catch(e => console.error('Admin email failed:', e.message)));
     ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: email,
-      subject: 'ãåãåãããåãä»ãã¾ãã / Thank you for your inquiry',
+      subject: 'お問合せを承りました / Thank you for your inquiry',
       html: contactConfirmHtml(name),
-    }).catch(e => console.error('Email failed:', e.message)));
+    }).catch(e => console.error('Confirm email failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
     return jsonResponse({ error: 'Internal server error' }, 500);
@@ -53,15 +53,15 @@ async function handleWaitlist(request, env, ctx) {
     ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: email,
-      subject: isJa ? 'ã¦ã§ã¤ããªã¹ãç»é²å®äº â STOIC' : 'Waitlist Registration Confirmed â STOIC',
+      subject: isJa ? 'ウェイトリスト登録完了 — STOIC' : 'Waitlist Registration Confirmed — STOIC',
       html: waitlistConfirmHtml(isJa),
-    }).catch(e => console.error('Email failed:', e.message)));
+    }).catch(e => console.error('Confirm email failed:', e.message)));
     ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: 'dolphinstark@protonmail.com',
-      subject: '[ã¦ã§ã¤ããªã¹ã] æ°è¦ç»é²',
-      text: `æ°è¦ã¦ã§ã¤ããªã¹ãç»é²\nã¡ã¼ã«: ${email}\nè¨èª: ${lang || 'en'}`,
-    }).catch(e => console.error('Email failed:', e.message)));
+      subject: '[ウェイトリスト] 新規登録',
+      text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang || 'en'}`,
+    }).catch(e => console.error('Admin email failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
     console.error(err);
@@ -70,11 +70,58 @@ async function handleWaitlist(request, env, ctx) {
 }
 
 function waitlistConfirmHtml(isJa) {
-  const title = isJa ? 'ã¦ã§ã¤ããªã¹ãç»é²å®äº' : 'Waitlist Registration Confirmed';
-  const tagline = isJa ? 'ç»é²å®äº' : 'Registration Confirmed';
-  const h1 = isJa ? 'ã¦ã§ã¤ããªã¹ãã¸ã®<br>ãç»é²ãããã¨ããããã¾ãã' : 'Welcome to<br>the Stoic waitlist.';
-  const p1 = isJa ? 'STOICã®ã¦ã§ã¤ããªã¹ãã¸ã®ãç»é²ãç¢ºèªãããã¾ããã' : 'Your spot on the Stoic waitlist is confirmed.';
-  const p2 = isJa ? 'ãµã¼ãã¹ã®ã­ã¼ã³ãæã«ããã®ã¡ã¼ã« ${email}"></td></tr></table></td></tr></table></body></html>`;
+  const title = isJa ? 'ウェイトリスト登録完了' : 'Waitlist Registration Confirmed';
+  const h1 = isJa ? 'ウェイトリストへの<br>ご登録ありがとうございます。' : 'Welcome to<br>the Stoic waitlist.';
+  const p1 = isJa ? 'STOICのウェイトリストへのご登録を確認いたしました。' : 'Your spot on the Stoic waitlist is confirmed.';
+  const p2 = isJa ? 'サービスのローンチ時に、このメールアドレスへご連絡いたします。' : "We'll reach out to this address the moment Stoic launches.";
+  const footer = isJa ? 'このメールはSTOICウェイトリスト登録のご確認として送信されました。' : 'This email was sent to confirm your Stoic waitlist registration.';
+  return `<!DOCTYPE html>
+<html lang="${isJa ? 'ja' : 'en'}">
+<head><meta charset="UTF-8"><title>${title}</title></head>
+<body style="margin:0;padding:0;background:#f5f5f7;font-family:-apple-system,'Inter','Helvetica Neue',sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f7;padding:48px 20px;">
+<tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="background:#060810;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center;">
+<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);">STOIC</p>
+</td></tr>
+<tr><td style="background:#ffffff;border-radius:0 0 12px 12px;padding:48px 40px 40px;">
+<h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${h1}</h1>
+<p style="margin:0 0 16px;font-size:15px;line-height:1.75;color:#48484a;">${p1}</p>
+<p style="margin:0 0 40px;font-size:15px;line-height:1.75;color:#48484a;">${p2}</p>
+<hr style="border:none;border-top:1px solid #e8e8ed;margin:0 0 24px;">
+<p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">${footer}</p>
+<p style="margin:8px 0 0;font-size:11px;color:#6e6e73;">© 2026 Dolphin Stark · dolphinstark.com</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body></html>`;
+}
+
+function contactConfirmHtml(name) {
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><title>お問合せを承りました</title></head>
+<body style="margin:0;padding:0;background:#f5f5f7;font-family:-apple-system,'Inter','Helvetica Neue',sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f7;padding:48px 20px;">
+<tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="background:#060810;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center;">
+<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);">STOIC</p>
+</td></tr>
+<tr><td style="background:#ffffff;border-radius:0 0 12px 12px;padding:48px 40px 40px;">
+<h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${name}様、<br>ご連絡ありがとうございます。</h1>
+<p style="margin:0 0 16px;font-size:15px;line-height:1.75;color:#48484a;">お問合せを承りました。内容を確認後、できるだけ早くご返答いたします。</p>
+<p style="margin:0 0 40px;font-size:15px;line-height:1.75;color:#6e6e73;">Thank you for reaching out. We'll get back to you as soon as possible.</p>
+<hr style="border:none;border-top:1px solid #e8e8ed;margin:0 0 24px;">
+<p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">このメールはSTOICお問合せフォームからの自動返信です。</p>
+<p style="margin:8px 0 0;font-size:11px;color:#6e6e73;">© 2026 Dolphin Stark · dolphinstark.com</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body></html>`;
 }
 
 async function sendEmail(apiKey, { from, to, subject, html, text }) {
