@@ -14,7 +14,7 @@ export default {
 
     // Temporary DB admin endpoints (will be removed after cleanup)
     if (url.pathname === '/dbadm-7r2k9') {
-      const rows = await env.DB.prepare('SELECT * FROM waitlist ORDER BY created_at DESC').all();
+      const rows = await env.DB.prepare('SELECT id, email, lang FROM waitlist ORDER BY id DESC').all();
       return new Response(JSON.stringify(rows.results), { headers: { 'Content-Type': 'application/json' } });
     }
     if (url.pathname === '/dbadm-7r2k9/delete') {
