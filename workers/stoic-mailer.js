@@ -12,80 +12,77 @@ export default {
 
     const url = new URL(request.url);
 
+    // Temporary DB admin endpoints (will be removed after cleanup)
+    if (url.pathname === '/dbadm-7r2k9') {
+      const rows = await env.DB.prepare('SELECT * FROM waitlist ORDER BY created_at DESC').all();
+      return new Response(JSON.stringify(rows.results), { headers: { 'Content-Type': 'application/json' } });
+    }
+    if (url.pathname === '/dbadm-7r2k9/delete') {
+      const email = url.searchParams.get('email');
+      if (email) {
+        await env.DB.prepare('DELETE FROM waitlist WHERE email = ?').bind(email).run();
+      } else {
+        await env.DB.prepare('DELETE FROM waitlist').run();
+      }
+      const rows = await env.DB.prepare('SELECT * FROM waitlist').all();
+      return new Response(JSON.stringify({ deleted: true, remaining: rows.results }), { headers: { 'Content-Type': 'application/json' } });
+    }
+
     if (request.method === 'POST') {
-      if (url.pathname === '/contact') return handleContact(request, env);
-      if (url.pathname === '/waitlist') return handleWaitlist(request, env);
+      if (url.pathname === '/contact') return handleContact(request, env, ctx);
+      if (url.pathname === '/waitlist') return handleWaitlist(request, env, ctx);
     }
 
     return new Response('Not found', { status: 404 });
   }
 };
 
-async function handleContact(request, env) {
+async function handleContact(request, env, ctx) {
   try {
     const { name, email, message } = await request.json();
     if (!name || !email || !message) {
       return jsonResponse({ error: 'Missing required fields' }, 400);
     }
-
-    // Notification to owner (fire and forget - don't block on failure)
-    ctx_send(sendEmail(env.RESEND_API_KEY, {
+    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: 'dolphinstark@protonmail.com',
       subject: `[お問い合わせ] ${name}より`,
       text: `名前: ${name}\nメール: ${email}\n\nメッセージ:\n${message}`,
-    }));
-
-    // Auto-reply to sender
-    ctx_send(sendEmail(env.RESEND_API_KEY, {
+    }).catch(e => console.error('Email failed:', e.message)));
+    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: email,
       subject: 'お問い合わせを受け付けました / Thank you for your inquiry',
-      text: `${name} 様\n\nお問い合わせありがとうございます。\n内容を確認の上�3営業日以内にご連絡いたします。\n\n---\n\nDear ${name},\n\nThank you for your inquiry. We will get back to you within 3 business days.\n\nBest regards,\nDolphin Stark`,
-    }));
-
+      text: `${name} 様\n\nお問い合わせありがとうございます。\n内容を確認の上、3営業日以内にご連絡いたします。\n\n---\n\nDear ${name},\n\nThank you for your inquiry. We will get back to you within 3 business days.\n\nBest regards,\nDolphin Stark`,
+    }).catch(e => console.error('Email failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
     return jsonResponse({ error: 'Internal server error' }, 500);
   }
 }
 
-async function handleWaitlist(request, env) {
+async function handleWaitlist(request, env, ctx) {
   try {
     const { email, lang } = await request.json();
     if (!email) return jsonResponse({ error: 'Email is required' }, 400);
-
-    // Check duplicate
-    const existing = await env.DB.prepare(
-      'SELECT id FROM waitlist WHERE email = ?'
-    ).bind(email).first();
-
+    const existing = await env.DB.prepare('SELECT id FROM waitlist WHERE email = ?').bind(email).first();
     if (existing) return jsonResponse({ error: 'already_registered' }, 409);
-
-    // Insert to D1
-    await env.DB.prepare(
-      'INSERT INTO waitlist (email, lang) VALUES (?, ?)'
-    ).bind(email, lang || 'en').run();
-
-    // Confirmation email to registrant
+    await env.DB.prepare('INSERT INTO waitlist (email, lang) VALUES (?, ?)').bind(email, lang || 'en').run();
     const isJa = lang === 'ja';
-    ctx_send(sendEmail(env.RESEND_API_KEY, {
+    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: email,
       subject: isJa ? 'ウェイトリスト登録完了' : 'Waitlist Registration Confirmed',
       text: isJa
         ? `ウェイトリストへのご登録ありがとうございます。\nサービス開始時にご連絡いたします。\n\nDolphin Stark`
         : `Thank you for joining our waitlist!\nWe'll notify you when the service launches.\n\nDolphin Stark`,
-    }));
-
-    // Notification to owner
-    ctx_send(sendEmail(env.RESEND_API_KEY, {
+    }).catch(e => console.error('Email failed:', e.message)));
+    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
       from: 'noreply@dolphinstark.com',
       to: 'dolphinstark@protonmail.com',
       subject: '[ウェイトリスト] 新規登録',
       text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang || 'en'}`,
-    }));
-
+    }).catch(e => console.error('Email failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
     console.error(err);
@@ -104,11 +101,6 @@ async function sendEmail(apiKey, { from, to, subject, text }) {
   });
   if (!res.ok) throw new Error(`Resend error: ${await res.text()}`);
   return res.json();
-}
-
-// Helper: fire-and-forget (errors silently caught)
-function ctx_send(promise) {
-  promise.catch(e => console.error('Email send failed:', e.message));
 }
 
 function jsonResponse(data, status = 200) {
