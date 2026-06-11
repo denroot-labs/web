@@ -24,3 +24,9 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: echo "$RESEND_API_KEY" | npx wrangler@3.90.0 secret put RESEND_API_KEY
+      - name: Set TURNSTILE_SECRET_KEY secret
+        working-directory: workers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+        run: echo "$TURNSTILE_SECRET_KEY" | npx wrangler@3.90.0 secret put TURNSTILE_SECRET_KEY

@@ -1,3 +1,4 @@
+// Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY) are re-applied on every deploy via .github/workflows/deploy-worker.yml
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
