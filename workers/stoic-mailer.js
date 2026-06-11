@@ -24,18 +24,21 @@ async function handleContact(request, env, ctx) {
     if (!name || !email || !message) {
       return jsonResponse({ error: 'Missing required fields' }, 400);
     }
-    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
-      from: 'noreply@dolphinstark.com',
-      to: 'dolphinstark@protonmail.com',
-      subject: `[お問合せ] ${name}様`,
-      text: `名前: ${name}\nメール: ${email}\n\nメッセージ:\n${message}`,
-    }).catch(e => console.error('Admin email failed:', e.message)));
-    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
-      from: 'noreply@dolphinstark.com',
-      to: email,
-      subject: 'お問合せを承りました / Thank you for your inquiry',
-      html: contactConfirmHtml(name),
-    }).catch(e => console.error('Confirm email failed:', e.message)));
+    ctx.waitUntil((async () => {
+      await sendEmailWithRetry(env.RESEND_API_KEY, {
+        from: 'noreply@dolphinstark.com',
+        to: 'dolphinstark@protonmail.com',
+        subject: `[お問合せ] ${name}様`,
+        text: `名前: ${name}\nメール: ${email}\n\nメッセージ:\n${message}`,
+      });
+      await sleep(600);
+      await sendEmailWithRetry(env.RESEND_API_KEY, {
+        from: 'noreply@dolphinstark.com',
+        to: email,
+        subject: 'お問合せを承りました / Thank you for your inquiry',
+        html: contactConfirmHtml(name),
+      });
+    })().catch(e => console.error('Contact emails failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
     return jsonResponse({ error: 'Internal server error' }, 500);
@@ -50,18 +53,21 @@ async function handleWaitlist(request, env, ctx) {
     if (existing) return jsonResponse({ error: 'already_registered' }, 409);
     await env.DB.prepare('INSERT INTO waitlist (email, lang) VALUES (?, ?)').bind(email, lang || 'en').run();
     const isJa = lang === 'ja';
-    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
-      from: 'noreply@dolphinstark.com',
-      to: email,
-      subject: isJa ? 'ウェイトリスト登録完了 — STOIC' : 'Waitlist Registration Confirmed — STOIC',
-      html: waitlistConfirmHtml(isJa),
-    }).catch(e => console.error('Confirm email failed:', e.message)));
-    ctx.waitUntil(sendEmail(env.RESEND_API_KEY, {
-      from: 'noreply@dolphinstark.com',
-      to: 'dolphinstark@protonmail.com',
-      subject: '[ウェイトリスト] 新規登録',
-      text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang || 'en'}`,
-    }).catch(e => console.error('Admin email failed:', e.message)));
+    ctx.waitUntil((async () => {
+      await sendEmailWithRetry(env.RESEND_API_KEY, {
+        from: 'noreply@dolphinstark.com',
+        to: email,
+        subject: isJa ? 'ウェイトリスト登録完了 — STOIC' : 'Waitlist Registration Confirmed — STOIC',
+        html: waitlistConfirmHtml(isJa),
+      });
+      await sleep(600);
+      await sendEmailWithRetry(env.RESEND_API_KEY, {
+        from: 'noreply@dolphinstark.com',
+        to: 'dolphinstark@protonmail.com',
+        subject: '[ウェイトリスト] 新規登録',
+        text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang || 'en'}`,
+      });
+    })().catch(e => console.error('Waitlist emails failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
     console.error(err);
@@ -138,6 +144,22 @@ async function sendEmail(apiKey, { from, to, subject, html, text }) {
   });
   if (!res.ok) throw new Error(`Resend error: ${await res.text()}`);
   return res.json();
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function sendEmailWithRetry(apiKey, message, tries = 3) {
+  for (let i = 0; i < tries; i++) {
+    try {
+      return await sendEmail(apiKey, message);
+    } catch (e) {
+      if (i === tries - 1) throw e;
+      // Resend free-tier rate limit is ~2 req/sec; back off and retry.
+      await sleep(800 * (i + 1));
+    }
+  }
 }
 
 function jsonResponse(data, status = 200) {
