@@ -20,8 +20,11 @@ export default {
 
 async function handleContact(request, env, ctx) {
   try {
-    const { name, email, message, lang, company } = await request.json();
+    const { name, email, message, lang, company, turnstileToken } = await request.json();
     if (company) return jsonResponse({ success: true });
+    if (!(await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, request))) {
+      return jsonResponse({ error: 'verification_failed' }, 403);
+    }
     if (!name || !email || !message) {
       return jsonResponse({ error: 'Missing required fields' }, 400);
     }
@@ -52,8 +55,11 @@ async function handleContact(request, env, ctx) {
 
 async function handleWaitlist(request, env, ctx) {
   try {
-    const { email, lang, company } = await request.json();
+    const { email, lang, company, turnstileToken } = await request.json();
     if (company) return jsonResponse({ success: true });
+    if (!(await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, request))) {
+      return jsonResponse({ error: 'verification_failed' }, 403);
+    }
     if (!isValidEmail(email)) return jsonResponse({ error: 'Email is required' }, 400);
     const existing = await env.DB.prepare('SELECT id FROM waitlist WHERE email = ?').bind(email).first();
     if (existing) return jsonResponse({ error: 'already_registered' }, 409);
@@ -158,6 +164,26 @@ async function sendEmail(apiKey, { from, to, subject, html, text }) {
   });
   if (!res.ok) throw new Error(`Resend error: ${await res.text()}`);
   return res.json();
+}
+
+async function verifyTurnstile(token, secret, request) {
+  if (!token || !secret) return false;
+  const ip = request.headers.get('CF-Connecting-IP') || '';
+  const form = new URLSearchParams();
+  form.append('secret', secret);
+  form.append('response', token);
+  if (ip) form.append('remoteip', ip);
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: form.toString(),
+    });
+    const data = await res.json();
+    return data.success === true;
+  } catch (e) {
+    return false;
+  }
 }
 
 function isValidEmail(e) {

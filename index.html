@@ -206,6 +206,7 @@ footer { padding: 20px; }
 .comp-tbl .td-stoic{color:var(--gray-86);font-weight:400;}
 @media(max-width:768px){.comp-tbl thead{display:none;}.comp-tbl tr{display:block;padding:20px 0;border-bottom:0.5px solid var(--gray-12);}.comp-tbl tr:last-child{border-bottom:none;}.comp-tbl td{display:block;padding:0;border-bottom:none;}.comp-tbl .td-moment{font-size:14px;font-weight:600;color:var(--gray-86);padding-bottom:14px;margin-bottom:14px;border-bottom:0.5px solid var(--gray-12);width:100%;}.comp-tbl .td-others{padding-top:0;}.comp-tbl .td-others::before{content:"Other apps";display:block;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-40);margin-bottom:6px;}.comp-tbl.ja .td-others::before{content:"他アプリ";}.comp-tbl .td-stoic{margin-top:14px;}.comp-tbl .td-stoic::before{content:"Stoic";display:block;font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--gray-86);margin-bottom:6px;}}
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="lang-en">
 <nav>
@@ -410,6 +411,7 @@ footer { padding: 20px; }
 <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 <button class="wl-btn" type="submit" id="wl-btn"><span class="en">Join Waitlist</span><span class="ja">登録する</span></button>
 </div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAADiyDaj54aX1749j" style="margin:14px 0 0"></div>
 <p class="wl-note en">Your email is used only for this waitlist — never sold, shared, or used for any other purpose. You'll receive one notification when Stoic launches. No marketing. No newsletters. Unsubscribe instantly at any time.</p>
 <p class="wl-note ja">ご登録のメールアドレスはこのウェイトリスト専用です。第三者への提供・販売は一切行いません。Stoicのリリース時に1通のみお知らせします。マーケティングや営業目的の連絡は一切ありません。配信停止はいつでも可能です。</p>
 </form>
@@ -520,11 +522,12 @@ var btn = document.getElementById('wl-btn');
 btn.disabled = true; btn.style.opacity = '0.4';
 var email = document.querySelector('#wl-form [name="EMAIL"]').value;
 var company = (document.querySelector('#wl-form [name="company"]')||{}).value || '';
+var token = (document.querySelector('#wl-form [name="cf-turnstile-response"]')||{}).value || '';
 var lang = document.body.classList.contains('lang-ja') ? 'ja' : 'en';
 fetch('https://stoic-mailer.oikawa830-z.workers.dev/waitlist', {
 method: 'POST',
 headers: { 'Content-Type': 'text/plain' },
-body: JSON.stringify({ email: email, lang: lang, company: company })
+body: JSON.stringify({ email: email, lang: lang, company: company, turnstileToken: token })
 }).then(function(r) { return r.json(); }).then(function(data) {
 if (data.success) {
 document.getElementById('wl-wrap').style.display = 'none';
@@ -540,7 +543,7 @@ alert(data.error || 'Something went wrong. Please try again.');
 }).catch(function() {
 btn.disabled = false; btn.style.opacity = '1';
 alert('Something went wrong. Please try again.');
-});
+}).finally(function(){ if(window.turnstile){try{turnstile.reset();}catch(e){}} });
 });
 document.querySelectorAll('a[href^="#"]').forEach(function(link){
 link.addEventListener('click',function(e){
