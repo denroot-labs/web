@@ -20,10 +20,11 @@ export default {
 
 async function handleContact(request, env, ctx) {
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, message, lang } = await request.json();
     if (!name || !email || !message) {
       return jsonResponse({ error: 'Missing required fields' }, 400);
     }
+    const isJa = lang === 'ja';
     ctx.waitUntil((async () => {
       await sendEmailWithRetry(env.RESEND_API_KEY, {
         from: 'noreply@dolphinstark.com',
@@ -35,8 +36,8 @@ async function handleContact(request, env, ctx) {
       await sendEmailWithRetry(env.RESEND_API_KEY, {
         from: 'noreply@dolphinstark.com',
         to: email,
-        subject: 'お問合せを承りました / Thank you for your inquiry',
-        html: contactConfirmHtml(name, message),
+        subject: isJa ? 'お問合せを承りました' : 'Thank you for your inquiry',
+        html: contactConfirmHtml(name, message, isJa),
       });
     })().catch(e => console.error('Contact emails failed:', e.message)));
     return jsonResponse({ success: true });
@@ -105,12 +106,15 @@ function waitlistConfirmHtml(isJa) {
 </body></html>`;
 }
 
-function contactConfirmHtml(name, message) {
+function contactConfirmHtml(name, message, isJa) {
   const safeName = escapeHtml(name);
   const safeMsg = escapeHtml(message);
+  const t = isJa
+    ? { title: 'お問合せを承りました', h1: `${safeName}様、<br>ご連絡ありがとうございます。`, body: 'お問合せを承りました。内容を確認後、できるだけ早くご返答いたします。', label: 'お問い合わせ内容', footer: 'このメールはSTOICお問合せフォームからの自動返信です。' }
+    : { title: 'Thank you for your inquiry', h1: `Thank you, ${safeName}.`, body: "We've received your inquiry and will get back to you as soon as possible.", label: 'Your message', footer: 'This is an automated confirmation from the STOIC contact form.' };
   return `<!DOCTYPE html>
-<html lang="ja">
-<head><meta charset="UTF-8"><title>お問合せを承りました</title></head>
+<html lang="${isJa ? 'ja' : 'en'}">
+<head><meta charset="UTF-8"><title>${t.title}</title></head>
 <body style="margin:0;padding:0;background:#f5f5f7;font-family:-apple-system,'Inter','Helvetica Neue',sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f7;padding:48px 20px;">
 <tr><td align="center">
@@ -119,15 +123,14 @@ function contactConfirmHtml(name, message) {
 <p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);">STOIC</p>
 </td></tr>
 <tr><td style="background:#ffffff;border-radius:0 0 12px 12px;padding:48px 40px 40px;">
-<h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${safeName}様、<br>ご連絡ありがとうございます。</h1>
-<p style="margin:0 0 16px;font-size:15px;line-height:1.75;color:#48484a;">お問合せを承りました。内容を確認後、できるだけ早くご返答いたします。</p>
-<p style="margin:0 0 28px;font-size:15px;line-height:1.75;color:#6e6e73;">Thank you for reaching out. We'll get back to you as soon as possible.</p>
+<h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${t.h1}</h1>
+<p style="margin:0 0 28px;font-size:15px;line-height:1.75;color:#48484a;">${t.body}</p>
 <div style="background:#f5f5f7;border-radius:10px;padding:20px 22px;margin:0 0 32px;">
-<p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6e6e73;">お問い合わせ内容 / Your message</p>
+<p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6e6e73;">${t.label}</p>
 <p style="margin:0;font-size:14px;line-height:1.75;color:#1d1d1f;white-space:pre-wrap;">${safeMsg}</p>
 </div>
 <hr style="border:none;border-top:1px solid #e8e8ed;margin:0 0 24px;">
-<p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">このメールはSTOICお問合せフォームからの自動返信です。</p>
+<p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">${t.footer}</p>
 <p style="margin:8px 0 0;font-size:11px;color:#6e6e73;">© 2026 Dolphin Stark · dolphinstark.com</p>
 </td></tr>
 </table>

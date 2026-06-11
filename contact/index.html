@@ -140,11 +140,12 @@ document.getElementById('cf').addEventListener('submit', async function(e) {
   var name = this.querySelector('[name="name"]').value;
   var email = this.querySelector('[name="email"]').value;
   var message = this.querySelector('[name="message"]').value;
+  var lang = document.body.classList.contains('lang-ja') ? 'ja' : 'en';
   try {
     var r = await fetch('https://stoic-mailer.oikawa830-z.workers.dev/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, message: message })
+      body: JSON.stringify({ name: name, email: email, message: message, lang: lang })
     });
     if (r.ok) {
       this.reset();
