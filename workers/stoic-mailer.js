@@ -76,7 +76,7 @@ async function handleWaitlist(request, env, ctx) {
       await sendEmailWithRetry(env.RESEND_API_KEY, {
         from: 'noreply@dolphinstark.com',
         to: email,
-        subject: isJa ? 'ウェイトリスト登録完了 — STOIC' : 'Waitlist Registration Confirmed — STOIC',
+        subject: isJa ? 'ウェイトリスト登録完了 — Stoic' : 'Waitlist Registration Confirmed — Stoic',
         html: waitlistConfirmHtml(isJa),
       });
       await sleep(600);
@@ -97,9 +97,9 @@ async function handleWaitlist(request, env, ctx) {
 function waitlistConfirmHtml(isJa) {
   const title = isJa ? 'ウェイトリスト登録完了' : 'Waitlist Registration Confirmed';
   const h1 = isJa ? 'ウェイトリストへの<br>ご登録ありがとうございます。' : 'Welcome to<br>the Stoic waitlist.';
-  const p1 = isJa ? 'STOICのウェイトリストへのご登録を確認いたしました。' : 'Your spot on the Stoic waitlist is confirmed.';
+  const p1 = isJa ? 'Stoicのウェイトリストへのご登録を確認いたしました。' : 'Your spot on the Stoic waitlist is confirmed.';
   const p2 = isJa ? 'サービスのローンチ時に、このメールアドレスへご連絡いたします。' : "We'll reach out to this address the moment Stoic launches.";
-  const footer = isJa ? 'このメールはSTOICウェイトリスト登録のご確認として送信されました。' : 'This email was sent to confirm your Stoic waitlist registration.';
+  const footer = isJa ? 'このメールはStoicウェイトリスト登録のご確認として送信されました。' : 'This email was sent to confirm your Stoic waitlist registration.';
   return `<!DOCTYPE html>
 <html lang="${isJa ? 'ja' : 'en'}">
 <head><meta charset="UTF-8"><title>${title}</title></head>
@@ -108,7 +108,7 @@ function waitlistConfirmHtml(isJa) {
 <tr><td align="center">
 <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
 <tr><td style="background:#060810;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center;">
-<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);">STOIC</p>
+<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.45);">Stoic</p>
 </td></tr>
 <tr><td style="background:#ffffff;border-radius:0 0 12px 12px;padding:48px 40px 40px;">
 <h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${h1}</h1>
@@ -128,8 +128,8 @@ function contactConfirmHtml(name, message, isJa) {
   const safeName = escapeHtml(name);
   const safeMsg = escapeHtml(message);
   const t = isJa
-    ? { title: 'お問合せを承りました', h1: `${safeName}様、<br>ご連絡ありがとうございます。`, body: 'お問合せを承りました。内容を確認後、できるだけ早くご返答いたします。', label: 'お問い合わせ内容', footer: 'このメールはSTOICお問合せフォームからの自動返信です。' }
-    : { title: 'Thank you for your inquiry', h1: `Thank you, ${safeName}.`, body: "We've received your inquiry and will get back to you as soon as possible.", label: 'Your message', footer: 'This is an automated confirmation from the STOIC contact form.' };
+    ? { title: 'お問合せを承りました', h1: `${safeName}様、<br>ご連絡ありがとうございます。`, body: 'お問合せを承りました。内容を確認後、できるだけ早くご返答いたします。', label: 'お問い合わせ内容', footer: 'このメールはStoicお問合せフォームからの自動返信です。' }
+    : { title: 'Thank you for your inquiry', h1: `Thank you, ${safeName}.`, body: "We've received your inquiry and will get back to you as soon as possible.", label: 'Your message', footer: 'This is an automated confirmation from the Stoic contact form.' };
   return `<!DOCTYPE html>
 <html lang="${isJa ? 'ja' : 'en'}">
 <head><meta charset="UTF-8"><title>${t.title}</title></head>
@@ -138,7 +138,7 @@ function contactConfirmHtml(name, message, isJa) {
 <tr><td align="center">
 <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
 <tr><td style="background:#060810;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center;">
-<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);">STOIC</p>
+<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.45);">Stoic</p>
 </td></tr>
 <tr><td style="background:#ffffff;border-radius:0 0 12px 12px;padding:48px 40px 40px;">
 <h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${t.h1}</h1>
