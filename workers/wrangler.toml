@@ -6,3 +6,5 @@ compatibility_date = "2026-06-08"
 binding = "DB"
 database_name = "denroot-waitlist"
 database_id = "1b5aee6b-18f1-4489-8251-cc37e601ba10"
+
+# redeploy 20260628-0528 (apply new RESEND_API_KEY)
