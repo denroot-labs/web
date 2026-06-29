@@ -248,7 +248,13 @@ footer { padding: 20px; }
 .dopa-body p+p{margin-top:18px;}
 @media(max-width:768px){.dopa-wrap{padding:70px 20px;}}
 </style>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+var tsId=null;
+function tsLang(){return document.body.classList.contains('lang-ja')?'ja':'en';}
+function tsRender(){if(!window.turnstile)return;var el=document.getElementById('ts-widget');if(!el){document.addEventListener('DOMContentLoaded',tsRender,{once:true});return;}if(tsId!==null){try{turnstile.remove(tsId);}catch(e){}tsId=null;}tsId=turnstile.render('#ts-widget',{sitekey:'0x4AAAAAADiyDaj54aX1749j',theme:'light',language:tsLang()});}
+window.onTSLoad=tsRender;
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTSLoad&render=explicit" async defer></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -488,7 +494,7 @@ footer { padding: 20px; }
 <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 <button class="wl-btn" type="submit" id="wl-btn"><span class="en">Join Waitlist</span><span class="ja">登録する</span></button>
 </div>
-<div style="display:flex;justify-content:center;margin:24px 0 8px;"><div class="cf-turnstile" data-sitekey="0x4AAAAAADiyDaj54aX1749j" data-theme="light"></div></div>
+<div style="display:flex;justify-content:center;margin:24px 0 8px;"><div id="ts-widget"></div></div>
 <p class="wl-note en">Your email is used only for this waitlist — never sold, shared, or used for any other purpose. You'll receive one notification when Denroot launches. No marketing. No newsletters. Unsubscribe instantly at any time.</p>
 <p class="wl-note ja">ご登録のメールアドレスはこのウェイトリスト専用です。第三者への提供・販売は一切行いません。Denrootのリリース時に1通のみお知らせします。マーケティングや営業目的の連絡は一切ありません。配信停止はいつでも可能です。</p>
 </form>
@@ -558,7 +564,7 @@ el.dataset.orphanFixed='1';
 }
 if(location.hash)history.replaceState(null,'','/');
 function setLang(l){document.body.className='lang-'+l;document.getElementById('btn-en').classList.toggle('on',l==='en');document.getElementById('btn-ja').classList.toggle('on',l==='ja');
-if(l==='ja')setTimeout(fixJaOrphans,80);try{localStorage.setItem('site-lang',l);}catch(e){}}
+if(l==='ja')setTimeout(fixJaOrphans,80);try{localStorage.setItem('site-lang',l);}catch(e){}tsRender();}
 (function(){try{const s=localStorage.getItem('site-lang');if(s){setLang(s);return;}}catch(e){}if(navigator.language&&navigator.language.startsWith('ja'))setLang('ja');
 setTimeout(fixJaOrphans,120);})();
 document.querySelectorAll('.hero .fade').forEach(el=>el.classList.add('visible'));
@@ -620,7 +626,7 @@ alert(data.error || 'Something went wrong. Please try again.');
 }).catch(function() {
 btn.disabled = false; btn.style.opacity = '1';
 alert('Something went wrong. Please try again.');
-}).finally(function(){ if(window.turnstile){try{turnstile.reset();}catch(e){}} });
+}).finally(function(){ if(window.turnstile){try{turnstile.reset(tsId);}catch(e){}} });
 });
 document.querySelectorAll('a[href^="#"]').forEach(function(link){
 link.addEventListener('click',function(e){

@@ -79,7 +79,13 @@ footer{background:var(--white);border-top:0.5px solid var(--gray-12);padding:20p
 @keyframes su-circle{to{stroke-dashoffset:0}}
 @keyframes su-check{to{stroke-dashoffset:0}}
 </style>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+var tsId=null;
+function tsLang(){return document.body.classList.contains('lang-ja')?'ja':'en';}
+function tsRender(){if(!window.turnstile)return;var el=document.getElementById('ts-widget');if(!el){document.addEventListener('DOMContentLoaded',tsRender,{once:true});return;}if(tsId!==null){try{turnstile.remove(tsId);}catch(e){}tsId=null;}tsId=turnstile.render('#ts-widget',{sitekey:'0x4AAAAAADiyDaj54aX1749j',theme:'light',language:tsLang()});}
+window.onTSLoad=tsRender;
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTSLoad&render=explicit" async defer></script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -114,7 +120,7 @@ footer{background:var(--white);border-top:0.5px solid var(--gray-12);padding:20p
       </div>
       <div class="cf-field"><textarea name="message" rows="6" data-en="Your message" data-ja="メッセージ" placeholder="Your message" required></textarea></div>
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <div style="display:flex;justify-content:center;margin:12px 0 20px;"><div class="cf-turnstile" data-sitekey="0x4AAAAAADiyDaj54aX1749j" data-theme="light"></div></div>
+      <div style="display:flex;justify-content:center;margin:12px 0 20px;"><div id="ts-widget"></div></div>
       <button class="cf-btn" type="submit" id="cf-btn">
         <span class="en">Send message</span>
         <span class="ja">送信する</span>
@@ -143,6 +149,7 @@ function setLang(l) {
     if (v !== undefined) el.placeholder = v;
   });
   try { localStorage.setItem('site-lang', l); } catch(e) {}
+  tsRender();
 }
 (function() {
   try { var s = localStorage.getItem('site-lang'); if (s) { setLang(s); return; } } catch(e) {}
@@ -188,7 +195,7 @@ document.getElementById('cf').addEventListener('submit', async function(e) {
     btn.disabled = false;
     alert('Something went wrong. Please try again.');
   } finally {
-    if (window.turnstile) { try { turnstile.reset(); } catch(e) {} }
+    if (window.turnstile) { try { turnstile.reset(tsId); } catch(e) {} }
   }
 });
 </script>
