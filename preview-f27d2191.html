@@ -648,9 +648,9 @@ if(target)target.scrollIntoView({behavior:'smooth'});
   if (mq && mq.matches) return;
   if (!('requestAnimationFrame' in window)) return;
 
-  var DIM_FLOOR = 0.42;   // opacity of fully receded sections
-  var MAX_BLUR  = 1.1;    // px blur of fully receded sections (0 = off)
-  var FALLOFF   = 0.62;   // spotlight tightness × viewport height
+  var DIM_FLOOR = 0.26;   // opacity of fully receded sections
+  var MAX_BLUR  = 2.2;    // px blur of fully receded sections (0 = off)
+  var FALLOFF   = 0.50;   // spotlight tightness × viewport height
 
   var sel = '.hero, .stat-band, .section, .section-wide, .dopa-wrap, .manifesto-wrap, .founder-wrap, .waitlist-wrap, footer';
   var els = [].slice.call(document.querySelectorAll(sel));
