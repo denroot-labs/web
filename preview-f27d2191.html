@@ -636,5 +636,50 @@ if(target)target.scrollIntoView({behavior:'smooth'});
 });
 </script>
 <div id="su-modal" style="display:none"></div>
+<script>
+/* ── Scroll focus ─────────────────────────────────────────────
+   The section nearest the viewport centre stays sharp; the others
+   recede (dim + a touch of blur) so only one "chapter" reads at a
+   time. Tune the three constants to taste:
+   DIM_FLOOR ↓ = stronger dim · MAX_BLUR ↑ = softer · FALLOFF ↓ = tighter
+──────────────────────────────────────────────────────────────*/
+(function(){
+  var mq = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (mq && mq.matches) return;
+  if (!('requestAnimationFrame' in window)) return;
+
+  var DIM_FLOOR = 0.42;   // opacity of fully receded sections
+  var MAX_BLUR  = 1.1;    // px blur of fully receded sections (0 = off)
+  var FALLOFF   = 0.62;   // spotlight tightness × viewport height
+
+  var sel = '.hero, .stat-band, .section, .section-wide, .dopa-wrap, .manifesto-wrap, .founder-wrap, .waitlist-wrap, footer';
+  var els = [].slice.call(document.querySelectorAll(sel));
+  if (!els.length) return;
+
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var vh = window.innerHeight, vc = vh / 2, fall = vh * FALLOFF;
+    for (var i = 0; i < els.length; i++){
+      var r = els[i].getBoundingClientRect(), d;
+      if (r.bottom < 0 || r.top > vh) d = fall;            // off-screen → floor
+      else if (r.top <= vc && r.bottom >= vc) d = 0;       // spans centre → sharp
+      else d = r.top > vc ? r.top - vc : vc - r.bottom;    // distance from centre
+      var f = 1 - d / fall; if (f < 0) f = 0; else if (f > 1) f = 1;
+      var op = DIM_FLOOR + (1 - DIM_FLOOR) * f;
+      var bl = MAX_BLUR * (1 - f);
+      els[i].style.filter = (op > 0.998 && bl < 0.05) ? '' :
+        'opacity(' + op.toFixed(3) + ')' + (bl > 0.05 ? ' blur(' + bl.toFixed(2) + 'px)' : '');
+    }
+  }
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('load', update);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', update);
+  else update();
+})();
+</script>
 </body>
 </html>
