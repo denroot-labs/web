@@ -254,6 +254,21 @@ footer { padding: 20px; }
 .ps-name{font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--gray-86);margin-bottom:10px;}
 .ps-desc{font-size:13px;font-weight:300;color:var(--gray-60);line-height:1.65;}
 @media(max-width:768px){.ps-grid{grid-template-columns:1fr;margin-top:40px;}.ps-card{display:flex;gap:16px;align-items:flex-start;text-align:left;padding:24px 20px;}.ps-ico{margin:3px 0 0;flex:none;}}
+.reality-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray-12);border-radius:18px;overflow:hidden;margin:52px 0 0;}
+.reality-card{background:var(--white);padding:40px 22px;text-align:center;}
+.reality-num{font-size:clamp(36px,4.4vw,52px);font-weight:200;letter-spacing:-0.04em;line-height:1;color:var(--gray-86);margin-bottom:14px;}
+.reality-num .u{font-size:0.4em;font-weight:400;letter-spacing:0;}
+.reality-label{font-size:13px;font-weight:300;color:var(--gray-60);line-height:1.6;max-width:190px;margin:0 auto;}
+.rchart{max-width:600px;margin:60px auto 0;}
+.rchart-t{font-size:13px;font-weight:500;color:var(--gray-86);margin:0 0 22px;}
+.rrow{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.rname{width:104px;flex:none;text-align:right;font-size:13px;color:var(--gray-60);}
+.rtrack{flex:1;height:28px;background:var(--gray-06);border-radius:7px;overflow:hidden;}
+.rbar{height:100%;background:#0071e3;border-radius:7px;display:flex;align-items:center;}
+.rbar span{font-size:12px;font-weight:500;color:#fff;padding-left:12px;}
+.rnote{font-size:12.5px;color:var(--gray-60);line-height:1.7;margin:20px 0 0;}
+.reality-src{font-size:11px;color:var(--gray-40);line-height:1.6;margin:34px 0 0;}
+@media(max-width:768px){.reality-grid{grid-template-columns:1fr 1fr;}.reality-card{padding:30px 16px;}.rname{width:76px;font-size:12px;}}
 </style>
 <script>
 var tsId=null;
@@ -303,6 +318,48 @@ window.onTSLoad=tsRender;
 <div class="stat-cell fade"><div class="stat-num">71<sup>d</sup></div><p class="stat-label en">Days lost each year to passive screen time</p><p class="stat-label ja">受動的なスクリーンタイムで失われる年間日数</p></div>
 <div class="stat-cell fade"><div class="stat-num">23<sup>min</sup></div><p class="stat-label en">Average time to refocus after an interruption</p><p class="stat-label ja">中断から作業に戻るまでの平均時間</p></div>
 <div class="stat-cell fade"><div class="stat-num">47<sup>s</sup></div><p class="stat-label en">Average attention span on a screen today</p><p class="stat-label ja">現在の画面上の平均集中持続時間</p></div>
+</div>
+</div>
+<div class="section-wide fade">
+<div style="max-width:var(--max);margin:0 auto;">
+<h2 class="h-display en">It isn't just you.<br>The same thing is happening everywhere.</h2>
+<h2 class="h-display ja">あなただけじゃない。<br>世界中で、同じことが起きています。</h2>
+<div style="height:18px"></div>
+<p class="body-copy en">About 70% of the world is now on social media. Overuse has stopped being a matter of personal willpower — countries are starting to legislate against it.</p>
+<p class="body-copy ja">SNSを使う人は、世界人口の約7割。「使いすぎ」はもう個人の意志の問題ではなく、各国が法律で動き始めるほどの現象になっています。</p>
+<div class="reality-grid">
+<div class="reality-card">
+<div class="reality-num">69.9<span class="u">%</span></div>
+<p class="reality-label en">of the world's population now uses social media</p>
+<p class="reality-label ja">世界人口のうち、SNSを使う人の割合</p>
+</div>
+<div class="reality-card">
+<div class="reality-num">2<span class="u">×</span></div>
+<p class="reality-label en">the risk of depression &amp; anxiety symptoms for 12–15s using it 3+ hrs a day</p>
+<p class="reality-label ja">1日3時間超使う12〜15歳の、うつ・不安の兆候リスク</p>
+</div>
+<div class="reality-card">
+<div class="reality-num en">1<span class="u"> in 4</span></div>
+<div class="reality-num ja">4<span class="u">人に1人</span></div>
+<p class="reality-label en">young people show a problematic pattern of use</p>
+<p class="reality-label ja">若者に見られる「問題のある使い方」</p>
+</div>
+<div class="reality-card">
+<div class="reality-num">16</div>
+<p class="reality-label en">the age Australia now bans social media below — a world first</p>
+<p class="reality-label ja">オーストラリアがSNS利用を禁じた年齢（16歳未満・世界初）</p>
+</div>
+</div>
+<div class="rchart">
+<p class="rchart-t en">Average time on social media, per day</p>
+<p class="rchart-t ja">1日あたりのSNS利用時間</p>
+<div class="rrow"><span class="rname en">Global avg</span><span class="rname ja">世界の平均</span><div class="rtrack"><div class="rbar" style="width:59%;"><span>2h 21m</span></div></div></div>
+<div class="rrow"><span class="rname en">US teens</span><span class="rname ja">米ティーン</span><div class="rtrack"><div class="rbar" style="width:88%;"><span>3h 30m</span></div></div></div>
+<p class="rnote en">Around 3 hours a day is where the risk of depression and anxiety symptoms roughly doubles for 12–15-year-olds. Even the global average adds up to about 36 days a year.</p>
+<p class="rnote ja">1日3時間あたりから、12〜15歳のうつ・不安の兆候リスクは約2倍とされます。世界平均の2時間21分でも、1年に換算すると約36日ぶんです。</p>
+</div>
+<p class="reality-src en">Sources: DataReportal Digital 2026 · U.S. Surgeon General Advisory (2023) · Pew Research 2024 · Sohn et al. meta-analysis · Australia eSafety Commissioner.</p>
+<p class="reality-src ja">出典：DataReportal Digital 2026／米・公衆衛生局長官 勧告（2023）／Pew Research 2024／Sohn ほかメタ分析／豪 eSafety Commissioner。</p>
 </div>
 </div>
 <div class="section fade" id="about">
