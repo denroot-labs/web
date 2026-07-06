@@ -220,7 +220,7 @@ footer { padding: 20px; }
 .comp-tbl{width:100%;border-collapse:collapse;}
 .comp-tbl thead th{padding:10px 16px;text-align:left;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-40);border-bottom:0.5px solid var(--gray-12);}
 .comp-tbl .th-app{color:var(--gray-86);border-bottom:1.5px solid var(--gray-86);text-transform:none;}
-.comp-tbl tbody td{padding:16px;vertical-align:top;font-size:13px;font-weight:300;line-height:1.7;color:var(--gray-60);border-bottom:0.5px solid var(--gray-12);word-break:auto-phrase;}
+.comp-tbl tbody td{padding:16px;vertical-align:top;font-size:13px;font-weight:300;line-height:1.7;color:var(--gray-60);border-bottom:0.5px solid var(--gray-12);word-break:auto-phrase;line-break:strict;overflow-wrap:break-word;}
 .comp-tbl tbody tr:last-child td{border-bottom:none;}
 .comp-tbl .td-moment{font-weight:500;color:var(--gray-86);width:22%;}
 .comp-tbl .td-others{color:var(--gray-40);font-style:italic;}
@@ -247,6 +247,13 @@ footer { padding: 20px; }
 .dopa-body{font-size:clamp(15px,1.8vw,18px);font-weight:300;color:var(--gray-60);line-height:1.95;max-width:700px;}
 .dopa-body p+p{margin-top:18px;}
 @media(max-width:768px){.dopa-wrap{padding:70px 20px;}}
+.ps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--gray-12);border-radius:18px;overflow:hidden;margin:56px auto 0;max-width:var(--max);}
+.ps-card{background:var(--white);padding:40px 22px;text-align:center;}
+.ps-ico{width:30px;height:30px;margin:0 auto 18px;color:#0071e3;}
+.ps-ico svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.ps-name{font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--gray-86);margin-bottom:10px;}
+.ps-desc{font-size:13px;font-weight:300;color:var(--gray-60);line-height:1.65;}
+@media(max-width:768px){.ps-grid{grid-template-columns:1fr;margin-top:40px;}.ps-card{display:flex;gap:16px;align-items:flex-start;text-align:left;padding:24px 20px;}.ps-ico{margin:3px 0 0;flex:none;}}
 </style>
 <script>
 var tsId=null;
@@ -311,6 +318,24 @@ window.onTSLoad=tsRender;
 <p class="body-copy ja" style="margin-top:16px;">SNSを開こうとした瞬間、denrootはあなたのパートナーとして寄り添います。何から手をつければいいか分からないときは、やるべきことを細分化して、最初の一歩を示します。向き合うのが辛いときは、その辛さを責めずに、短い集中から始められるようにします。それでも、どうしてもSNSを見たいときだけ、開く前に20分だけ待ちます。衝動の多くは、その20分のあいだに引いていきます。<strong>作業に戻るか、それでも開くか——決めるのは、あなたです。</strong></p>
 </div>
 <hr class="div">
+<div class="section-wide fade">
+<div style="max-width:var(--max);margin:0 auto;">
+<p class="tag tag-blue" style="text-transform:none;">Partner System</p>
+<h2 class="h-display en">What denroot actually does.</h2>
+<h2 class="h-display ja">denrootが、実際にすること。</h2>
+<div style="height:14px"></div>
+<p class="body-copy en">The moment you reach for the app you escape into, these five work together as one partner.</p>
+<p class="body-copy ja">対象アプリを開こうとした瞬間、これらがひとつのパートナーとして働きます。</p>
+<div class="ps-grid">
+<div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><path d="M8.5 3H15.5L21 8.5V15.5L15.5 21H8.5L3 15.5V8.5Z"/></svg></div><div class="ps-body"><h3 class="ps-name">Intercept</h3><p class="ps-desc en">Before you open the app you escape into, it stops you and asks what you're avoiding.</p><p class="ps-desc ja">対象アプリを開く前に止めて、何から逃げているかを問いかけます。</p></div></div>
+<div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><path d="M2 12C5 7 9 5.5 12 5.5C15 5.5 19 7 22 12C19 17 15 18.5 12 18.5C9 18.5 5 17 2 12Z"/><circle cx="12" cy="12" r="2.6"/></svg></div><div class="ps-body"><h3 class="ps-name">Reality Check</h3><p class="ps-desc en">It shows one sourced fact about how that app is built to hold your attention.</p><p class="ps-desc ja">その対象アプリの仕掛けを、出典つきの事実で1つ見せます。</p></div></div>
+<div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><path d="M6 21V4"/><path d="M6 4h11l-2.2 3.5L17 11H6"/></svg></div><div class="ps-body"><h3 class="ps-name">First Step</h3><p class="ps-desc en">It breaks what you were avoiding into one small step, done in a short focus block.</p><p class="ps-desc ja">避けていたことを、短い集中で始められる小さな一歩に割ります。</p></div></div>
+<div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div><div class="ps-body"><h3 class="ps-name">Cooldown</h3><p class="ps-desc en">If you still want in, the app opens only after a 20-minute wait.</p><p class="ps-desc ja">それでも開きたいときは、開く前に20分待ちます。</p></div></div>
+<div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><path d="M3 16l6-6 4 4 8-8"/><path d="M16 6h5v5"/></svg></div><div class="ps-body"><h3 class="ps-name">Momentum</h3><p class="ps-desc en">Finish the step and it returns the honest sense that you've moved ahead.</p><p class="ps-desc ja">タスクを終えるたび、前に進んだ手応えを返します。</p></div></div>
+</div>
+</div>
+</div>
+<hr class="div">
 <div class="section fade">
 <p class="tag en">You've already tried.</p><p class="tag ja">これまでにも試してきたはずです。</p>
 <h2 class="h-display en">None of it worked.<br>Here's why.</h2>
@@ -360,21 +385,21 @@ window.onTSLoad=tsRender;
 <table class="comp-tbl en">
 <thead><tr><th>The moment</th><th>Forest &middot; Opal &middot; One Sec</th><th class="th-app">denroot</th></tr></thead>
 <tbody>
-<tr><td class="td-moment">The moment you reach for a social app.</td><td class="td-others">Most focus apps block the app or show a generic nudge — a quote, a breath. But they don't surface why the urge is there, so it returns the moment the block lifts.</td><td class="td-app">Before granting access, denroot shows one specific, sourced fact about how that platform is engineered to capture attention. Research on "inoculation" suggests that awareness of a manipulation tends to reduce its pull — turning the pause into a moment of informed choice.</td></tr>
-<tr><td class="td-moment">When the task ahead feels undefined.</td><td class="td-others">Largely outside their scope. They add friction to distractions, but don't address the ambiguity — not knowing where to begin — that often drives you toward the phone in the first place.</td><td class="td-app">denroot recognizes what often sends you to your phone in this moment — not temptation, but the paralysis of not knowing where to begin. Task ambiguity is one of the main drivers of avoidance. Rather than just adding friction, denroot stands alongside you and surfaces the one step you can take right now. When the path forward is clear, the need to escape tends to dissolve on its own.</td></tr>
-<tr><td class="td-moment">When facing the task feels heavier than the scroll.</td><td class="td-others">Mostly out of scope. Slowing the distraction doesn't touch the feeling you're escaping — so the pull returns the moment the delay lifts.</td><td class="td-app">denroot uses restriction to create a pause, and in that pause it addresses the real driver — avoidance. It names what you're avoiding, without blame, and breaks it into a step lighter than it feels. Being harder on yourself deepens procrastination; being kinder eases it (psychologist Fuschia Sirois).</td></tr>
-<tr><td class="td-moment">When the impulse to check your phone strikes.</td><td class="td-others">Willpower alone — a finite resource, pitted against recommendation systems that, per TikTok's own internal documents reported by The New York Times, are optimized to maximize "time spent." The asymmetry is structural, not personal.</td><td class="td-app">denroot asks for a 20-minute wait before access is granted — far longer than the few-second pauses typical of friction apps. Research on urge-surfing finds that cravings, left unacted-upon, tend to rise and pass, often within about 15–20 minutes. Leave the screen and the timer resets. In most cases, the impulse has already passed before the wait ends.</td></tr>
-<tr><td class="td-moment">What the product is fundamentally built to do.</td><td class="td-others">Mostly enforce limits — treating the impulse as something to suppress. Useful, but it addresses the symptom more than the cause, and can keep you at war with your own behavior.</td><td class="td-app">Build genuine autonomy. Every mechanism — the awareness layer, the friction timer, the task structure — is designed to align your environment with the life you have chosen. Not to resist what you are trying to avoid, but to make what you actually want feel natural and attainable.</td></tr>
+<tr><td class="td-moment">The moment you reach for a social app.</td><td class="td-others">Most block it or show a generic nudge — a quote, a breath — without touching why the urge is there.</td><td class="td-app">Shows one sourced fact about how that app is built to hold you; noticing a trick tends to weaken it (inoculation research).</td></tr>
+<tr><td class="td-moment">When you don't know where to begin.</td><td class="td-others">Largely out of scope — they add friction, but never a way forward.</td><td class="td-app">Breaks the task down and surfaces the one small step you can take right now.</td></tr>
+<tr><td class="td-moment">When facing the task feels heavier than the scroll.</td><td class="td-others">Out of scope — slowing the distraction doesn't touch the feeling you're escaping.</td><td class="td-app">Names what you're avoiding, without blame, and shrinks it to a step lighter than it feels (Sirois: self-kindness lowers avoidance).</td></tr>
+<tr><td class="td-moment">When the impulse to open it strikes.</td><td class="td-others">Willpower alone, against systems tuned to maximize "time spent" (TikTok documents, reported by the NYT).</td><td class="td-app">Asks for a 20-minute wait first; an urge left alone tends to rise and pass within about 15–20 minutes (urge-surfing).</td></tr>
+<tr><td class="td-moment">What it's fundamentally built to do.</td><td class="td-others">Enforce limits — treating the impulse as something to suppress.</td><td class="td-app">Build autonomy — making what you actually want feel natural, instead of fighting what you avoid.</td></tr>
 </tbody>
 </table>
 <table class="comp-tbl ja">
 <thead><tr><th>その瞬間</th><th>Forest &middot; Opal &middot; One Sec</th><th class="th-app">denroot</th></tr></thead>
 <tbody>
-<tr><td class="td-moment">SNSアプリを開こうとした瞬間。</td><td class="td-others">多くは、アプリを遮断するか、汎用的な一言（名言や深呼吸）を出すだけ。なぜ衝動が湧くのかには触れないため、制限が解けた瞬間に戻ってきます。</td><td class="td-app">アクセスを許可する前に、そのプラットフォームがどう注意を引き留めるよう設計されているか、出典のある事実を一つ提示します。「操作に気づくとその効果が薄れる」という研究（inoculation）もあり、その一拍を“情報を得た上での選択”に変えます。</td></tr>
-<tr><td class="td-moment">タスクの着手点が不明確なとき。</td><td class="td-others">多くは設計の範囲外です。気を散らすアプリに摩擦を加えますが、そもそもスマホに手が伸びる原因——「何から始めればいいか分からない」曖昧さ——には触れません。</td><td class="td-app">「何から始めればいいかわからない」——その感覚を denroot は捉えます。タスクの曖昧さは、回避行動の主な要因の一つです。denrootはあなたの隣に立ち、今この瞬間に踏み出せる具体的な一歩を静かに示します。進む先が見えれば、逃げる理由は自然と薄れます。</td></tr>
-<tr><td class="td-moment">向き合うことが、スクロールより重く感じるとき。</td><td class="td-others">多くは範囲外です。気を散らすアプリを遅らせても、逃げている「感情」には触れません。だから遅延が解けた瞬間、引力が戻ります。</td><td class="td-app">denrootは制限で一拍を作り、その一拍で本当の原因——回避——に触れます。何から逃げているかを、責めずに名指し、感じるよりも軽い小さな一歩に分けます。自分に厳しいほど先延ばしは深まり、優しいほど和らぐ（心理学者フューシャ・シロワの研究）。</td></tr>
-<tr><td class="td-moment">スマートフォンを確認したいという衝動が生じたとき。</td><td class="td-others">対策は意志力頼み。しかし意志力は有限です。相手は、TikTok自身の内部資料（NYT報道）でも“滞在時間”の最大化に最適化されているとされる推薦システム。この非対称性は個人ではなく構造の問題です。</td><td class="td-app">アクセスの前に20分の待機を求めます——摩擦系アプリの数秒の一拍よりずっと長く。urge-surfing の研究では、行動に移さない衝動は高まってやがて引き、多くは15〜20分ほどで収まるとされます。画面を離れればリセット。多くの場合、待機が終わる前に衝動は過ぎ去っています。</td></tr>
-<tr><td class="td-moment">プロダクトが根本的に何のために設計されているか。</td><td class="td-others">多くは制限の強制が中心で、衝動を“抑え込む対象”として扱います。有用ですが、原因より症状への対処で、自分の行動と戦い続ける構造になりがちです。</td><td class="td-app">自律性の構築です。注意の透明化、待機タイマー、タスク構造——denrootのすべての仕組みは、あなたが選んだ人生に環境を揃えるために設計されています。避けたい衝動に抗うためではなく、本当に望む行動が自然にできる状態をつくるために。</td></tr>
+<tr><td class="td-moment">SNSアプリを開こうとした瞬間。</td><td class="td-others">多くは遮断するか、汎用的な一言（名言や深呼吸）を出すだけで、なぜ衝動が湧くかには触れない。</td><td class="td-app">その対象アプリの仕掛けを、出典つきの事実で1つ提示。手口に気づくと引力は弱まる（inoculation研究）。</td></tr>
+<tr><td class="td-moment">何から始めればいいか分からないとき。</td><td class="td-others">多くは範囲外。摩擦は足すが、進む道は示さない。</td><td class="td-app">やるべきことを分解し、今すぐ踏み出せる小さな一歩を1つ示す。</td></tr>
+<tr><td class="td-moment">向き合うことが、スクロールより重く感じるとき。</td><td class="td-others">範囲外。気を散らすアプリを遅らせても、逃げている感情には触れない。</td><td class="td-app">何から逃げているかを責めずに名指し、感じるより軽い一歩に割る（シロワ：自分に優しいほど回避は減る）。</td></tr>
+<tr><td class="td-moment">開きたい衝動が生じたとき。</td><td class="td-others">対策は意志力頼み。相手は“滞在時間”の最大化に最適化された推薦システム（TikTok内部資料・NYT報道）。</td><td class="td-app">開く前に20分の待機。行動に移さない衝動は、多くが15〜20分で引く（urge-surfing）。</td></tr>
+<tr><td class="td-moment">根本的に、何のために作られているか。</td><td class="td-others">制限の強制——衝動を抑え込む対象として扱う。</td><td class="td-app">自律の構築——避けたい衝動に抗うのでなく、本当に望む行動を自然にする。</td></tr>
 </tbody>
 </table>
 </div>
