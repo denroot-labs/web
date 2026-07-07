@@ -242,6 +242,11 @@ footer { padding: 20px; }
 .waitlist-launch{font-size:13px;font-weight:500;letter-spacing:0.04em;color:#0071e3;margin:0 0 20px;}
 
 .dopa-wrap{background:var(--white);padding:110px 24px;border-top:0.5px solid var(--gray-12);}
+.midcta-wrap{background:var(--gray-06);border-top:0.5px solid var(--gray-12);}
+.midcta{max-width:640px;margin:0 auto;padding:96px 24px;text-align:center;}
+.midcta-h{font-size:clamp(24px,3.4vw,36px);font-weight:600;letter-spacing:-0.03em;line-height:1.14;color:var(--gray-86);margin-bottom:14px;}
+.midcta-sub{font-size:15px;font-weight:300;color:var(--gray-40);line-height:1.7;margin-bottom:30px;}
+@media(max-width:768px){.midcta{padding:64px 20px;}}
 .dopa{max-width:var(--max);margin:0 auto;}
 .dopa .tag{margin-bottom:24px;}
 .dopa-lead{font-size:clamp(24px,3.6vw,40px);font-weight:300;letter-spacing:-0.02em;line-height:1.32;color:var(--gray-86);margin-bottom:28px;max-width:820px;}
@@ -466,9 +471,15 @@ window.onTSLoad=tsRender;
 </div>
 </div>
 </div>
-<div class="section fade" style="padding-top:8px;padding-bottom:96px;text-align:center;">
+<div class="midcta-wrap fade">
+<div class="midcta">
+<h2 class="midcta-h en">Ready to take your time back?</h2>
+<h2 class="midcta-h ja">時間を、自分の手に取り戻す。</h2>
+<p class="midcta-sub en">denroot launches in 2026. Be first in line.</p>
+<p class="midcta-sub ja">2026年内ローンチ。準備ができ次第、いちばんにお知らせします。</p>
 <a href="#waitlist" class="btn-primary en">Join the Waitlist</a>
 <a href="#waitlist" class="btn-primary ja">事前登録はこちら</a>
+</div>
 </div>
 <div class="dopa-wrap">
 <div class="dopa">
@@ -723,7 +734,7 @@ if(target)target.scrollIntoView({behavior:'smooth'});
   var MAX_BLUR  = 0;      // no blur — blur on text renders as an unreadable "mosaic"
   var FALLOFF   = 0.60;   // spotlight tightness × viewport height
 
-  var sel = '.hero, .stat-band, .section, .section-wide, .dopa-wrap, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
+  var sel = '.hero, .stat-band, .section, .section-wide, .dopa-wrap, .manifesto-wrap, .midcta-wrap, .founder-wrap, .waitlist-wrap';
   var els = [].slice.call(document.querySelectorAll(sel));
   if (!els.length) return;
 
