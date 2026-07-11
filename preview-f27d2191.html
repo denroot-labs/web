@@ -269,6 +269,40 @@ footer { padding: 20px; }
 .rnote{font-size:12.5px;color:var(--gray-60);line-height:1.7;margin:20px 0 0;}
 .reality-src{font-size:11px;color:var(--gray-40);line-height:1.6;margin:34px 0 0;}
 @media(max-width:768px){.reality-grid{grid-template-columns:1fr 1fr;}.reality-card{padding:30px 16px;}.rname{width:76px;font-size:12px;}}
+/* --- Product screens (Partner System mockups) --- */
+.dev-wrap{background:var(--black);color:var(--white);}
+.dev-inner{max-width:var(--max-wide);margin:0 auto;padding:140px 24px;}
+.dev-inner .tag{color:rgba(255,255,255,0.32);}
+.dev-h{font-size:clamp(30px,3.4vw,44px);font-weight:600;letter-spacing:-0.022em;line-height:1.24;color:#f5f5f0;}
+.dev-lead{font-size:16px;font-weight:300;line-height:1.85;color:rgba(255,255,255,0.55);margin-top:18px;max-width:660px;}
+.dev-rail{display:flex;gap:14px;margin-top:60px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.dev-rail::-webkit-scrollbar{display:none;}
+.dev-col{flex:0 0 auto;scroll-snap-align:center;text-align:center;}
+.dev-box{width:225px;height:449px;overflow:hidden;}
+.dev-scale{transform:scale(0.72);transform-origin:top left;}
+.dev-cap{margin-top:18px;font-size:13px;font-weight:600;color:#f5f5f0;letter-spacing:-0.01em;}
+.dev-cap2{margin:5px auto 0;font-size:11.5px;font-weight:300;color:rgba(255,255,255,0.4);line-height:1.55;max-width:200px;}
+.dev-note{margin-top:38px;font-size:11px;color:rgba(255,255,255,0.3);line-height:1.6;}
+/* phone chrome */
+.pbody{width:300px;background:#000;border-radius:46px;padding:6px;}
+.pscr{position:relative;height:610px;background:#0e0e12;border-radius:40px;overflow:hidden;display:flex;flex-direction:column;font-family:var(--font);text-align:center;}
+.pisl{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:86px;height:24px;background:#050507;border-radius:14px;}
+.ptop{padding:72px 28px 0;}
+.pmid{flex:1;display:flex;align-items:center;justify-content:center;}
+.pbot{padding:0 28px 40px;}
+.pctx{font-size:12.5px;color:#8e8d88;white-space:nowrap;}
+.pov{font-size:11px;letter-spacing:0.14em;color:#4a97f5;font-weight:500;margin-top:26px;}
+.phero{font-size:22px;line-height:1.5;letter-spacing:-0.012em;color:#f3f2ed;font-weight:600;margin-top:14px;word-break:keep-all;line-break:strict;}
+.psub{font-size:12.5px;line-height:1.9;color:#8f8e88;word-break:keep-all;line-break:strict;}
+.psrc{font-size:11px;line-height:1.6;color:#6d6c67;margin-top:10px;}
+.pbtn{width:100%;background:#0a84ff;color:#fff;border:none;border-radius:999px;padding:16px;font-size:14.5px;font-weight:600;font-family:inherit;margin-top:24px;}
+.pbtn2{width:100%;background:transparent;color:#cbcac4;border:0.5px solid rgba(255,255,255,0.18);border-radius:999px;padding:14px;font-size:13.5px;font-weight:500;font-family:inherit;margin-top:12px;}
+.pbtnA{width:100%;background:#ffb000;color:#231800;border:none;border-radius:999px;padding:16px;font-size:14px;font-weight:600;font-family:inherit;margin-top:22px;}
+.pquiet{margin-top:16px;font-size:12.5px;color:#8a8983;}
+.pring{position:relative;width:190px;height:190px;}
+.pring-l{position:absolute;top:59px;left:0;right:0;transform:translateY(-50%);font-size:13px;letter-spacing:2px;color:#8e8d88;}
+.pring-n{position:absolute;top:102px;left:0;right:0;transform:translateY(-50%);font-size:43px;font-weight:600;letter-spacing:-1px;color:#f3f2ed;line-height:1;}
+@media(max-width:768px){.dev-inner{padding:72px 20px;}.dev-rail{margin-top:40px;gap:12px;}}
 </style>
 <script>
 var tsId=null;
@@ -396,6 +430,175 @@ window.onTSLoad=tsRender;
 <div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div><div class="ps-body"><h3 class="ps-name">Cooldown</h3><p class="ps-desc en">If you still want in, the app opens only after a 20-minute wait.</p><p class="ps-desc ja">それでも開きたいときは、開く前に20分待ちます。</p></div></div>
 <div class="ps-card"><div class="ps-ico"><svg viewBox="0 0 24 24"><path d="M3 16l6-6 4 4 8-8"/><path d="M16 6h5v5"/></svg></div><div class="ps-body"><h3 class="ps-name">Momentum</h3><p class="ps-desc en">Finish the step and it returns the honest sense that you've moved ahead.</p><p class="ps-desc ja">タスクを終えるたび、前に進んだ手応えを返します。</p></div></div>
 </div>
+</div>
+</div>
+<div class="dev-wrap fade">
+<div class="dev-inner">
+<p class="tag en" style="text-transform:none;">The moment</p>
+<p class="tag ja" style="text-transform:none;">その瞬間</p>
+<h2 class="dev-h en">This is what that moment<br>actually looks like.</h2>
+<h2 class="dev-h ja">その瞬間、あなたが<br>実際に見る画面です。</h2>
+<p class="dev-lead en">No lecture. No wall you end up resenting. Five screens working as one partner — from the moment you reach for the app, to the moment you're back and moving again.</p>
+<p class="dev-lead ja">説教もしません。恨まれるだけの壁にもなりません。5つの画面がひとつのパートナーとして、あなたが逃げようとした瞬間から、戻って前に進みはじめるまでを支えます。</p>
+<div class="dev-rail">
+
+<div class="dev-col">
+<div class="dev-box"><div class="dev-scale"><div class="pbody"><div class="pscr">
+<div class="pisl"></div>
+<div class="ptop">
+<div class="pctx en">You're about to open Instagram</div>
+<div class="pctx ja">Instagram を開こうとしています</div>
+<div class="pov en">Hold on</div>
+<div class="pov ja">ちょっと待って</div>
+<div class="phero en">What were you<br>about to do?</div>
+<div class="phero ja">本当は、何を<br>するつもりでしたか？</div>
+<div class="psub en" style="margin-top:18px;">"Just a little" — that is the doorway to the usual loop, and that is the power of the algorithm. Don't forget the ache you felt.</div>
+<div class="psub ja" style="margin-top:18px;">「大丈夫、少しだけ」——それこそが、いつものループへの入り口であり、アルゴリズムの力です。あなたが感じたあの痛みを、忘れないでください。</div>
+</div>
+<div class="pmid"></div>
+<div class="pbot">
+<button class="pbtn en" style="margin-top:0;">Move forward</button>
+<button class="pbtn ja" style="margin-top:0;">また一つ前進する</button>
+<button class="pbtn2 en">Take a break</button>
+<button class="pbtn2 ja">少し休憩する</button>
+<div class="pquiet en" style="margin-top:18px;">Open Instagram</div>
+<div class="pquiet ja" style="margin-top:18px;">Instagram を開く</div>
+</div>
+</div></div></div></div>
+<div class="dev-cap">Intercept</div>
+<div class="dev-cap2 en">Stops you, and asks what you were actually about to do.</div>
+<div class="dev-cap2 ja">立ち止まらせ、本当は何をするつもりだったかを問う。</div>
+</div>
+
+<div class="dev-col">
+<div class="dev-box"><div class="dev-scale"><div class="pbody"><div class="pscr">
+<div class="pisl"></div>
+<div class="ptop">
+<div class="pctx en">One thing before you open it</div>
+<div class="pctx ja">開く前に、ひとつだけ</div>
+<div class="pov en">Fact</div>
+<div class="pov ja">事実</div>
+<div class="phero en">This scroll<br>has no end.</div>
+<div class="phero ja">このスクロールに、<br>終わりはありません。</div>
+</div>
+<div class="pmid">
+<svg width="152" height="98" viewBox="0 0 140 90" aria-hidden="true">
+<path d="M70,45 C70,31 57,24 46,24 C31,24 24,35 24,45 C24,55 31,66 46,66 C57,66 70,59 70,45 C70,31 83,24 94,24 C109,24 116,35 116,45 C116,55 109,66 94,66 C83,66 70,59 70,45 Z" fill="none" stroke="#44444e" stroke-width="1.4"/>
+<circle cx="70" cy="45" r="3.5" fill="#ffb000"/>
+</svg>
+</div>
+<div class="pbot">
+<div class="psub en">Because it is designed so that you cannot stop.</div>
+<div class="psub ja">あなたが止まれないよう、設計されているからです。</div>
+<div class="psrc en">Source: Aza Raskin, who invented infinite scroll — and regrets it.</div>
+<div class="psrc ja">出典：Aza Raskin（無限スクロールの発明者・本人が後悔）</div>
+<button class="pbtnA en">Open anyway</button>
+<button class="pbtnA ja">それでも開く</button>
+<div class="pquiet en">Actually, never mind</div>
+<div class="pquiet ja">やっぱり、やめておく</div>
+</div>
+</div></div></div></div>
+<div class="dev-cap">Reality Check</div>
+<div class="dev-cap2 en">One sourced fact about how that app is built to hold you.</div>
+<div class="dev-cap2 ja">そのアプリの仕掛けを、出典つきの事実で1つ。</div>
+</div>
+
+<div class="dev-col">
+<div class="dev-box"><div class="dev-scale"><div class="pbody"><div class="pscr">
+<div class="pisl"></div>
+<div class="ptop">
+<div class="pctx en">Your goal: finish the report</div>
+<div class="pctx ja">あなたの目標：レポートを仕上げる</div>
+<div class="pov en">Start here</div>
+<div class="pov ja">まず、ここから</div>
+<div class="phero en">Write the first<br>paragraph.</div>
+<div class="phero ja">最初の1段落を書く。</div>
+</div>
+<div class="pmid">
+<svg width="152" height="152" viewBox="0 0 164 164" aria-hidden="true">
+<circle cx="82" cy="82" r="78" fill="none" stroke="#1b1b23" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="51" fill="none" stroke="#27272f" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="24" fill="none" stroke="#4b4b55" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="5" fill="#34c759"/>
+</svg>
+</div>
+<div class="pbot">
+<div class="psub en">Five minutes is enough. It doesn't have to be perfect.<br>Let's end the days of running from deadlines.</div>
+<div class="psub ja">5分でいい、完璧じゃなくていい。<br>締切に追われる日々を、そろそろ終わりに。</div>
+<button class="pbtn en">Begin</button>
+<button class="pbtn ja">始める</button>
+</div>
+</div></div></div></div>
+<div class="dev-cap">First Step</div>
+<div class="dev-cap2 en">What you were avoiding, cut down to one small move.</div>
+<div class="dev-cap2 ja">避けていたことを、小さな一歩に割る。</div>
+</div>
+
+<div class="dev-col">
+<div class="dev-box"><div class="dev-scale"><div class="pbody"><div class="pscr">
+<div class="pisl"></div>
+<div class="ptop">
+<div class="pctx en">Until Instagram opens</div>
+<div class="pctx ja">Instagram を開くまで</div>
+</div>
+<div class="pmid">
+<div class="pring">
+<svg width="190" height="190" viewBox="0 0 200 200" aria-hidden="true">
+<circle cx="100" cy="100" r="88" fill="none" stroke="#2a2a31" stroke-width="5"/>
+<circle cx="100" cy="100" r="88" fill="none" stroke="#f2f1ec" stroke-width="5" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="55" transform="rotate(-90 100 100)"/>
+</svg>
+<div class="pring-l en">LEFT</div>
+<div class="pring-l ja">残り</div>
+<div class="pring-n">18:03</div>
+</div>
+</div>
+<div class="pbot">
+<div class="psub en">Most urges settle down<br>within about twenty minutes.</div>
+<div class="psub ja">衝動は、たいてい20分ほどで、<br>静まっていきます。</div>
+<button class="pbtn en">Back to work</button>
+<button class="pbtn ja">作業に戻る</button>
+</div>
+</div></div></div></div>
+<div class="dev-cap">Cooldown</div>
+<div class="dev-cap2 en">Still want in? It opens — after twenty minutes.</div>
+<div class="dev-cap2 ja">それでも開きたいなら、20分だけ待つ。</div>
+</div>
+
+<div class="dev-col">
+<div class="dev-box"><div class="dev-scale"><div class="pbody"><div class="pscr">
+<div class="pisl"></div>
+<div class="ptop">
+<div class="pctx en">You finished a 5-minute block</div>
+<div class="pctx ja">5分の集中を終えました</div>
+<div class="pov en">One step forward</div>
+<div class="pov ja">また一つ、前進</div>
+<div class="phero en">You moved forward.</div>
+<div class="phero ja">前に進みました。</div>
+</div>
+<div class="pmid">
+<svg width="152" height="152" viewBox="0 0 164 164" aria-hidden="true">
+<circle cx="82" cy="82" r="78" fill="none" stroke="#3a3a44" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="59" fill="none" stroke="#45454f" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="40" fill="none" stroke="#50505a" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="21" fill="none" stroke="#5c5c66" stroke-width="1.5"/>
+<circle cx="82" cy="82" r="6.5" fill="#34c759"/>
+</svg>
+</div>
+<div class="pbot">
+<div class="psub en">Big or small, progress like this builds real confidence — and change on the scale of a life. That is not an overstatement.</div>
+<div class="psub ja">大小に関係なく、この前進が、あなたに確かな自信と、人生レベルの変化をもたらします。決して大袈裟ではありません。</div>
+<button class="pbtn en">Done</button>
+<button class="pbtn ja">終わる</button>
+</div>
+</div></div></div></div>
+<div class="dev-cap">Momentum</div>
+<div class="dev-cap2 en">Finish the step, and it hands the progress back to you.</div>
+<div class="dev-cap2 ja">一歩を終えるたび、前進を本人に返す。</div>
+</div>
+
+</div>
+<p class="dev-note en">Screens from the product in development. The final design may differ.</p>
+<p class="dev-note ja">開発中の画面イメージです。実際の製品とは異なる場合があります。</p>
 </div>
 </div>
 <div class="section fade">
