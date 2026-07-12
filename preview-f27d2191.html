@@ -342,6 +342,13 @@ footer { padding: 20px; }
 .psrc{color:#8a8984;}                                    /* was #6d6c67 -> 3.66:1 */
 .cinematic-eyebrow{color:rgba(255,255,255,0.55);}
 .hero-scroll{color:rgba(255,255,255,0.58);}
+
+/* --- D-3 (2nd pass, measured) --- */
+.hero-scroll{opacity:1;}                                 /* container opacity 0.3 was crushing the hint */
+.hero-scroll span{color:rgba(255,255,255,0.62);}         /* was 0.45 x 0.3 opacity */
+.hero-scroll-line{background:rgba(255,255,255,0.32);}    /* decorative line stays quiet */
+.manifesto-close em{color:rgba(255,255,255,0.52);}       /* was 0.35 -> 3.00:1 (borderline fail) */
+.founder-eyebrow{color:#5f5a4e;}                          /* was #a8a294 on #f4f1ea -> 2.25:1 */
 </style>
 <script>
 var tsId=null;
