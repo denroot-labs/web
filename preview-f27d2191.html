@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script type="text/javascript">
-(function(c,l,a,r,i,t,y){
-c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "x6xejk7f35");
+<script>
+/* Backend endpoint — defined in ONE place so it can be re-pointed (→ api.denroot.com) with a single edit. */
+var DENROOT_API = 'https://denroot-mailer.oikawa830-z.workers.dev';
 </script>
 <title>denroot — Reclaim Your Attention</title>
 <meta name="description" content="denroot helps you design a life where your time and attention go exactly where you choose.">
@@ -355,6 +352,9 @@ footer { padding: 20px; }
 .waitlist-offer strong{color:var(--gray-86);font-weight:500;}
 .waitlist-sub{margin-bottom:36px;}
 @media(max-width:768px){.waitlist-offer{font-size:15px;}}
+
+/* the launch line is now a statement of standards, not a date badge */
+.waitlist-launch{color:var(--gray-86);font-weight:600;font-size:15px;letter-spacing:-0.01em;margin:0 0 14px;}
 </style>
 <script>
 var tsId=null;
@@ -831,10 +831,10 @@ window.onTSLoad=tsRender;
 <p class="tag tag-blue ja fade">事前登録 受付中</p>
 <h2 class="waitlist-h en fade">Join the waitlist.</h2>
 <h2 class="waitlist-h ja fade">事前登録を<span class="nobr">受け付けています。</span></h2>
-<p class="waitlist-launch en fade">Launching Q4 2026.</p>
-<p class="waitlist-launch ja fade">2026年 第4四半期リリース予定。</p>
-<p class="waitlist-offer en fade">Everyone on this list gets in first. When denroot opens, we invite you ahead of everyone else — in the order you signed up.</p>
-<p class="waitlist-offer ja fade">このリストに登録した人が、最初に使えます。denroot が開いたとき、<strong>登録した順に、誰よりも先にご招待します。</strong></p>
+<p class="waitlist-launch en fade">We're not promising a date yet.</p>
+<p class="waitlist-launch ja fade">日付は、まだ約束しません。</p>
+<p class="waitlist-offer en fade">denroot stands with you at your weakest moment. We won't put something half-finished there. When it is ready, everyone on this list gets in first — <strong>we invite you in the order you signed up.</strong></p>
+<p class="waitlist-offer ja fade">denroot は、あなたが一番弱くなる瞬間に立つアプリです。そこに、中途半端なものは置けません。準備が整い次第、このリストの人から使えます——<strong>登録した順に、ご招待します。</strong></p>
 <p class="waitlist-sub en fade">No spam. One email when denroot is ready.</p>
 <p class="waitlist-sub ja fade">メールは登録確認とリリース時のご連絡のみです。</p>
 <div id="wl-wrap" class="fade">
@@ -957,7 +957,7 @@ var email = document.querySelector('#wl-form [name="EMAIL"]').value;
 var company = (document.querySelector('#wl-form [name="company"]')||{}).value || '';
 var token = (document.querySelector('#wl-form [name="cf-turnstile-response"]')||{}).value || '';
 var lang = document.body.classList.contains('lang-ja') ? 'ja' : 'en';
-fetch('https://denroot-mailer.oikawa830-z.workers.dev/waitlist', {
+fetch(DENROOT_API + '/waitlist', {
 method: 'POST',
 headers: { 'Content-Type': 'text/plain' },
 body: JSON.stringify({ email: email, lang: lang, company: company, turnstileToken: token })
@@ -1030,6 +1030,63 @@ if(target)target.scrollIntoView({behavior:'smooth'});
   window.addEventListener('load', update);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', update);
   else update();
+})();
+</script>
+<script>
+/* ── Anonymous reach counter ───────────────────────────────────────────────
+   Measures ONLY how far you scrolled, so we can see which section of this
+   page loses people. No cookies. No localStorage. No visitor ID. No
+   fingerprinting. The server never stores your IP. One record per visit.
+─────────────────────────────────────────────────────────────────────────── */
+(function(){
+  var SEL   = '.hero, .stat-band, .section, .section-wide, .dev-wrap, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
+  var NAMES = ['hero','stats','world','against','whatitis','partner','screens','engine','tried','compare','truth','wasted','founder','waitlist'];
+  var els = [].slice.call(document.querySelectorAll(SEL));
+  if (els.length !== NAMES.length) return;   // structure changed → measure nothing rather than report a lie
+  if (!('IntersectionObserver' in window)) return;
+
+  var maxIdx = 0, cta = false, sent = false;
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var i = els.indexOf(en.target);
+      if (i > maxIdx) maxIdx = i;
+    });
+  }, { threshold: 0.35 });
+  els.forEach(function(el){ io.observe(el); });
+
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if (t && t.closest && t.closest('a[href="#waitlist"], .wl-btn, .nav-cta, .hero-cta')) cta = true;
+  }, true);
+
+  function send(){
+    if (sent) return; sent = true;
+    var ref = '';
+    try {
+      if (document.referrer) ref = new URL(document.referrer).hostname.slice(0, 60);
+      if (ref === location.hostname) ref = '';
+    } catch (e) {}
+    var body = JSON.stringify({
+      section: NAMES[maxIdx],
+      lang:    document.body.classList.contains('lang-ja') ? 'ja' : 'en',
+      device:  (window.innerWidth <= 768) ? 'mobile' : 'desktop',
+      ref:     ref,
+      cta:     cta ? 1 : 0
+    });
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(DENROOT_API + '/event', new Blob([body], { type: 'text/plain' }));
+      } else {
+        fetch(DENROOT_API + '/event', { method:'POST', headers:{'Content-Type':'text/plain'}, body: body, keepalive: true });
+      }
+    } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') send();
+  });
+  window.addEventListener('pagehide', send);
 })();
 </script>
 </body>

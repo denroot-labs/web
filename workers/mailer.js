@@ -14,6 +14,7 @@ export default {
     if (request.method === 'POST') {
       if (url.pathname === '/contact') return handleContact(request, env, ctx);
       if (url.pathname === '/waitlist') return handleWaitlist(request, env, ctx);
+      if (url.pathname === '/event') return handleEvent(request, env, ctx);
     }
     return new Response('Not found', { status: 404 });
   }
@@ -257,4 +258,62 @@ function jsonResponse(data, status = 200) {
     status,
     headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
   });
+}
+
+/* ── Anonymous reach counter ──────────────────────────────────────────────
+   Measures ONLY how far a visitor scrolled, so we can see which section of
+   the LP loses people.
+
+   Deliberately NOT collected / NOT stored:
+     · no cookies, no localStorage           · no visitor ID, no session ID
+     · no IP address (never written to D1)   · no fingerprinting
+   Exactly one row per visit, sent when the page is closed. Individual
+   visitors cannot be identified or re-identified from this data.
+────────────────────────────────────────────────────────────────────────── */
+const LP_SECTIONS = ['hero','stats','world','against','whatitis','partner','screens','engine','tried','compare','truth','wasted','founder','waitlist'];
+
+async function handleEvent(request, env, ctx) {
+  try {
+    // drop bots — they would inflate every number
+    const ua = request.headers.get('User-Agent') || '';
+    if (!ua || /bot|crawl|spider|slurp|headless|lighthouse|preview|monitor|curl|wget|python|axios|node-fetch/i.test(ua)) {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+    // only accept beacons that came from our own pages
+    const origin = request.headers.get('Origin') || '';
+    if (!/^https:\/\/(www\.)?denroot\.com$/.test(origin)) {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+    const b = await request.json();
+    const section = LP_SECTIONS.includes(b && b.section) ? b.section : null;
+    if (!section) return new Response(null, { status: 204, headers: CORS_HEADERS });
+
+    const depth  = LP_SECTIONS.indexOf(section);
+    const lang   = b.lang === 'ja' ? 'ja' : 'en';
+    const device = b.device === 'mobile' ? 'mobile' : 'desktop';
+    const ref    = typeof b.ref === 'string' ? b.ref.replace(/[^a-zA-Z0-9.\-]/g, '').slice(0, 60) : '';
+    const cta    = b.cta ? 1 : 0;
+    const now    = Math.floor(Date.now() / 1000);
+
+    ctx.waitUntil(writeEvent(env, { section, depth, lang, device, ref, cta, now }));
+  } catch (e) { /* never let measurement break the page */ }
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
+async function writeEvent(env, e) {
+  if (!env.DB) return;
+  const insert = () => env.DB
+    .prepare('INSERT INTO lp_events (section, depth, lang, device, ref, cta, created_at) VALUES (?,?,?,?,?,?,?)')
+    .bind(e.section, e.depth, e.lang, e.device, e.ref, e.cta, e.now)
+    .run();
+  try {
+    await insert();
+  } catch (err) {
+    try {
+      await env.DB.prepare(
+        'CREATE TABLE IF NOT EXISTS lp_events (id INTEGER PRIMARY KEY AUTOINCREMENT, section TEXT NOT NULL, depth INTEGER NOT NULL, lang TEXT, device TEXT, ref TEXT, cta INTEGER, created_at INTEGER NOT NULL)'
+      ).run();
+      await insert();
+    } catch (e2) { /* give up silently */ }
+  }
 }
