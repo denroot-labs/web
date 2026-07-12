@@ -349,6 +349,12 @@ footer { padding: 20px; }
 .hero-scroll-line{background:rgba(255,255,255,0.32);}    /* decorative line stays quiet */
 .manifesto-close em{color:rgba(255,255,255,0.52);}       /* was 0.35 -> 3.00:1 (borderline fail) */
 .founder-eyebrow{color:#5f5a4e;}                          /* was #a8a294 on #f4f1ea -> 2.25:1 */
+
+/* --- M-1 / C-3: the concrete reason to sign up --- */
+.waitlist-offer{font-size:16px;font-weight:300;line-height:1.75;color:var(--gray-60);max-width:520px;margin:0 auto 18px;}
+.waitlist-offer strong{color:var(--gray-86);font-weight:500;}
+.waitlist-sub{margin-bottom:36px;}
+@media(max-width:768px){.waitlist-offer{font-size:15px;}}
 </style>
 <script>
 var tsId=null;
@@ -825,8 +831,10 @@ window.onTSLoad=tsRender;
 <p class="tag tag-blue ja fade">事前登録 受付中</p>
 <h2 class="waitlist-h en fade">Join the waitlist.</h2>
 <h2 class="waitlist-h ja fade">事前登録を<span class="nobr">受け付けています。</span></h2>
-<p class="waitlist-launch en fade">Launching in 2026.</p>
-<p class="waitlist-launch ja fade">2026年内ローンチ予定。</p>
+<p class="waitlist-launch en fade">Launching Q4 2026.</p>
+<p class="waitlist-launch ja fade">2026年 第4四半期リリース予定。</p>
+<p class="waitlist-offer en fade">Everyone on this list gets in first. When denroot opens, we invite you ahead of everyone else — in the order you signed up.</p>
+<p class="waitlist-offer ja fade">このリストに登録した人が、最初に使えます。denroot が開いたとき、<strong>登録した順に、誰よりも先にご招待します。</strong></p>
 <p class="waitlist-sub en fade">No spam. One email when denroot is ready.</p>
 <p class="waitlist-sub ja fade">メールは登録確認とリリース時のご連絡のみです。</p>
 <div id="wl-wrap" class="fade">
