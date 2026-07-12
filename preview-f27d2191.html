@@ -198,8 +198,14 @@ footer { background: var(--white); border-top: 0.5px solid var(--gray-12); paddi
 footer { padding: 20px; }
 }
 @media(max-width: 480px) {
-.stat-band-in { grid-template-columns: 1fr; }
-.stat-cell + .stat-cell { border-top: 0.5px solid var(--gray-12); border-right: none; }
+.stat-band-in { grid-template-columns: 1fr 1fr; }
+.stat-cell { padding: 28px 14px; }
+.stat-cell + .stat-cell { border-top: none; }
+.stat-cell:nth-child(odd) { border-right: 0.5px solid var(--gray-12); }
+.stat-cell:nth-child(even) { border-right: none; }
+.stat-cell:nth-child(3), .stat-cell:nth-child(4) { border-top: 0.5px solid var(--gray-12); }
+.stat-num { font-size: 40px; }
+.stat-label { font-size: 12px; max-width: none; line-height: 1.5; }
 .hero-h1 { letter-spacing: -0.03em; }
 }
 #su-modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
@@ -240,13 +246,6 @@ footer { padding: 20px; }
 @media(max-width:768px){.founder-wrap{padding:68px 20px;}}
 .waitlist-launch{font-size:13px;font-weight:500;letter-spacing:0.04em;color:#0071e3;margin:0 0 20px;}
 
-.dopa-wrap{background:var(--white);padding:110px 24px;border-top:0.5px solid var(--gray-12);}
-.dopa{max-width:var(--max);margin:0 auto;}
-.dopa .tag{margin-bottom:24px;}
-.dopa-lead{font-size:clamp(24px,3.6vw,40px);font-weight:300;letter-spacing:-0.02em;line-height:1.32;color:var(--gray-86);margin-bottom:28px;max-width:820px;}
-.dopa-body{font-size:clamp(15px,1.8vw,18px);font-weight:300;color:var(--gray-60);line-height:1.95;max-width:700px;}
-.dopa-body p+p{margin-top:18px;}
-@media(max-width:768px){.dopa-wrap{padding:70px 20px;}}
 .ps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--gray-12);border-radius:18px;overflow:hidden;margin:56px auto 0;max-width:var(--max);}
 .ps-card{background:var(--white);padding:40px 22px;text-align:center;}
 .ps-ico{width:30px;height:30px;margin:0 auto 18px;color:#0071e3;}
@@ -411,7 +410,9 @@ window.onTSLoad=tsRender;
 <p class="rnote ja">1日3時間あたりから、12〜15歳のうつ・不安の兆候リスクは約2倍とされます。世界平均の2時間21分でも、1年に換算すると約36日分です。</p>
 </div>
 <p class="reality-src en">Sources: DataReportal Digital 2026 · U.S. Surgeon General Advisory (2023) · Pew Research 2024 · Sohn et al. meta-analysis · Australia eSafety Commissioner.</p>
+<p class="reality-src en">Note: these are surveys and estimates showing association, not proof of causation. denroot is not a medical device and is not intended to prevent, diagnose, or treat any condition. Individual results vary.</p>
 <p class="reality-src ja">出典：DataReportal Digital 2026／米・公衆衛生局長官 勧告（2023）／Pew Research 2024／Sohn ほかメタ分析／豪 eSafety Commissioner。</p>
+<p class="reality-src ja">※ これらは関連（相関）を示す調査・推計であり、因果を断定するものではありません。denroot は医療機器ではなく、疾患の予防・診断・治療を目的とするものではありません。効果には個人差があります。</p>
 </div>
 </div>
 <div class="section fade">
@@ -725,24 +726,6 @@ window.onTSLoad=tsRender;
 </div>
 </div>
 </div>
-<div class="dopa-wrap">
-<div class="dopa">
-<p class="tag en">Why you can't stop</p>
-<p class="tag ja">なぜ、やめられないのか</p>
-<p class="dopa-lead en">Smartphones and social media are engineered to keep you coming back — built on the same variable-reward design that makes gambling so hard to put down.</p>
-<p class="dopa-lead ja">スマホ、SNSは、あなたを何度も呼び戻すよう設計されています——ギャンブルを手放しにくくするのと同じ“変動報酬”の仕組みで。</p>
-<div class="dopa-body en">
-<p>The mechanism is dopamine. Every notification, like, and infinite scroll gives your reward system a small hit and pulls you back for "just one more." Rewards that arrive unpredictably grip the brain harder than reliable ones — the same variable-reward design as a slot machine.</p>
-<p>The pull is stronger than the payoff. Neuroscientist Kent Berridge showed that dopamine drives wanting, not liking. The urge to reach is louder than the pleasure of arriving — which is why it can feel good in the moment and hollow right after.</p>
-<p>And it's no accident: it's engineered to keep you there. Experts call it behavioral addiction — an engineered dependence on dopamine.</p>
-</div>
-<div class="dopa-body ja">
-<p>正体は”ドーパミン”。通知、いいね、無限スクロール。その一つひとつが脳の報酬系をわずかに刺激し、「もう一回」を引き出します。しかも、いつ届くか分からない報酬は、確実な報酬より強く脳を掴む——スロットマシンと同じ”変動報酬”の仕組みです。</p>
-<p>引っ張る力は、満足よりも強いのです。神経科学者ケント・バーリッジは、ドーパミンが生むのは「好き（満足）」ではなく「欲しがり」だと示しました。手を伸ばす衝動のほうが、たどり着いたときの快感よりも大きい。だから、その最中は気持ちよくても、すぐあとに虚しくなるのです。</p>
-<p>そしてこれは偶然ではなく、あなたを長く留めるために設計されています。専門家はこれを行動嗜癖と呼ぶ——いわば、設計された”ドーパミン依存”です。</p>
-</div>
-</div>
-</div>
 <div class="manifesto-wrap">
 <div class="manifesto">
 <p class="tag en">The uncomfortable truth</p><p class="tag ja">不都合な現実</p>
@@ -751,16 +734,18 @@ window.onTSLoad=tsRender;
 <div class="manifesto-body en">
 <p>The platform observes your actions. Measures your response time. Records what made you stop scrolling — and what made you keep going. It updates its model of you, in real time, with one goal: keep you inside for one more second.</p>
 <p>You are not a user. <strong>You are a subject.</strong></p>
+<p>The method is variable reward. Every notification, every like, every infinite scroll gives the reward system a small hit — and rewards that arrive unpredictably grip the brain harder than reliable ones. It is the same design that makes a slot machine hard to walk away from. Neuroscientist Kent Berridge showed that dopamine drives <em>wanting</em>, not <em>liking</em>: the urge to reach is louder than the pleasure of arriving. That is why it can feel good in the moment, and hollow right after.</p>
 <p>Your restlessness, your boredom, your anxiety — these are not side effects. They are <strong>product features</strong>. Every second of your attention is revenue.</p>
-<p><strong>We are living inside the largest attention extraction experiment in human history. Most of us never consciously agreed to it.</strong></p>
-<p>Behind these platforms is the combined intelligence of thousands of engineers and hundreds of billions of dollars in investment — Meta alone spends over $38 billion on R&amp;D every year. Algorithms built at this scale operate with a force that far exceeds individual willpower. The cruelest part: most people never realize they are being controlled. That is how complete the system has become.</p>
+<p><strong>This experiment is running right now, in the hands of roughly seven out of ten people on earth. Most of them never remember agreeing to it.</strong></p>
+<p>Behind these platforms are thousands of engineers and investment on a scale few companies can match — Meta alone spent about $43.9 billion on research and development in 2024 (Meta, 2024 Form 10-K). Algorithms built at that scale operate with a force that far exceeds individual willpower. The cruelest part: most people never realize they are being steered. That is how complete the system has become.</p>
 </div>
 <div class="manifesto-body ja">
 <p>プラットフォームはあなたの行動を観察しています。反応時間を計測し、何があなたのスクロールを止め、何があなたを続けさせたかを記録します。あなたをアプリ内にもう1秒留めることだけを目的に、リアルタイムであなたのモデルを更新し続けています。</p>
 <p>あなたは「ユーザー」ではありません。<strong>実験対象者です。</strong></p>
+<p>手口は「変動報酬」です。通知、いいね、無限スクロール——その一つひとつが脳の報酬系をわずかに刺激します。しかも、いつ届くか分からない報酬は、確実な報酬より強く脳を掴む。スロットマシンから離れられなくなるのと、同じ設計です。神経科学者ケント・バーリッジは、ドーパミンが生むのは「好き（満足）」ではなく「欲しがり」だと示しました。手を伸ばす衝動のほうが、たどり着いたときの快感より大きい。だから、その最中は気持ちよくても、すぐあとに虚しくなるのです。</p>
 <p>落ち着きのなさ、退屈、不安——これらは副作用ではありません。<strong><span class="nobr">製品の仕様です。</span></strong>あなたの注意の1秒1秒が、収益になっています。</p>
-<p><strong>私たちは今、人類史上最大規模の注意収奪実験の中にいます。そのほとんどの<span class="nobr">人が、同意した覚えを持っていません。</span></strong></p>
-<p>これらのシステムの背後には、何千人もの専任エンジニアと数兆円規模の投資があります——メタ社だけで、年間5兆円超の研究開発費を注ぎ込んでいます。この規模で磨かれたアルゴリズムは、個人の意志など遥かに超える力で行動を制御します。皮肉なことに、制御されていることにすら、私たちは気づくことができません。それが、このシステムの完成度です。</p>
+<p><strong>この実験は今この瞬間も、世界のおよそ10人に7人の手のなかで走っています。そのほとんどの<span class="nobr">人が、同意した覚えを持っていません。</span></strong></p>
+<p>これらのシステムの背後には、何千人ものエンジニアと、桁違いの投資があります——メタ社だけで、2024年の研究開発費は約439億ドル（Meta 2024年 Form 10-K）。この規模で磨かれたアルゴリズムは、個人の意志を遥かに超える力で行動を誘導します。皮肉なことに、誘導されていることにすら、私たちは気づけない。それが、このシステムの完成度です。</p>
 </div>
 <blockquote class="manifesto-quote en">"You are not weak.<br>You are outmatched by design.<br>denroot gives you the right way to face it."</blockquote>
 <blockquote class="manifesto-quote ja">「あなたが弱いのではありません。設計によって圧倒されているだけです。<br class="br-ja">denrootは、その設計への正しい向き合い方を提供します。」</blockquote>
@@ -982,7 +967,7 @@ if(target)target.scrollIntoView({behavior:'smooth'});
   var MAX_BLUR  = 0;      // no blur — blur on text renders as an unreadable "mosaic"
   var FALLOFF   = 0.60;   // spotlight tightness × viewport height
 
-  var sel = '.hero, .stat-band, .section, .section-wide, .dopa-wrap, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
+  var sel = '.hero, .stat-band, .section, .section-wide, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
   var els = [].slice.call(document.querySelectorAll(sel));
   if (!els.length) return;
 
