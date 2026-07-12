@@ -321,6 +321,18 @@ footer { padding: 20px; }
 .contact-link{padding-top:13px;padding-bottom:13px;}
 .scroll-hint,.scroll-hint .ja,.scroll-hint .en{font-size:11px;}
 }
+
+/* --- D-5: make the denroot column read as "ours" at a glance (desktop) --- */
+@media(min-width:769px){
+.comp-tbl .th-app,.comp-tbl .td-app{background:var(--gray-06);}
+.comp-tbl .th-app{border-bottom:1.5px solid var(--gray-86);}
+.comp-tbl tr:last-child .td-app{border-bottom-left-radius:10px;border-bottom-right-radius:10px;}
+.comp-tbl thead .th-app{border-top-left-radius:10px;border-top-right-radius:10px;}
+}
+/* --- D-6: the header is already sticky, so the persistent CTA lives there. Make it a real button instead of a faint text link. --- */
+.nav-cta{background:#0071e3;color:#fff;font-weight:500;padding:8px 16px;}
+.nav-cta:hover{opacity:1;background:#0063c9;}
+@media(max-width:768px){.nav-cta{padding:10px 14px;font-size:12.5px;}}
 </style>
 <script>
 var tsId=null;
@@ -343,8 +355,8 @@ window.onTSLoad=tsRender;
 <button class="lng-btn on" id="btn-en" onclick="setLang('en')">EN</button>
 <button class="lng-btn" id="btn-ja" onclick="setLang('ja')">JP</button>
 </div>
-<a href="#waitlist" class="nav-cta en">Join Waitlist</a>
-<a href="#waitlist" class="nav-cta ja">登録する</a>
+<a href="#waitlist" class="nav-cta en">Join the Waitlist</a>
+<a href="#waitlist" class="nav-cta ja">事前登録する</a>
 </div>
 </div>
 </nav>
@@ -358,7 +370,7 @@ window.onTSLoad=tsRender;
 <p class="hero-sub ja fade">denrootは、それを取り戻す手伝いをします。<br class="br-ja">意志の力にではなく、仕組みに頼って。</p>
 <div class="hero-actions fade">
 <a href="#waitlist" class="btn-primary en">Join the Waitlist</a>
-<a href="#waitlist" class="btn-primary ja">事前登録はこちら</a>
+<a href="#waitlist" class="btn-primary ja">事前登録する</a>
 <a href="#how" class="btn-secondary en">Learn more</a>
 <a href="#how" class="btn-secondary ja">詳細を見る</a>
 </div>
@@ -397,15 +409,15 @@ window.onTSLoad=tsRender;
 </div>
 <div class="reality-card">
 <div class="reality-num">16</div>
-<p class="reality-label en">the age Australia now bans social media below — a world first</p>
-<p class="reality-label ja">オーストラリアがSNS利用を禁じた年齢（16歳未満・世界初）</p>
+<p class="reality-label en">the age Australia now bans social media below — a world first, in force since Dec 2025</p>
+<p class="reality-label ja">オーストラリアがSNS利用を禁じた年齢（16歳未満・世界初／2025年12月施行）</p>
 </div>
 </div>
 <div class="rchart">
 <p class="rchart-t en">Average time on social media, per day</p>
 <p class="rchart-t ja">1日あたりのSNS利用時間</p>
-<div class="rrow"><span class="rname en">Global avg</span><span class="rname ja">世界の平均</span><div class="rtrack"><div class="rbar" style="width:59%;"><span>2h 21m</span></div></div></div>
-<div class="rrow"><span class="rname en">US teens</span><span class="rname ja">米ティーン</span><div class="rtrack"><div class="rbar" style="width:88%;"><span>3h 30m</span></div></div></div>
+<div class="rrow"><span class="rname en">Global avg</span><span class="rname ja">世界の平均</span><div class="rtrack"><div class="rbar" style="width:59%;"><span class="en">2h 21m</span><span class="ja">2時間21分</span></div></div></div>
+<div class="rrow"><span class="rname en">US teens</span><span class="rname ja">米ティーン</span><div class="rtrack"><div class="rbar" style="width:88%;"><span class="en">3h 30m</span><span class="ja">3時間30分</span></div></div></div>
 <p class="rnote en">Around 3 hours a day is where the risk of depression and anxiety symptoms roughly doubles for 12–15-year-olds. Even the global average adds up to about 36 days a year.</p>
 <p class="rnote ja">1日3時間あたりから、12〜15歳のうつ・不安の兆候リスクは約2倍とされます。世界平均の2時間21分でも、1年に換算すると約36日分です。</p>
 </div>
@@ -737,7 +749,7 @@ window.onTSLoad=tsRender;
 <p>The method is variable reward. Every notification, every like, every infinite scroll gives the reward system a small hit — and rewards that arrive unpredictably grip the brain harder than reliable ones. It is the same design that makes a slot machine hard to walk away from. Neuroscientist Kent Berridge showed that dopamine drives <em>wanting</em>, not <em>liking</em>: the urge to reach is louder than the pleasure of arriving. That is why it can feel good in the moment, and hollow right after.</p>
 <p>Your restlessness, your boredom, your anxiety — these are not side effects. They are <strong>product features</strong>. Every second of your attention is revenue.</p>
 <p><strong>This experiment is running right now, in the hands of roughly seven out of ten people on earth. Most of them never remember agreeing to it.</strong></p>
-<p>Behind these platforms are thousands of engineers and investment on a scale few companies can match — Meta alone spent about $43.9 billion on research and development in 2024 (Meta, 2024 Form 10-K). Algorithms built at that scale operate with a force that far exceeds individual willpower. The cruelest part: most people never realize they are being steered. That is how complete the system has become.</p>
+<p>Behind these platforms are thousands of engineers and investment on a scale few companies can match — Meta alone spent about $57.4 billion on research and development in 2025 (Meta, 2025 Form 10-K). Algorithms built at that scale operate with a force that far exceeds individual willpower. The cruelest part: most people never realize they are being steered. That is how complete the system has become.</p>
 </div>
 <div class="manifesto-body ja">
 <p>プラットフォームはあなたの行動を観察しています。反応時間を計測し、何があなたのスクロールを止め、何があなたを続けさせたかを記録します。あなたをアプリ内にもう1秒留めることだけを目的に、リアルタイムであなたのモデルを更新し続けています。</p>
@@ -745,7 +757,7 @@ window.onTSLoad=tsRender;
 <p>手口は「変動報酬」です。通知、いいね、無限スクロール——その一つひとつが脳の報酬系をわずかに刺激します。しかも、いつ届くか分からない報酬は、確実な報酬より強く脳を掴む。スロットマシンから離れられなくなるのと、同じ設計です。神経科学者ケント・バーリッジは、ドーパミンが生むのは「好き（満足）」ではなく「欲しがり」だと示しました。手を伸ばす衝動のほうが、たどり着いたときの快感より大きい。だから、その最中は気持ちよくても、すぐあとに虚しくなるのです。</p>
 <p>落ち着きのなさ、退屈、不安——これらは副作用ではありません。<strong><span class="nobr">製品の仕様です。</span></strong>あなたの注意の1秒1秒が、収益になっています。</p>
 <p><strong>この実験は今この瞬間も、世界のおよそ10人に7人の手のなかで走っています。そのほとんどの<span class="nobr">人が、同意した覚えを持っていません。</span></strong></p>
-<p>これらのシステムの背後には、何千人ものエンジニアと、桁違いの投資があります——メタ社だけで、2024年の研究開発費は約439億ドル（Meta 2024年 Form 10-K）。この規模で磨かれたアルゴリズムは、個人の意志を遥かに超える力で行動を誘導します。皮肉なことに、誘導されていることにすら、私たちは気づけない。それが、このシステムの完成度です。</p>
+<p>これらのシステムの背後には、何千人ものエンジニアと、桁違いの投資があります——メタ社だけで、2025年の研究開発費は約574億ドル（Meta 2025年 Form 10-K）。この規模で磨かれたアルゴリズムは、個人の意志を遥かに超える力で行動を誘導します。皮肉なことに、誘導されていることにすら、私たちは気づけない。それが、このシステムの完成度です。</p>
 </div>
 <blockquote class="manifesto-quote en">"You are not weak.<br>You are outmatched by design.<br>denroot gives you the right way to face it."</blockquote>
 <blockquote class="manifesto-quote ja">「あなたが弱いのではありません。設計によって圧倒されているだけです。<br class="br-ja">denrootは、その設計への正しい向き合い方を提供します。」</blockquote>
@@ -794,9 +806,9 @@ window.onTSLoad=tsRender;
 <div class="waitlist-wrap" id="waitlist">
 <div class="waitlist">
 <p class="tag tag-blue en fade">Early Access</p>
-<p class="tag tag-blue ja fade">先行登録受付中</p>
+<p class="tag tag-blue ja fade">事前登録 受付中</p>
 <h2 class="waitlist-h en fade">Join the waitlist.</h2>
-<h2 class="waitlist-h ja fade">先行登録を<span class="nobr">受け付けています。</span></h2>
+<h2 class="waitlist-h ja fade">事前登録を<span class="nobr">受け付けています。</span></h2>
 <p class="waitlist-launch en fade">Launching in 2026.</p>
 <p class="waitlist-launch ja fade">2026年内ローンチ予定。</p>
 <p class="waitlist-sub en fade">No spam. One email when denroot is ready.</p>
@@ -806,7 +818,7 @@ window.onTSLoad=tsRender;
 <div class="wl-field">
 <input class="wl-input" type="email" name="EMAIL" required placeholder="your@email.com" autocomplete="email">
 <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-<button class="wl-btn" type="submit" id="wl-btn"><span class="en">Join Waitlist</span><span class="ja">登録する</span></button>
+<button class="wl-btn" type="submit" id="wl-btn"><span class="en">Join the Waitlist</span><span class="ja">事前登録する</span></button>
 </div>
 <div style="display:flex;justify-content:center;margin:24px 0 8px;"><div id="ts-widget"></div></div>
 <p class="wl-note en">Your email is used only for this waitlist — never sold, shared, or used for any other purpose. You'll receive one notification when denroot launches. No marketing. No newsletters. Unsubscribe instantly at any time.</p>
