@@ -333,6 +333,15 @@ footer { padding: 20px; }
 .nav-cta{background:#0071e3;color:#fff;font-weight:500;padding:8px 16px;}
 .nav-cta:hover{opacity:1;background:#0063c9;}
 @media(max-width:768px){.nav-cta{padding:10px 14px;font-size:12.5px;}}
+
+/* --- D-3: WCAG AA contrast fixes (measured, not guessed) --- */
+.manifesto .tag{color:rgba(255,255,255,0.60);}          /* was 0.30 -> 2.48:1 */
+.dev-inner .tag{color:rgba(255,255,255,0.60);}          /* was 0.32 -> 2.69:1 */
+.dev-note{color:rgba(255,255,255,0.55);}                /* was 0.30 -> 2.48:1 */
+.dev-cap2{color:rgba(255,255,255,0.60);}                /* was 0.40 -> 3.66:1 */
+.psrc{color:#8a8984;}                                    /* was #6d6c67 -> 3.66:1 */
+.cinematic-eyebrow{color:rgba(255,255,255,0.55);}
+.hero-scroll{color:rgba(255,255,255,0.58);}
 </style>
 <script>
 var tsId=null;
