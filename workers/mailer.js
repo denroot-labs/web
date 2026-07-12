@@ -194,9 +194,19 @@ async function verifyTurnstile(token, secret, request) {
   }
 }
 
+/* Rate limiting stores a SHA-256 hash of the IP, never the IP itself.
+   Same IP -> same hash, so rate limiting still works, but the raw address
+   is never written to the database and cannot be recovered from it. */
+async function hashIp(ip) {
+  const data = new TextEncoder().encode('denroot:rl:' + ip);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 async function checkRateLimit(env, request) {
-  const ip = request.headers.get('CF-Connecting-IP') || '';
-  if (!ip || !env.DB) return true;
+  const rawIp = request.headers.get('CF-Connecting-IP') || '';
+  if (!rawIp || !env.DB) return true;
+  const ip = await hashIp(rawIp);   // ← hashed; the raw IP never reaches D1
   const LIMIT = 30;
   const WINDOW = 600;
   const now = Math.floor(Date.now() / 1000);
