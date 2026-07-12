@@ -313,6 +313,15 @@ footer { padding: 20px; }
 .eng-sub{font-size:14px;font-weight:300;line-height:1.85;color:var(--gray-40);margin-top:20px;max-width:760px;}
 .eng-sub strong{color:var(--gray-86);font-weight:500;}
 @media(max-width:768px){.eng-grid{grid-template-columns:1fr;gap:36px;margin-top:44px;}.eng-close{margin-top:48px;padding-top:32px;}}
+
+/* --- D-1: mobile tap targets >= 44px (hit-area expansion; visuals unchanged) --- */
+@media(max-width:768px){
+.nav-logo,.lng-btn,.nav-cta,.footer-link{position:relative;}
+.nav-logo::after,.lng-btn::after,.nav-cta::after,.footer-link::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100%;min-width:44px;height:44px;}
+.nav-cta{padding:10px 16px;font-size:13px;}
+.contact-link{padding-top:13px;padding-bottom:13px;}
+.scroll-hint,.scroll-hint .ja,.scroll-hint .en{font-size:11px;}
+}
 </style>
 <script>
 var tsId=null;
