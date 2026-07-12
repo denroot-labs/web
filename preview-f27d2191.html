@@ -355,6 +355,15 @@ footer { padding: 20px; }
 
 /* the launch line is now a statement of standards, not a date badge */
 .waitlist-launch{color:var(--gray-86);font-weight:600;font-size:15px;letter-spacing:-0.01em;margin:0 0 14px;}
+
+/* M-4: a single mid-page CTA, placed where conviction peaks. Quiet on purpose — no urgency, no scarcity. */
+.midcta{background:var(--gray-06);border-top:0.5px solid var(--gray-12);border-bottom:0.5px solid var(--gray-12);}
+.midcta-in{max-width:var(--max);margin:0 auto;padding:84px 24px;text-align:center;}
+.midcta-h{font-size:clamp(22px,2.8vw,32px);font-weight:600;letter-spacing:-0.025em;line-height:1.35;color:var(--gray-86);}
+.midcta-s{font-size:15px;font-weight:300;line-height:1.75;color:var(--gray-40);margin-top:14px;}
+.midcta-b{display:inline-block;margin-top:30px;background:#0071e3;color:#fff;text-decoration:none;border-radius:980px;padding:14px 34px;font-size:15px;font-weight:500;transition:background .2s;}
+.midcta-b:hover{background:#0063c9;}
+@media(max-width:768px){.midcta-in{padding:60px 20px;}.midcta-b{width:100%;padding:16px;}}
 </style>
 <script>
 var tsId=null;
@@ -443,9 +452,9 @@ window.onTSLoad=tsRender;
 <p class="rnote en">Around 3 hours a day is where the risk of depression and anxiety symptoms roughly doubles for 12–15-year-olds. Even the global average adds up to about 36 days a year.</p>
 <p class="rnote ja">1日3時間あたりから、12〜15歳のうつ・不安の兆候リスクは約2倍とされます。世界平均の2時間21分でも、1年に換算すると約36日分です。</p>
 </div>
-<p class="reality-src en">Sources: DataReportal Digital 2026 · U.S. Surgeon General Advisory (2023) · Pew Research 2024 · Sohn et al. meta-analysis · Australia eSafety Commissioner.</p>
+<p class="reality-src en">Sources: DataReportal Digital 2026 · U.S. Surgeon General Advisory (2023) · Pew Research 2024 · Sohn et al. meta-analysis · Australia eSafety Commissioner. <a href="/disclaimer/" style="color:inherit;text-decoration:underline;">See all sources &amp; methodology →</a></p>
 <p class="reality-src en">Note: these are surveys and estimates showing association, not proof of causation. denroot is not a medical device and is not intended to prevent, diagnose, or treat any condition. Individual results vary.</p>
-<p class="reality-src ja">出典：DataReportal Digital 2026／米・公衆衛生局長官 勧告（2023）／Pew Research 2024／Sohn ほかメタ分析／豪 eSafety Commissioner。</p>
+<p class="reality-src ja">出典：DataReportal Digital 2026／米・公衆衛生局長官 勧告（2023）／Pew Research 2024／Sohn ほかメタ分析／豪 eSafety Commissioner。 <a href="/disclaimer/" style="color:inherit;text-decoration:underline;">すべての出典と算出方法を見る →</a></p>
 <p class="reality-src ja">※ これらは関連（相関）を示す調査・推計であり、因果を断定するものではありません。denroot は医療機器ではなく、疾患の予防・診断・治療を目的とするものではありません。効果には個人差があります。</p>
 </div>
 </div>
@@ -691,6 +700,16 @@ window.onTSLoad=tsRender;
 <p class="eng-big ja">だから、あの瞬間に出てくるのは「開くな」ではありません。<strong>あなたが逃げていたこと、その一番小さな一歩</strong>です。</p>
 <p class="eng-sub en">Blocking is the easy part — every app can do it. <strong>Knowing what you should be doing instead is the part no one else has.</strong> The lock is one piece, running quietly in the background. denroot itself is the partner working in front of you.</p>
 <p class="eng-sub ja">ブロックするだけなら、どのアプリにもできます。<strong>代わりに何をすればいいかを知っているアプリは、他にありません。</strong>ロックは、背景で静かに走る一部の仕組みにすぎません。denrootの本体は、あなたの前で働くパートナーです。</p>
+</div>
+</div>
+<div class="midcta fade">
+<div class="midcta-in">
+<h2 class="midcta-h en">You don't have to be alone<br>in that moment.</h2>
+<h2 class="midcta-h ja">あの瞬間に、<br>一人でいる必要はありません。</h2>
+<p class="midcta-s en">When denroot opens, the people on this list get in first.</p>
+<p class="midcta-s ja">denroot が開いたとき、このリストの人から使えます。</p>
+<a href="#waitlist" class="midcta-b en">Join the Waitlist</a>
+<a href="#waitlist" class="midcta-b ja">事前登録する</a>
 </div>
 </div>
 <div class="section fade">
@@ -1003,7 +1022,7 @@ if(target)target.scrollIntoView({behavior:'smooth'});
   var MAX_BLUR  = 0;      // no blur — blur on text renders as an unreadable "mosaic"
   var FALLOFF   = 0.60;   // spotlight tightness × viewport height
 
-  var sel = '.hero, .stat-band, .section, .section-wide, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
+  var sel = '.hero, .stat-band, .section, .section-wide, .dev-wrap, .midcta, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
   var els = [].slice.call(document.querySelectorAll(sel));
   if (!els.length) return;
 
