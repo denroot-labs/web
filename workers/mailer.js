@@ -306,7 +306,10 @@ async function handleEvent(request, env, ctx) {
     const cta    = b.cta ? 1 : 0;
     const now    = Math.floor(Date.now() / 1000);
 
-    ctx.waitUntil(writeEvent(env, { section, depth, lang, device, ref, cta, now }));
+    // country is already known to the edge (2-letter ISO code). Not personal data, and it costs nothing.
+    const country = (request.cf && typeof request.cf.country === 'string') ? request.cf.country.slice(0, 2) : '';
+
+    ctx.waitUntil(writeEvent(env, { section, depth, lang, device, ref, cta, country, now }));
   } catch (e) { /* never let measurement break the page */ }
   return new Response(null, { status: 204, headers: CORS_HEADERS });
 }
@@ -314,17 +317,19 @@ async function handleEvent(request, env, ctx) {
 async function writeEvent(env, e) {
   if (!env.DB) return;
   const insert = () => env.DB
-    .prepare('INSERT INTO lp_events (section, depth, lang, device, ref, cta, created_at) VALUES (?,?,?,?,?,?,?)')
-    .bind(e.section, e.depth, e.lang, e.device, e.ref, e.cta, e.now)
+    .prepare('INSERT INTO lp_events (section, depth, lang, device, ref, cta, country, created_at) VALUES (?,?,?,?,?,?,?,?)')
+    .bind(e.section, e.depth, e.lang, e.device, e.ref, e.cta, e.country, e.now)
     .run();
   try {
     await insert();
   } catch (err) {
+    // first run (no table) or an older table without the country column — heal, then retry once
     try {
       await env.DB.prepare(
-        'CREATE TABLE IF NOT EXISTS lp_events (id INTEGER PRIMARY KEY AUTOINCREMENT, section TEXT NOT NULL, depth INTEGER NOT NULL, lang TEXT, device TEXT, ref TEXT, cta INTEGER, created_at INTEGER NOT NULL)'
+        'CREATE TABLE IF NOT EXISTS lp_events (id INTEGER PRIMARY KEY AUTOINCREMENT, section TEXT NOT NULL, depth INTEGER NOT NULL, lang TEXT, device TEXT, ref TEXT, cta INTEGER, country TEXT, created_at INTEGER NOT NULL)'
       ).run();
+      try { await env.DB.prepare('ALTER TABLE lp_events ADD COLUMN country TEXT').run(); } catch (ignore) { /* column already there */ }
       await insert();
-    } catch (e2) { /* give up silently */ }
+    } catch (e2) { /* give up silently — measurement must never break the page */ }
   }
 }
