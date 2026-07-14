@@ -129,8 +129,8 @@ function contactConfirmHtml(name, message, isJa) {
   const safeName = escapeHtml(name);
   const safeMsg = escapeHtml(message);
   const t = isJa
-    ? { title: 'お問合せを承りました', h1: `${safeName}様、<br>ご連絡ありがとうございます。`, body: 'お問合せを承りました。内容を確認後、できるだけ早くご返答いたします。', label: 'お問い合わせ内容', footer: 'このメールはお問合せフォームからの自動返信です。' }
-    : { title: 'Thank you for your inquiry', h1: `Thank you, ${safeName}.`, body: "We've received your inquiry and will get back to you as soon as possible.", label: 'Your message', footer: 'This is an automated confirmation from the contact form.' };
+    ? { title: 'お問合せを承りました', h1: `${safeName}様、<br>ご連絡ありがとうございます。`, body: 'お問合せを承りました。内容を確認のうえ、<strong>1〜3営業日以内に</strong>担当者よりご返信いたします。', label: 'お問い合わせ内容', reply: '※ 万一、3営業日を過ぎても返信が届かない場合は、迷惑メールフォルダをご確認のうえ、お手数ですが contact@denroot.com まで直接ご連絡ください。', footer: 'このメールはお問合せフォームからの自動返信です。このメールへの返信でも受け付けております。' }
+    : { title: 'Thank you for your inquiry', h1: `Thank you, ${safeName}.`, body: "We've received your inquiry and will reply <strong>within 1–3 business days</strong>.", label: 'Your message', reply: "If you haven't heard from us after 3 business days, please check your spam folder and then email us directly at contact@denroot.com.", footer: 'This is an automated confirmation from the contact form. You can also simply reply to this email.' };
   return `<!DOCTYPE html>
 <html lang="${isJa ? 'ja' : 'en'}">
 <head><meta charset="UTF-8"><title>${t.title}</title></head>
@@ -149,6 +149,7 @@ function contactConfirmHtml(name, message, isJa) {
 <p style="margin:0;font-size:14px;line-height:1.75;color:#1d1d1f;white-space:pre-wrap;">${safeMsg}</p>
 </div>
 <hr style="border:none;border-top:1px solid #e8e8ed;margin:0 0 24px;">
+<p style="margin:0 0 14px;font-size:12px;color:#48484a;line-height:1.7;">${t.reply}</p>
 <p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">${t.footer}</p>
 <p style="margin:8px 0 0;font-size:11px;color:#6e6e73;">© 2026 denroot</p>
 </td></tr>

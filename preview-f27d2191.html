@@ -364,6 +364,14 @@ footer { padding: 20px; }
 .midcta-b{display:inline-block;margin-top:30px;background:#0071e3;color:#fff;text-decoration:none;border-radius:980px;padding:14px 34px;font-size:15px;font-weight:500;transition:background .2s;}
 .midcta-b:hover{background:#0063c9;}
 @media(max-width:768px){.midcta-in{padding:60px 20px;}.midcta-b{width:100%;padding:16px;}}
+
+/* ⚠️ The language switch rule `body.lang-ja .ja{display:revert}` has HIGHER specificity (0,2,0)
+   than a single class (0,1,0), so it silently reverts any custom `display` set on an .en/.ja element.
+   For an <a>, that means display:inline — and margin-top stops working, which collapses the button
+   into the text above it. Any .en/.ja element that needs a non-default display must be re-declared
+   with at least this specificity. */
+body.lang-en a.midcta-b.en, body.lang-ja a.midcta-b.ja,
+body.lang-en a.contact-link.en, body.lang-ja a.contact-link.ja{display:inline-block;}
 </style>
 <script>
 var tsId=null;
