@@ -220,6 +220,15 @@ footer { padding: 20px; }
 .contact-page-inner{width:100%;max-width:560px;}
 /* ── Comparison table ── */
 .comp-wrap{overflow-x:auto;margin:48px 0 0;}
+.faq-list{max-width:720px;margin:0 auto;}
+.faq-item{padding:28px 0;border-top:0.5px solid var(--gray-12);}
+.faq-item:last-child{border-bottom:0.5px solid var(--gray-12);}
+.faq-q{font-size:17px;font-weight:600;color:var(--gray-86);line-height:1.5;margin-bottom:10px;}
+.faq-a{font-size:15px;font-weight:300;color:var(--gray-60);line-height:1.8;}
+.faq-a strong{font-weight:500;color:var(--gray-86);}
+.faq-a a{color:#0071e3;text-decoration:none;}
+.faq-a a:hover{text-decoration:underline;}
+@media(max-width:768px){.faq-item{padding:22px 0;}.faq-q{font-size:16px;}.faq-a{font-size:14.5px;}}
 .comp-tbl{width:100%;border-collapse:collapse;}
 .comp-tbl thead th{padding:10px 16px;text-align:left;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-40);border-bottom:0.5px solid var(--gray-12);}
 .comp-tbl .th-app{color:var(--gray-86);border-bottom:1.5px solid var(--gray-86);text-transform:none;}
@@ -852,6 +861,25 @@ window.onTSLoad=tsRender;
 </div>
 </div>
 </div>
+<div class="section fade" id="faq">
+<p class="tag en">Questions</p><p class="tag ja">よくある質問</p>
+<h2 class="h-display en" style="font-size:clamp(24px,3vw,34px);">Before you sign up.</h2>
+<h2 class="h-display ja" style="font-size:clamp(24px,3vw,34px);">登録の前に。</h2>
+<div class="faq-list en">
+<div class="faq-item"><p class="faq-q">What does the name &ldquo;denroot&rdquo; mean?</p><p class="faq-a">It comes from <em>root</em>. denroot is built to work on the root of the problem &mdash; what you are running from &mdash; rather than the surface of it, the scrolling.</p></div>
+<div class="faq-item"><p class="faq-q">Which platforms will it support?</p><p class="faq-a">iOS first. The intervention depends closely on how iOS Screen Time works, so we will prove it there before looking at Android. We cannot promise an Android date today.</p></div>
+<div class="faq-item"><p class="faq-q">Why does it need Screen Time permission?</p><p class="faq-a">It is what allows denroot to step in at the moment you reach for the app. What denroot handles is the signal that you tried to open a given app &mdash; nothing more. <strong>It does not touch your posts, your messages, or anything you view.</strong></p></div>
+<div class="faq-item"><p class="faq-q">How much will it cost?</p><p class="faq-a">We have not decided, and we will not pretend otherwise. But three things are already decided. <strong>There will be no ads. denroot will never be built to earn more the longer you stay inside it. And the price will not be one a student cannot keep paying.</strong></p></div>
+<div class="faq-item"><p class="faq-q">What happens to my data?</p><p class="faq-a">It is not sold, not used for advertising, and not handed to third parties. Today, the only personal data this site holds is the email address you give us for the waitlist. Details are in the <a href="/privacy/">Privacy Policy</a>.</p></div>
+</div>
+<div class="faq-list ja">
+<div class="faq-item"><p class="faq-q">「denroot」という名前には、どんな意味がありますか。</p><p class="faq-a">root（根）から来ています。denroot が向き合うのは、スクロールという表面の症状ではなく、その根にあるもの——あなたが何から逃げているのか——だからです。</p></div>
+<div class="faq-item"><p class="faq-q">対応OSを教えてください。</p><p class="faq-a">まず iOS からです。この介入は iOS のスクリーンタイムの仕組みに強く依存するため、そこで成立を確かめてから Android を検討します。現時点で Android の提供時期はお約束できません。</p></div>
+<div class="faq-item"><p class="faq-q">なぜスクリーンタイムの許可が必要なのですか。</p><p class="faq-a">対象のアプリに手を伸ばした「その瞬間」に割り込むために必要です。denroot が扱うのは「どのアプリを開こうとしたか」という信号だけです。<strong>投稿・メッセージ・閲覧した内容には、一切触れません。</strong></p></div>
+<div class="faq-item"><p class="faq-q">料金はいくらになりますか。</p><p class="faq-a">まだ決めていません。決めていないことを、決まったかのようには言いません。ただし、すでに決めていることが3つあります。<strong>広告は入れません。あなたが長く留まるほど儲かる仕組みには、しません。そして、学生が払い続けられない価格にはしません。</strong></p></div>
+<div class="faq-item"><p class="faq-q">私のデータはどう扱われますか。</p><p class="faq-a">販売しません。広告に使いません。第三者に渡しません。現在このサイトが持っている個人情報は、事前登録のメールアドレスだけです。詳細は<a href="/privacy/">プライバシーポリシー</a>に記載しています。</p></div>
+</div>
+</div>
 <div class="waitlist-wrap" id="waitlist">
 <div class="waitlist">
 <p class="tag tag-blue en fade">Early Access</p>
@@ -1069,7 +1097,7 @@ if(target)target.scrollIntoView({behavior:'smooth'});
 ─────────────────────────────────────────────────────────────────────────── */
 (function(){
   var SEL   = '.hero, .stat-band, .section, .section-wide, .dev-wrap, .manifesto-wrap, .founder-wrap, .waitlist-wrap';
-  var NAMES = ['hero','stats','world','against','whatitis','partner','screens','engine','tried','compare','truth','wasted','founder','waitlist'];
+  var NAMES = ['hero','stats','world','against','whatitis','partner','screens','engine','tried','compare','truth','wasted','founder','faq','waitlist'];
   var els = [].slice.call(document.querySelectorAll(SEL));
   if (els.length !== NAMES.length) return;   // structure changed → measure nothing rather than report a lie
   if (!('IntersectionObserver' in window)) return;
