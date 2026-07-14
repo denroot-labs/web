@@ -232,6 +232,11 @@ async function checkRateLimit(env, request) {
     await env.DB.prepare('UPDATE rate_limit SET cnt = cnt + 1 WHERE ip = ?').bind(ip).run();
     return true;
   };
+  // 期限切れの行を掃除する。放置すると使われないハッシュが溜まり続け、
+  // 「10分で無効になり順次削除する」というポリシーの記載が嘘になる。
+  if (Math.random() < 0.05) {
+    try { await env.DB.prepare('DELETE FROM rate_limit WHERE reset_at < ?').bind(now).run(); } catch (e) {}
+  }
   try {
     return await run();
   } catch (e) {

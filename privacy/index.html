@@ -234,12 +234,14 @@ body.lang-ja .en { display: none; }
       <ul class="lgl-list">
         <li><strong>(1) Waitlist registration form</strong>Email address, and the display language at the time of registration.</li>
         <li><strong>(2) Contact form</strong>Name, email address, and the content of the enquiry.</li>
+        <li><strong>(3) When either form is submitted</strong>IP address. We do not store the IP address itself. It is converted into a hashed value using a secret key held only by us, retained temporarily, and invalidated within ten minutes.</li>
       </ul>
     </div>
     <div class="dsec-body ja">
       <ul class="lgl-list">
         <li><strong>(1) 事前登録フォーム</strong>メールアドレス、登録時の表示言語</li>
         <li><strong>(2) お問い合わせフォーム</strong>氏名、メールアドレス、お問い合わせの内容</li>
+        <li><strong>(3) 上記フォームの送信時</strong>IPアドレス。当方は、IPアドレスをそのままの形で保存しません。当方のみが保持する秘密鍵を用いてハッシュ化した値を一時的に保持し、10分以内に無効となります。</li>
       </ul>
     </div>
   </div>
@@ -251,6 +253,7 @@ body.lang-ja .en { display: none; }
       <ul class="lgl-list">
         <li><strong>(1)</strong>To send confirmation of registration, and to notify registrants of the release of our service.</li>
         <li><strong>(2)</strong>To respond to enquiries.</li>
+        <li><strong>(3)</strong>To prevent abuse of our forms.</li>
       </ul>
       <p>We do not use personal information for advertising delivery, profiling, or automated decision-making.</p>
     </div>
@@ -258,6 +261,7 @@ body.lang-ja .en { display: none; }
       <ul class="lgl-list">
         <li><strong>(1)</strong>登録確認のご連絡、及びサービスのリリースに関するご案内のため</li>
         <li><strong>(2)</strong>お問い合わせへの回答のため</li>
+        <li><strong>(3)</strong>フォームの不正利用を防止するため</li>
       </ul>
       <p>当方は、個人情報を広告配信、プロファイリング又は自動化された意思決定に利用しません。</p>
     </div>
@@ -346,15 +350,43 @@ body.lang-ja .en { display: none; }
   </div>
 
   <div class="dsec">
-    <h2 class="dsec-h en">10. Cookies and access measurement</h2>
-    <h2 class="dsec-h ja">10. Cookie及びアクセス状況の計測</h2>
+    <h2 class="dsec-h en">10. Cookies, local storage, and access measurement</h2>
+    <h2 class="dsec-h ja">10. Cookie、ローカルストレージ及びアクセス状況の計測</h2>
     <div class="dsec-body en">
-      <p>This website does not use cookies, local storage, or session storage, and does not employ any device fingerprinting.</p>
-      <p>For the purpose of improving this website, we collect statistical information that does not identify individuals: the section of the page reached, the display language, the device type, the referring domain, and the country. No identifier is issued for a visitor or a session, and IP addresses are not stored. This information cannot be used to identify an individual.</p>
+      <p><strong>(1) Advertising and tracking</strong><br>
+      This website uses no cookies for advertising, behavioural targeting, or third-party tracking. It loads no third-party fonts, analytics, or tracking scripts.</p>
+
+      <p><strong>(2) Display language</strong><br>
+      If you select a display language, that choice is stored in your browser&rsquo;s local storage so the site can show the same language on your next visit. This is not transmitted to our servers.</p>
+
+      <p><strong>(3) Form protection (Cloudflare Turnstile)</strong><br>
+      To prevent abuse of the registration and contact forms, we use Turnstile, provided by Cloudflare, Inc.<br>
+      It is loaded only when you reach the form; if you do not, no communication with Cloudflare takes place.<br>
+      Turnstile uses session storage, and, if an additional check is displayed, may set a cookie valid for up to one hour.<br>
+      For its assessment, Turnstile processes the IP address, the user agent, and technical characteristics of the connection.</p>
+
+      <p><strong>(4) Access measurement</strong><br>
+      To improve this website, we collect statistical information that does not identify individuals: the section of the page reached, the display language, the device type, the referring domain, and the country. No identifier is issued for a visitor or a session, and IP addresses are not stored.</p>
+
+      <p>The storage described in (2) and (3) is strictly necessary to provide a function you have explicitly requested &mdash; switching the language, and submitting a form. We do not store anything on your device for advertising or tracking.</p>
     </div>
     <div class="dsec-body ja">
-      <p>本ウェブサイトは、Cookie、ローカルストレージ及びセッションストレージを使用せず、端末のフィンガープリントも取得しません。</p>
-      <p>当方は、ウェブサイトの改善を目的として、個人を識別しない統計情報（閲覧されたページ内の位置、表示言語、端末の種別、参照元のドメイン、国）を取得します。訪問者又はセッションを識別する符号は発行せず、IPアドレスは保存しません。当該情報から個人を特定することはできません。</p>
+      <p><strong>(1) 広告・追跡について</strong><br>
+      本ウェブサイトは、広告、行動ターゲティング又は第三者による追跡を目的とした Cookie を使用しません。第三者のフォント、アクセス解析ツール及び追跡用スクリプトも読み込みません。</p>
+
+      <p><strong>(2) 表示言語</strong><br>
+      ご自身で表示言語を選択された場合、その選択をご利用のブラウザのローカルストレージに保存します。次回のご訪問時に同じ言語で表示するためです。この情報は当方のサーバーに送信されません。</p>
+
+      <p><strong>(3) フォームの不正防止（Cloudflare Turnstile）</strong><br>
+      事前登録フォーム及びお問い合わせフォームの不正利用を防ぐため、Cloudflare, Inc. の提供する Turnstile を使用します。<br>
+      Turnstile は、フォームの位置まで到達された場合にのみ読み込まれます。到達されない場合、同社との通信は発生しません。<br>
+      Turnstile は、判定のためセッションストレージを使用し、追加の確認が表示された場合には、有効期間1時間までの Cookie を設定することがあります。<br>
+      また、判定のため、IPアドレス、ユーザーエージェント及び接続時の技術的特徴を処理します。</p>
+
+      <p><strong>(4) アクセス状況の計測</strong><br>
+      当方は、ウェブサイトの改善を目的として、個人を識別しない統計情報（閲覧されたページ内の位置、表示言語、端末の種別、参照元のドメイン、国）を取得します。訪問者又はセッションを識別する符号は発行せず、IPアドレスは保存しません。</p>
+
+      <p>第2項及び第3項の保存は、いずれもご本人が明示的に求められた機能（言語の切替、フォームの送信）の提供に厳密に必要なものです。当方は、広告又は追跡を目的として、ご利用の端末に情報を保存することはありません。</p>
     </div>
   </div>
 
