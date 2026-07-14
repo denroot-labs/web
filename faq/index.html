@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Denroot</title>
+<meta name="description" content="Common questions about denroot: which platforms it supports, pricing, what it can see on your phone, and what happens after you join the waitlist.">
+<link rel="canonical" href="https://denroot.com/faq/">
+<meta name="theme-color" content="#060810">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Denroot">
+<meta property="og:title" content="FAQ — Denroot">
+<meta property="og:description" content="Common questions about denroot.">
+<meta property="og:url" content="https://denroot.com/faq/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image" content="https://denroot.com/assets/og-image.png">
+<meta name="twitter:image" content="https://denroot.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Legal Notice & Sources — Denroot">
+<meta name="twitter:description" content="Common questions about denroot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:   #000000;
+  --white:   #ffffff;
+  --gray-06: #f5f5f7;
+  --gray-12: #e8e8ed;
+  --gray-40: #6e6e73;
+  --gray-60: #48484a;
+  --gray-86: #1d1d1f;
+  --font:    -apple-system, 'Inter', 'Noto Sans JP', BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --max:     760px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-86);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.lang-en .ja { display: none; }
+body.lang-ja .en { display: none; }
+.ja { word-break: normal; overflow-wrap: anywhere; line-break: strict; }
+
+/* Header */
+.hdr {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 54px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--gray-12);
+}
+.hdr-in {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--gray-86); text-decoration: none; }
+.hdr-right { display: flex; align-items: center; gap: 12px; }
+.lang-sw { display: flex; border: 0.5px solid var(--gray-12); border-radius: 980px; overflow: hidden; background: var(--gray-06); }
+.lng-btn {
+  padding: 4px 12px; font-size: 11px; font-weight: 500;
+  border: none; background: transparent; color: var(--gray-40);
+  cursor: pointer; font-family: var(--font);
+}
+.lng-btn.on { background: var(--gray-86); color: #fff; }
+.back-link { font-size: 12px; color: var(--gray-40); text-decoration: none; }
+.back-link:hover { color: var(--gray-86); }
+
+/* Page */
+.page {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 96px 24px 80px;
+}
+
+/* Page header */
+.page-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+  color: var(--gray-40); margin-bottom: 16px;
+}
+.page-title {
+  font-size: clamp(24px, 3.5vw, 36px); font-weight: 300;
+  letter-spacing: -0.02em; line-height: 1.25; color: var(--gray-86);
+  margin-bottom: 12px;
+}
+.page-date { font-size: 12px; color: var(--gray-40); margin-bottom: 56px; }
+
+/* Section */
+.dsec { margin-bottom: 52px; }
+.dsec-h {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gray-86);
+  margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 0.5px solid var(--gray-12);
+}
+.dsec-body { font-size: 14px; font-weight: 300; color: var(--gray-60); line-height: 1.85; }
+.dsec-body p + p { margin-top: 14px; }
+.dsec-body strong { color: var(--gray-86); font-weight: 500; }
+.dsec-body a { color: var(--gray-86); }
+.dsec-body a:hover { opacity: 0.7; }
+
+/* Citation table */
+.cite-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
+.cite-table th {
+  text-align: left; padding: 9px 14px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gray-40);
+  border-bottom: 1px solid var(--gray-12); background: var(--white);
+}
+.cite-table td {
+  padding: 13px 14px; border-bottom: 0.5px solid var(--gray-12);
+  font-weight: 300; color: var(--gray-60); vertical-align: top;
+  line-height: 1.55; background: var(--white);
+}
+.cite-table td:first-child { color: var(--gray-86); font-weight: 400; white-space: nowrap; }
+.cite-table td em { font-style: normal; color: var(--gray-40); font-size: 12px; display: block; margin-top: 3px; }
+
+/* Notice box */
+.notice {
+  padding: 20px 22px;
+  background: var(--gray-06);
+  border: 0.5px solid var(--gray-12);
+  border-left: 3px solid var(--gray-86);
+  border-radius: 4px;
+  font-size: 13px; font-weight: 300; color: var(--gray-60); line-height: 1.75;
+  margin-bottom: 52px;
+}
+.notice strong { color: var(--gray-86); font-weight: 500; }
+
+/* Footer */
+.ftr {
+  background: var(--white);
+  border-top: 0.5px solid var(--gray-12);
+  padding: 20px 24px;
+}
+.ftr-in {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+.ftr-brand { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; color: var(--gray-86); }
+.ftr-copy { font-size: 11px; color: var(--gray-86); font-family: 'Comfortaa', sans-serif; font-weight: 700; }
+
+/* ── FAQ accordion ── */
+.faq-i{border-top:0.5px solid var(--gray-12);}
+.faq-i:last-of-type{border-bottom:0.5px solid var(--gray-12);}
+.faq-i summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:24px 0;font-size:16px;font-weight:500;color:var(--gray-86);line-height:1.6;transition:opacity .15s;}
+.faq-i summary::-webkit-details-marker{display:none;}
+.faq-i summary:hover{opacity:.62;}
+.faq-i summary::after{content:"+";flex:none;font-size:19px;font-weight:300;color:var(--gray-40);line-height:1.5;}
+.faq-i[open] summary::after{content:"\2212";}
+.faq-i .a{padding:0 0 28px;font-size:14.5px;font-weight:300;color:var(--gray-60);line-height:1.95;max-width:640px;}
+.faq-i .a p + p{margin-top:14px;}
+.faq-i .a strong{color:var(--gray-86);font-weight:500;}
+.faq-i .a a{color:var(--gray-86);}
+.faq-foot{margin-top:56px;padding-top:32px;border-top:0.5px solid var(--gray-12);font-size:14px;font-weight:300;color:var(--gray-60);line-height:1.9;}
+.faq-foot a{color:var(--gray-86);}
+@media(max-width:768px){.faq-i summary{font-size:15px;padding:20px 0;}.faq-i .a{font-size:14px;}}
+</style>
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png?v=3">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
+<style>
+/* Legal pages: readability. Dense blocks of statutory text are hard to read;
+   separate the items so each obligation stands on its own line. */
+.dsec-body p{margin:0 0 16px;}
+.dsec-body p:last-child{margin-bottom:0;}
+.lgl-list{list-style:none;padding:0;margin:0 0 16px;}
+.lgl-list li{padding:12px 0;border-bottom:0.5px solid var(--gray-12);line-height:1.85;}
+.lgl-list li:last-child{border-bottom:none;}
+.lgl-list li strong{display:block;margin-bottom:4px;color:var(--gray-86);font-weight:600;}
+.dsec{margin-bottom:56px;}
+</style>
+</head>
+<body class="lang-en">
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a href="/" class="logo" style="color:#16233F;font-family:'Comfortaa',sans-serif;font-weight:700;letter-spacing:normal;font-size:17px;text-decoration:none;">denroot</a>
+    <div class="hdr-right">
+      <div class="lang-sw">
+        <button class="lng-btn on" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lng-btn"    id="btn-ja" onclick="setLang('ja')">JP</button>
+      </div>
+      <a href="/" class="back-link en">&larr; Back to site</a>
+      <a href="/" class="back-link ja">&larr; サイトに戻る</a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h1 class="page-title en">Questions</h1>
+  <h1 class="page-title ja">よくある質問</h1>
+
+  <p class="page-date en">Last updated: 15 July 2026</p>
+  <p class="page-date ja">最終更新：2026年7月15日</p>
+
+  <details class="faq-i en">
+    <summary>When will denroot be available?</summary>
+    <div class="a"><p>We are not promising a date. denroot stands with you at your weakest moment, and we will not put something half-finished there.</p><p>When it is ready, everyone on the waitlist gets in first &mdash; <strong>we invite you in the order you signed up.</strong></p></div>
+  </details>
+  <details class="faq-i en">
+    <summary>Which platforms will it support?</summary>
+    <div class="a"><p><strong>iOS first.</strong> The intervention depends closely on how iOS Screen Time works, so we will prove it there before looking at Android.</p><p>We cannot promise an Android date today.</p></div>
+  </details>
+  <details class="faq-i en">
+    <summary>How much will it cost?</summary>
+    <div class="a"><p>We have not decided, and we will not pretend otherwise.</p><p>But three things are already decided. <strong>There will be no ads. denroot will never be built to earn more the longer you stay inside it. And the price will not be one a student cannot keep paying.</strong></p></div>
+  </details>
+  <details class="faq-i en">
+    <summary>Can denroot see what is on my phone?</summary>
+    <div class="a"><p><strong>No.</strong> To step in at the moment you reach for an app, denroot needs your permission to use iOS Screen Time. What it handles is the signal that you tried to open a given app &mdash; nothing more.</p><p>It does not see your posts, your messages, your photos, or anything you view.</p></div>
+  </details>
+  <details class="faq-i en">
+    <summary>What happens to my data?</summary>
+    <div class="a"><p>It is not sold, not used for advertising, and not handed to third parties.</p><p>Today, the only personal data this site holds is the email address you give us for the waitlist. Full details are in the <a href="/privacy/">Privacy Policy</a>.</p></div>
+  </details>
+  <details class="faq-i en">
+    <summary>What happens after I join the waitlist?</summary>
+    <div class="a"><p>You get one confirmation email, and one more when denroot is ready. That is all.</p><p>No marketing, no newsletters. You can unsubscribe at any time.</p></div>
+  </details>
+  <details class="faq-i ja">
+    <summary>いつ使えるようになりますか。</summary>
+    <div class="a"><p>日付は約束しません。denroot は、あなたが一番弱くなる瞬間に立つアプリです。そこに、中途半端なものは置けません。</p><p>準備が整い次第、事前登録された方から使えます——<strong>登録した順に、ご招待します。</strong></p></div>
+  </details>
+  <details class="faq-i ja">
+    <summary>対応OSを教えてください。</summary>
+    <div class="a"><p><strong>まず iOS からです。</strong>この介入は iOS のスクリーンタイムの仕組みに強く依存するため、そこで成立を確かめてから Android を検討します。</p><p>現時点で、Android の提供時期はお約束できません。</p></div>
+  </details>
+  <details class="faq-i ja">
+    <summary>料金はいくらになりますか。</summary>
+    <div class="a"><p>まだ決めていません。決めていないことを、決まったかのようには言いません。</p><p>ただし、すでに決めていることが3つあります。<strong>広告は入れません。あなたが長く留まるほど儲かる仕組みには、しません。そして、学生が払い続けられない価格にはしません。</strong></p></div>
+  </details>
+  <details class="faq-i ja">
+    <summary>denroot に、スマホの中身を見られることはありますか。</summary>
+    <div class="a"><p><strong>ありません。</strong>アプリに手を伸ばした瞬間に割り込むため、denroot は iOS のスクリーンタイムの許可を必要とします。しかし denroot が扱うのは「どのアプリを開こうとしたか」という信号だけです。</p><p>投稿・メッセージ・写真・閲覧した内容は、一切見ません。</p></div>
+  </details>
+  <details class="faq-i ja">
+    <summary>私のデータはどう扱われますか。</summary>
+    <div class="a"><p>販売しません。広告に使いません。第三者にも渡しません。</p><p>現在このサイトが持っている個人情報は、事前登録のメールアドレスだけです。詳細は<a href="/privacy/">プライバシーポリシー</a>に記載しています。</p></div>
+  </details>
+  <details class="faq-i ja">
+    <summary>事前登録すると、何が起きますか。</summary>
+    <div class="a"><p>確認のメールが1通届きます。そして denroot の準備が整ったときに、もう1通。それだけです。</p><p>マーケティングやニュースレターは送りません。配信停止はいつでもできます。</p></div>
+  </details>
+
+  <p class="faq-foot en">Not answered here? <a href="/contact/">Send us a message</a> &mdash; we reply within 1&ndash;3 business days.</p>
+  <p class="faq-foot ja">ここに無いご質問は、<a href="/contact/">お問い合わせ</a>からお送りください。1〜3営業日以内にご返信します。</p>
+
+</main>
+
+<footer class="ftr">
+  <div class="ftr-in">
+    <span class="ftr-brand" style="font-family:'Comfortaa',sans-serif;font-weight:700;letter-spacing:normal;">denroot</span>
+    <a href="/disclaimer/" class="ftr-copy en" style="text-decoration:underline;font-family:inherit;font-weight:400;">Legal &amp; Sources</a>
+    <a href="/disclaimer/" class="ftr-copy ja" style="text-decoration:underline;font-family:inherit;font-weight:400;">免責事項・出典</a>
+    <span class="ftr-copy en">© 2026 denroot. All rights reserved.</span>
+    <span class="ftr-copy ja">© 2026 denroot. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+function setLang(l) {
+  document.body.className = 'lang-' + l;
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  document.getElementById('btn-ja').classList.toggle('on', l === 'ja');
+}
+if (navigator.language && navigator.language.startsWith('ja')) setLang('ja');
+</script>
+</body>
+</html>
