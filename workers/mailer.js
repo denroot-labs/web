@@ -200,16 +200,25 @@ async function verifyTurnstile(token, secret, request) {
 /* Rate limiting stores a SHA-256 hash of the IP, never the IP itself.
    Same IP -> same hash, so rate limiting still works, but the raw address
    is never written to the database and cannot be recovered from it. */
-async function hashIp(ip) {
-  const data = new TextEncoder().encode('denroot:rl:' + ip);
+/* ⚠️ 塩は必ず env（Worker secret）から取る。
+   リポジトリは公開されているため、ソースに塩を書くと誰でも読める。
+   IPv4 の空間は約43億通りしかないので、塩が既知なら SHA-256 は総当たりで復元できる。
+   ＝ ソースに書かれた塩によるハッシュ化は、保護になっていない。
+   さらに、ハッシュに10分の時間窓を混ぜて、時間をまたいだ名寄せもできないようにする。 */
+async function hashIp(ip, env) {
+  const salt = (env && env.RL_SALT) || '';
+  if (!salt) return null;                       // 秘密塩が無ければ、IP由来の値を一切保存しない
+  const window = Math.floor(Date.now() / 600000); // 10分ごとにローテート
+  const data = new TextEncoder().encode(salt + ':' + window + ':' + ip);
   const digest = await crypto.subtle.digest('SHA-256', data);
-  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
 }
 
 async function checkRateLimit(env, request) {
   const rawIp = request.headers.get('CF-Connecting-IP') || '';
   if (!rawIp || !env.DB) return true;
-  const ip = await hashIp(rawIp);   // ← hashed; the raw IP never reaches D1
+  const ip = await hashIp(rawIp, env);   // 秘密塩＋10分窓。生IPはD1に到達しない
+  if (!ip) return true;                  // 塩が未設定なら、レート制限をスキップしてでも保存しない
   const LIMIT = 30;
   const WINDOW = 600;
   const now = Math.floor(Date.now() / 1000);
