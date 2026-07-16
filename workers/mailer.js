@@ -79,6 +79,9 @@ async function handleWaitlist(request, env, ctx) {
         to: email,
         subject: isJa ? 'ウェイトリスト登録完了' : 'Waitlist Registration Confirmed',
         html: waitlistConfirmHtml(isJa),
+        // Gmail / Apple Mail が件名の横に「登録解除」ボタンを出す。
+        // mailto 形式なので、押すと配信停止メールが自動作成・送信される（削除は手動運用）。
+        headers: { 'List-Unsubscribe': `<mailto:${SENDER_CONTACT}?subject=unsubscribe>` },
       });
       await sleep(600);
       await sendEmailWithRetry(env.RESEND_API_KEY, {
@@ -161,10 +164,11 @@ ${senderBlockHtml(isJa)}
 </body></html>`;
 }
 
-async function sendEmail(apiKey, { from, to, subject, html, text }) {
+async function sendEmail(apiKey, { from, to, subject, html, text, headers }) {
   const body = { from, to, subject };
   if (html) body.html = html;
   if (text) body.text = text;
+  if (headers) body.headers = headers;   // 例：List-Unsubscribe
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
