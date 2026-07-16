@@ -42,8 +42,7 @@ body {
   line-height: 1.75;
   color: var(--gray-86);
   background: var(--white);
-  -webkit-font-smoothing: antialiased;
-}
+  -webkit-font-smoothing: antialiased; min-height:100dvh; display:flex; flex-direction:column; }
 
 body.lang-en .ja { display: none; }
 body.lang-ja .en { display: none; }
@@ -82,6 +81,7 @@ body.lang-ja .en { display: none; }
 
 /* Page */
 .page {
+  flex: 1 0 auto;
   max-width: var(--max);
   margin: 0 auto;
   padding: 96px 24px 80px;

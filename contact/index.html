@@ -28,7 +28,7 @@ var DENROOT_API = 'https://api.denroot.com';
 img{display:block;max-width:100%}
 :root{--black:#000000;--white:#ffffff;--gray-06:#f5f5f7;--gray-12:#e8e8ed;--gray-40:#6e6e73;--gray-60:#48484a;--gray-86:#1d1d1f;--font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Noto Sans JP', Meiryo, Arial, sans-serif;--max:980px;--max-wide:1200px;--ease:cubic-bezier(0.4,0,0.2,1);}
 html{scroll-behavior:smooth;}
-body{font-family:var(--font);color:var(--gray-86);background:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;}
+body{font-family:var(--font);color:var(--gray-86);background:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden; min-height:100dvh; display:flex; flex-direction:column; }
 .ja{display:none;text-wrap:pretty;}
 body.lang-en .ja{display:none!important;}
 body.lang-ja .en{display:none!important;}
@@ -43,7 +43,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:48px;background:var(-
 .lng-btn.on{background:var(--gray-86);color:var(--white);}
 .nav-cta{padding:6px 16px;font-size:12px;font-weight:400;color:#0071e3;text-decoration:none;border-radius:980px;transition:opacity 0.15s;}
 .nav-cta:hover{opacity:0.7;}
-.cp-wrap{min-height:100svh;padding:120px 24px 100px;display:flex;align-items:flex-start;justify-content:center;}
+.cp-wrap{flex:1 0 auto;min-height:100svh;padding:120px 24px 100px;display:flex;align-items:flex-start;justify-content:center;}
 .cp-inner{width:100%;max-width:560px;}
 .cp-back{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--gray-40);text-decoration:none;letter-spacing:-0.01em;transition:color 0.15s;margin-bottom:72px;}
 .cp-back:hover{color:var(--gray-86);}
