@@ -121,7 +121,10 @@ function waitlistConfirmHtml(isJa) {
 <hr style="border:none;border-top:1px solid #e8e8ed;margin:0 0 24px;">
 <p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">${footer}</p>
 ${senderBlockHtml(isJa)}
-<p style="margin:12px 0 0;font-size:11px;color:#6e6e73;">© 2026 denroot</p>
+<table width="100%" cellpadding="0" cellspacing="0" style="margin:12px 0 0;"><tr>
+<td align="left" style="font-size:11px;color:#6e6e73;line-height:1.6;">© 2026 denroot</td>
+<td align="right" style="font-size:11px;line-height:1.6;"><a href="https://denroot.com/privacy/" style="color:#6e6e73;">${isJa ? 'プライバシーポリシー' : 'Privacy Policy'}</a></td>
+</tr></table>
 </td></tr>
 </table>
 </td></tr>
@@ -156,7 +159,10 @@ function contactConfirmHtml(name, message, isJa) {
 <p style="margin:0 0 14px;font-size:12px;color:#48484a;line-height:1.7;">${t.reply}</p>
 <p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">${t.footer}</p>
 ${senderBlockHtml(isJa)}
-<p style="margin:12px 0 0;font-size:11px;color:#6e6e73;">© 2026 denroot</p>
+<table width="100%" cellpadding="0" cellspacing="0" style="margin:12px 0 0;"><tr>
+<td align="left" style="font-size:11px;color:#6e6e73;line-height:1.6;">© 2026 denroot</td>
+<td align="right" style="font-size:11px;line-height:1.6;"><a href="https://denroot.com/privacy/" style="color:#6e6e73;">${isJa ? 'プライバシーポリシー' : 'Privacy Policy'}</a></td>
+</tr></table>
 </td></tr>
 </table>
 </td></tr>
@@ -368,8 +374,10 @@ async function writeEvent(env, e) {
    be sent until an address exists to put in SENDER_ADDRESS — this is true even if
    the app is released free of charge.  See 法務.md §7.
 ──────────────────────────────────────────────────────────────────────────── */
-const SENDER_NAME_JA = 'Denroot（Ryuu Oikawa）';
-const SENDER_NAME_EN = 'Denroot (Ryuu Oikawa)';
+// 2026-08-05 送信者から個人名を外した（Ryu 指示）。上の (1) は「氏名又は名称」なので名称で足りる。
+// ⚠️ 個人事業主が屋号のみで足りるかは【未確認】→ 法務.md §7 の専門家チェックで確認する。
+const SENDER_NAME_JA = 'Denroot';
+const SENDER_NAME_EN = 'Denroot';
 const SENDER_CONTACT = 'contact@denroot.com';
 const SENDER_ADDRESS = '';   // ⚠️ MUST be filled before any advertising email (incl. the launch notification) is sent.
 
@@ -383,17 +391,13 @@ function senderBlockHtml(isJa) {
 <p style="margin:0 0 4px;">送信者：${SENDER_NAME_JA}</p>
 ${addr}
 <p style="margin:0 0 4px;">お問い合わせ：<a href="mailto:${SENDER_CONTACT}" style="color:#6e6e73;">${SENDER_CONTACT}</a></p>
-<p style="margin:8px 0 0;"><strong>配信停止をご希望の場合は、いつでも受け付けます。</strong>下記アドレス宛に「配信停止」とご記入のうえご連絡ください。<br>
-<a href="mailto:${SENDER_CONTACT}?subject=%E9%85%8D%E4%BF%A1%E5%81%9C%E6%AD%A2" style="color:#6e6e73;">${SENDER_CONTACT}</a></p>
-<p style="margin:8px 0 0;"><a href="https://denroot.com/privacy/" style="color:#6e6e73;">プライバシーポリシー</a></p>
+<p style="margin:8px 0 0;"><strong>配信停止をご希望の場合は、いつでも受け付けます。</strong>上記アドレス宛に「配信停止」とご記入のうえご連絡ください。</p>
 </div>` : `
 <hr style="border:none;border-top:1px solid #e8e8ed;margin:24px 0 18px;">
 <div style="font-size:11px;color:#6e6e73;line-height:1.7;">
 <p style="margin:0 0 4px;">Sender: ${SENDER_NAME_EN}</p>
 ${addr}
 <p style="margin:0 0 4px;">Enquiries: <a href="mailto:${SENDER_CONTACT}" style="color:#6e6e73;">${SENDER_CONTACT}</a></p>
-<p style="margin:8px 0 0;"><strong>You can unsubscribe at any time.</strong> Email the address below with the word "unsubscribe".<br>
-<a href="mailto:${SENDER_CONTACT}?subject=unsubscribe" style="color:#6e6e73;">${SENDER_CONTACT}</a></p>
-<p style="margin:8px 0 0;"><a href="https://denroot.com/privacy/" style="color:#6e6e73;">Privacy Policy</a></p>
+<p style="margin:8px 0 0;"><strong>You can unsubscribe at any time.</strong> Email the address above with the word "unsubscribe".</p>
 </div>`;
 }
