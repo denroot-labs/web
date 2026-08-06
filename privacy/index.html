@@ -235,6 +235,7 @@ body.lang-ja .en { display: none; }
         <li><strong>(1) Waitlist registration form</strong>Email address, and the display language at the time of registration.</li>
         <li><strong>(2) Contact form</strong>Name, email address, and the content of the enquiry.</li>
         <li><strong>(3) When either form is submitted</strong>IP address. We do not store the IP address itself. It is converted into a hashed value using a secret key held only by us, retained temporarily, and invalidated within ten minutes.</li>
+        <li><strong>(4) When you use the &ldquo;suggest a first step&rdquo; feature in the denroot app</strong>The text of the task you entered (up to 100 characters), and a device identifier issued by iOS (Vendor ID). The device identifier is used solely to count the number of uses per day; it does not identify you personally and changes if you delete the app. This feature operates only when you tap the button, and nothing you type is transmitted unless you do.</li>
       </ul>
     </div>
     <div class="dsec-body ja">
@@ -242,6 +243,7 @@ body.lang-ja .en { display: none; }
         <li><strong>(1) 事前登録フォーム</strong>メールアドレス、登録時の表示言語</li>
         <li><strong>(2) お問い合わせフォーム</strong>氏名、メールアドレス、お問い合わせの内容</li>
         <li><strong>(3) 上記フォームの送信時</strong>IPアドレス。当方は、IPアドレスをそのままの形で保存しません。当方のみが保持する秘密鍵を用いてハッシュ化した値を一時的に保持し、10分以内に無効となります。</li>
+        <li><strong>(4) アプリ「denroot」の「最初のステップの提案」機能をご利用になったとき</strong>お客様が入力された「やること」の文章（100文字まで）、及び端末を識別するための文字列（iOS が発行する Vendor ID）。端末を識別するための文字列は、1日のご利用回数を数えるためだけに使用します。お客様個人を特定するものではなく、アプリを削除すると変わります。本機能は、お客様がボタンを押されたときにのみ動作し、押されない限り、入力された内容が端末から送信されることはありません。</li>
       </ul>
     </div>
   </div>
@@ -254,6 +256,7 @@ body.lang-ja .en { display: none; }
         <li><strong>(1)</strong>To send confirmation of registration, and to notify registrants of the release of our service.</li>
         <li><strong>(2)</strong>To respond to enquiries.</li>
         <li><strong>(3)</strong>To prevent abuse of our forms.</li>
+        <li><strong>(4)</strong>To present suggestions for a first step in response to the task you entered.</li>
       </ul>
       <p>We do not use personal information for advertising delivery, profiling, or automated decision-making.</p>
     </div>
@@ -262,6 +265,7 @@ body.lang-ja .en { display: none; }
         <li><strong>(1)</strong>登録確認のご連絡、及びサービスのリリースに関するご案内のため</li>
         <li><strong>(2)</strong>お問い合わせへの回答のため</li>
         <li><strong>(3)</strong>フォームの不正利用を防止するため</li>
+        <li><strong>(4)</strong>入力された「やること」に対して、最初のステップの案をお示しするため</li>
       </ul>
       <p>当方は、個人情報を広告配信、プロファイリング又は自動化された意思決定に利用しません。</p>
     </div>
@@ -283,9 +287,23 @@ body.lang-ja .en { display: none; }
     <h2 class="dsec-h ja">5. 委託</h2>
     <div class="dsec-body en">
       <p>We may entrust the handling of personal data, in whole or in part, to contractors to the extent necessary to achieve the purposes of use. In such cases we exercise necessary and appropriate supervision over the contractor.</p>
+      <p>Our current contractors are as follows.</p>
+      <ul class="lgl-list">
+        <li><strong>Cloudflare, Inc. (United States)</strong>Delivery of our website, receipt of form submissions, prevention of abuse, and data storage.</li>
+        <li><strong>Plus Five Five, Inc. (service name: Resend / United States)</strong>Sending of confirmation emails.</li>
+        <li><strong>Anthropic PBC (United States)</strong>Processing of text for the &ldquo;suggest a first step&rdquo; feature.</li>
+      </ul>
+      <p>Anthropic PBC states that, by default, it does not use inputs or outputs sent through its commercial products, including the Anthropic API, to train its models.</p>
     </div>
     <div class="dsec-body ja">
       <p>当方は、利用目的の達成に必要な範囲内において、個人データの取扱いの全部又は一部を委託することがあります。この場合、委託先に対して必要かつ適切な監督を行います。</p>
+      <p>現在の委託先は、次のとおりです。</p>
+      <ul class="lgl-list">
+        <li><strong>Cloudflare, Inc.（アメリカ合衆国）</strong>サイトの配信、フォームの受付、不正利用の防止、及びデータの保管</li>
+        <li><strong>Plus Five Five, Inc.（サービス名：Resend／アメリカ合衆国）</strong>確認メールの送信</li>
+        <li><strong>Anthropic PBC（アメリカ合衆国）</strong>「最初のステップの提案」機能における文章の処理</li>
+      </ul>
+      <p>Anthropic PBC は、同社の定めにより、Anthropic API を含む同社の商用サービスを通じて送信された内容及び生成された内容を、同社の機械学習モデルの学習に使用しません。</p>
     </div>
   </div>
 
@@ -330,9 +348,11 @@ body.lang-ja .en { display: none; }
     <h2 class="dsec-h ja">8. 保有期間</h2>
     <div class="dsec-body en">
       <p>We retain personal data only for the period necessary to achieve the purposes of use, and delete it without delay once those purposes have been achieved or upon a request for deletion.</p>
+      <p>With respect to the &ldquo;suggest a first step&rdquo; feature, we do not store the text you enter. Our contractor, Anthropic PBC, states that it automatically deletes inputs and outputs within 30 days of receipt or generation. Where content is flagged by its automated systems as violating its Usage Policy, it may be retained for up to two years, and it may be retained longer where required by law.</p>
     </div>
     <div class="dsec-body ja">
       <p>当方は、利用目的の達成に必要な期間に限り個人データを保有し、利用目的を達成した場合又は削除のご請求があった場合は、遅滞なく削除します。</p>
+      <p>「最初のステップの提案」機能について、当方は、お客様が入力された文章を保存しません。委託先である Anthropic PBC は、同社の定めにより、送信された内容及び生成された内容を、受領又は生成から30日以内に自動的に削除します。ただし、同社の利用ポリシー違反として検知された場合は最大2年間、また法令上必要な場合は、それを超えて保持されることがあります。</p>
     </div>
   </div>
 
