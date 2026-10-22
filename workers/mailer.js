@@ -1,29 +1,76 @@
 // Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY) are re-applied on every deploy via .github/workflows/deploy-worker.yml
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+// この Worker を呼んでよいのは、denroot.com のページだけです。
+//   CORS の許可（Access-Control-Allow-Origin）は、下の2つの住所から来た時にだけ返します。
+//   ほかのサイトのページから来た送信（Origin が下の2つと違う送信）は、中身を読まずに断ります。
+//   Origin の無い送信（ブラウザ以外から）は断りませんが、フォームの送信には、Turnstile の確認の結果の文字列（トークン）が要ります。
+const ALLOWED_ORIGINS = ['https://denroot.com', 'https://www.denroot.com'];
+// Turnstile の確認を行ったページの住所（hostname）。トークンがほかのサイトのページで取られたものなら、受け付けません。
+const ALLOWED_HOSTNAMES = ['denroot.com', 'www.denroot.com'];
+
+// 入力の長さの上限（Claude が 2026-10-22 に置いた値。お問い合わせのフォームの maxlength と同じ値）。
+const MAX_NAME = 100;
+const MAX_MESSAGE = 5000;
 
 export default {
   async fetch(request, env, ctx) {
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: CORS_HEADERS });
+    const origin = request.headers.get('Origin') || '';
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+      return new Response(null, { status: 403, headers: { 'Vary': 'Origin' } });
     }
-    const url = new URL(request.url);
-    if (request.method === 'POST') {
-      if (url.pathname === '/contact') return handleContact(request, env, ctx);
-      if (url.pathname === '/waitlist') return handleWaitlist(request, env, ctx);
-      if (url.pathname === '/event') return handleEvent(request, env, ctx);
-    }
-    return new Response('Not found', { status: 404 });
+    return withCors(await route(request, env, ctx), origin);
   }
 };
 
+async function route(request, env, ctx) {
+  if (request.method === 'OPTIONS') return new Response(null, { status: 204 });
+  const url = new URL(request.url);
+  if (request.method === 'POST') {
+    if (url.pathname === '/contact') return handleContact(request, env, ctx);
+    if (url.pathname === '/waitlist') return handleWaitlist(request, env, ctx);
+    if (url.pathname === '/event') return handleEvent(request, env, ctx);
+  }
+  return new Response('Not found', { status: 404 });
+}
+
+// 許可した住所から来た時だけ、返事に CORS の許可を付けます。
+function withCors(res, origin) {
+  const headers = new Headers(res.headers);
+  headers.set('Vary', 'Origin');
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    headers.set('Access-Control-Allow-Origin', origin);
+    headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  }
+  return new Response(res.body, { status: res.status, headers });
+}
+
+// 本文を JSON として読みます。読めない時と、オブジェクトでない時（null・配列など）は null を返します。
+async function readJson(request) {
+  try {
+    const b = await request.json();
+    return b !== null && typeof b === 'object' && !Array.isArray(b) ? b : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// メールアドレスを、前後の空白を取り、小文字にそろえます。文字列でなければ空文字を返します。
+//   小文字にそろえるのは、大文字と小文字だけが違う同じアドレスを、別の登録として二重に入れないためです。
+function normalizeEmail(e) {
+  return typeof e === 'string' ? e.trim().toLowerCase() : '';
+}
+
 async function handleContact(request, env, ctx) {
   try {
-    const { name, email, message, lang, company, turnstileToken } = await request.json();
-    if (company) return jsonResponse({ success: true });
+    const b = await readJson(request);
+    if (!b) return jsonResponse({ error: 'Invalid body' }, 400);
+    if (b.company) return jsonResponse({ success: true });
+    // 名前は、件名にも入るので、改行などの制御文字を空白に置き換えます。
+    const name = typeof b.name === 'string' ? b.name.replace(/[\u0000-\u001F\u007F]/g, ' ').trim() : '';
+    const message = typeof b.message === 'string' ? b.message.trim() : '';
+    const email = normalizeEmail(b.email);
+    const lang = b.lang;
+    const turnstileToken = b.turnstileToken;
     if (!(await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, request))) {
       return jsonResponse({ error: 'verification_failed' }, 403);
     }
@@ -32,6 +79,9 @@ async function handleContact(request, env, ctx) {
     }
     if (!name || !email || !message) {
       return jsonResponse({ error: 'Missing required fields' }, 400);
+    }
+    if (name.length > MAX_NAME || message.length > MAX_MESSAGE) {
+      return jsonResponse({ error: 'Too long' }, 400);
     }
     if (!isValidEmail(email)) {
       return jsonResponse({ error: 'Invalid email' }, 400);
@@ -48,8 +98,9 @@ async function handleContact(request, env, ctx) {
       await sendEmailWithRetry(env.RESEND_API_KEY, {
         from: 'noreply@denroot.com',
         to: email,
+        reply_to: SENDER_CONTACT,
         subject: isJa ? 'お問合せを承りました' : 'Thank you for your inquiry',
-        html: contactConfirmHtml(name, message, isJa),
+        html: contactConfirmHtml(isJa),
       });
     })().catch(e => console.error('Contact emails failed:', e.message)));
     return jsonResponse({ success: true });
@@ -60,8 +111,13 @@ async function handleContact(request, env, ctx) {
 
 async function handleWaitlist(request, env, ctx) {
   try {
-    const { email, lang, company, turnstileToken } = await request.json();
-    if (company) return jsonResponse({ success: true });
+    const b = await readJson(request);
+    if (!b) return jsonResponse({ error: 'Invalid body' }, 400);
+    if (b.company) return jsonResponse({ success: true });
+    const email = normalizeEmail(b.email);
+    // 言語は ja か en だけを保存します（そのほかの値は en にします）。
+    const lang = b.lang === 'ja' ? 'ja' : 'en';
+    const turnstileToken = b.turnstileToken;
     if (!(await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, request))) {
       return jsonResponse({ error: 'verification_failed' }, 403);
     }
@@ -69,14 +125,16 @@ async function handleWaitlist(request, env, ctx) {
       return jsonResponse({ error: 'rate_limited' }, 429);
     }
     if (!isValidEmail(email)) return jsonResponse({ error: 'Email is required' }, 400);
-    const existing = await env.DB.prepare('SELECT id FROM waitlist WHERE email = ?').bind(email).first();
+    // 前に大文字のまま入った登録とも重ならないように、小文字にしてから比べます。
+    const existing = await env.DB.prepare('SELECT id FROM waitlist WHERE lower(email) = ?').bind(email).first();
     if (existing) return jsonResponse({ error: 'already_registered' }, 409);
-    await env.DB.prepare('INSERT INTO waitlist (email, lang) VALUES (?, ?)').bind(email, lang || 'en').run();
+    await env.DB.prepare('INSERT INTO waitlist (email, lang) VALUES (?, ?)').bind(email, lang).run();
     const isJa = lang === 'ja';
     ctx.waitUntil((async () => {
       await sendEmailWithRetry(env.RESEND_API_KEY, {
         from: 'noreply@denroot.com',
         to: email,
+        reply_to: SENDER_CONTACT,
         subject: isJa ? 'ウェイトリスト登録完了' : 'Waitlist Registration Confirmed',
         html: waitlistConfirmHtml(isJa),
         // Gmail / Apple Mail が件名の横に「登録解除」ボタンを出す。
@@ -88,7 +146,7 @@ async function handleWaitlist(request, env, ctx) {
         from: 'noreply@denroot.com',
         to: 'contact@denroot.com',
         subject: '[ウェイトリスト] 新規登録',
-        text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang || 'en'}`,
+        text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang}`,
       });
     })().catch(e => console.error('Waitlist emails failed:', e.message)));
     return jsonResponse({ success: true });
@@ -132,12 +190,13 @@ ${senderBlockHtml(isJa)}
 </body></html>`;
 }
 
-function contactConfirmHtml(name, message, isJa) {
-  const safeName = escapeHtml(name);
-  const safeMsg = escapeHtml(message);
+// お問い合わせの自動返信です。送った人が書いた名前と本文は、入れません。
+//   自動返信は、フォームに書かれたアドレスへ届きます。名前や本文を入れると、悪意のある人が、フォームに他人のアドレスと
+//   好きな文を書くだけで、その文を載せたメールを、denroot の名前で他人に送れてしまうためです。
+function contactConfirmHtml(isJa) {
   const t = isJa
-    ? { title: 'お問合せを承りました', h1: `${safeName}様、<br>ご連絡ありがとうございます。`, body: 'お問合せを承りました。内容を確認のうえ、<strong>1〜3営業日以内に</strong>担当者よりご返信いたします。', label: 'お問い合わせ内容', reply: '※ 万一、3営業日を過ぎても返信が届かない場合は、迷惑メールフォルダをご確認のうえ、お手数ですが contact@denroot.com まで直接ご連絡ください。', footer: 'このメールはお問合せフォームからの自動返信です。このメールへの返信でも受け付けております。' }
-    : { title: 'Thank you for your inquiry', h1: `Thank you, ${safeName}.`, body: "We've received your inquiry and will reply <strong>within 1–3 business days</strong>.", label: 'Your message', reply: "If you haven't heard from us after 3 business days, please check your spam folder and then email us directly at contact@denroot.com.", footer: 'This is an automated confirmation from the contact form. You can also simply reply to this email.' };
+    ? { title: 'お問合せを承りました', h1: 'ご連絡ありがとうございます。', body: 'お問合せを承りました。内容を確認のうえ、<strong>1〜3営業日以内に</strong>担当者よりご返信いたします。', reply: '※ 万一、3営業日を過ぎても返信が届かない場合は、迷惑メールフォルダをご確認のうえ、お手数ですが contact@denroot.com まで直接ご連絡ください。', footer: 'このメールはお問合せフォームからの自動返信です。このメールへの返信でも受け付けております。' }
+    : { title: 'Thank you for your inquiry', h1: 'Thank you for contacting us.', body: "We've received your inquiry and will reply <strong>within 1–3 business days</strong>.", reply: "If you haven't heard from us after 3 business days, please check your spam folder and then email us directly at contact@denroot.com.", footer: 'This is an automated confirmation from the contact form. You can also simply reply to this email.' };
   return `<!DOCTYPE html>
 <html lang="${isJa ? 'ja' : 'en'}">
 <head><meta charset="UTF-8"><title>${t.title}</title></head>
@@ -150,11 +209,7 @@ function contactConfirmHtml(name, message, isJa) {
 </td></tr>
 <tr><td style="background:#ffffff;border-radius:0 0 12px 12px;padding:48px 40px 40px;">
 <h1 style="margin:0 0 24px;font-size:26px;font-weight:600;line-height:1.3;letter-spacing:-0.02em;color:#1d1d1f;">${t.h1}</h1>
-<p style="margin:0 0 28px;font-size:15px;line-height:1.75;color:#48484a;">${t.body}</p>
-<div style="background:#f5f5f7;border-radius:10px;padding:20px 22px;margin:0 0 32px;">
-<p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6e6e73;">${t.label}</p>
-<p style="margin:0;font-size:14px;line-height:1.75;color:#1d1d1f;white-space:pre-wrap;">${safeMsg}</p>
-</div>
+<p style="margin:0 0 32px;font-size:15px;line-height:1.75;color:#48484a;">${t.body}</p>
 <hr style="border:none;border-top:1px solid #e8e8ed;margin:0 0 24px;">
 <p style="margin:0 0 14px;font-size:12px;color:#48484a;line-height:1.7;">${t.reply}</p>
 <p style="margin:0;font-size:11px;color:#6e6e73;line-height:1.6;">${t.footer}</p>
@@ -170,8 +225,11 @@ ${senderBlockHtml(isJa)}
 </body></html>`;
 }
 
-async function sendEmail(apiKey, { from, to, subject, html, text, headers }) {
+// 送った人に届く自動のメール（確認メールと自動返信）は、送り元の noreply@denroot.com には受け箱が無いので、
+//   返信先（reply_to）を contact@denroot.com にします。自動返信に「このメールへの返信でも受け付けております」と書いてあるためです。
+async function sendEmail(apiKey, { from, to, subject, html, text, headers, reply_to }) {
   const body = { from, to, subject };
+  if (reply_to) body.reply_to = reply_to;
   if (html) body.html = html;
   if (text) body.text = text;
   if (headers) body.headers = headers;   // 例：List-Unsubscribe
@@ -188,7 +246,7 @@ async function sendEmail(apiKey, { from, to, subject, html, text, headers }) {
 }
 
 async function verifyTurnstile(token, secret, request) {
-  if (!token || !secret) return false;
+  if (typeof token !== 'string' || !token || token.length > 2048 || !secret) return false;
   const ip = request.headers.get('CF-Connecting-IP') || '';
   const form = new URLSearchParams();
   form.append('secret', secret);
@@ -201,7 +259,9 @@ async function verifyTurnstile(token, secret, request) {
       body: form.toString(),
     });
     const data = await res.json();
-    return data.success === true;
+    // トークンが denroot.com のページで取られたものかも確かめます（Cloudflare の説明：
+    //   https://developers.cloudflare.com/turnstile/get-started/server-side-validation/ の「Validate the action and hostname」）。
+    return data.success === true && ALLOWED_HOSTNAMES.includes(data.hostname);
   } catch (e) {
     return false;
   }
@@ -224,11 +284,17 @@ async function hashIp(ip, env) {
   return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
 }
 
+// フォーム（事前登録とお問い合わせ）の送信を、10分ごとに数え、上限を超えていれば false を返します。
+//   設定が欠けていて数えられない時（IP・D1・塩〔RL_SALT〕が無い時）は、false を返して送信を断ります。
+//   数えずに通すと、設定の誤りに気づかないまま、回数制限が外れるためです。
+//   D1 の読み書きに失敗した時だけは、送信を通します。D1 が止まっている間も、お問い合わせを受け付けるためです
+//   （フォームの送信には Turnstile の確認が要るので、機械による大量の送信は、そこで止まります）。
+//   どちらの時も、理由を Cloudflare の記録（rate_limit_unavailable）に出します。
 async function checkRateLimit(env, request) {
   const rawIp = request.headers.get('CF-Connecting-IP') || '';
-  if (!rawIp || !env.DB) return true;
+  if (!rawIp || !env.DB) { console.error('rate_limit_unavailable', !rawIp ? 'no_ip' : 'no_db'); return false; }
   const ip = await hashIp(rawIp, env);   // 秘密塩＋10分窓。生IPはD1に到達しない
-  if (!ip) return true;                  // 塩が未設定なら、レート制限をスキップしてでも保存しない
+  if (!ip) { console.error('rate_limit_unavailable', 'no_salt'); return false; }   // 塩が未設定なら、IP 由来の値を保存せず、送信を断る
   const LIMIT = 30;
   const WINDOW = 600;
   const now = Math.floor(Date.now() / 1000);
@@ -254,24 +320,19 @@ async function checkRateLimit(env, request) {
       await env.DB.prepare('CREATE TABLE IF NOT EXISTS rate_limit (ip TEXT PRIMARY KEY, cnt INTEGER NOT NULL, reset_at INTEGER NOT NULL)').run();
       return await run();
     } catch (e2) {
+      console.error('rate_limit_unavailable', 'd1');
       return true;
     }
   }
 }
 
+// メールアドレスの形を確かめます。@ が1つだけあり、@ の前（64文字まで）に空白・制御文字・<>()[],;:"\ が無く、
+//   @ の後ろが「英数字とハイフンの区切り」を点でつないだ形で、点が1つ以上あるものだけを通します。
+//   全体は254文字まで（RFC 5321 の上限）。
 function isValidEmail(e) {
   if (typeof e !== 'string' || e.length > 254) return false;
-  var at = e.indexOf('@');
-  var dot = e.lastIndexOf('.');
-  return at > 0 && dot > at + 1 && dot < e.length - 1 && e.indexOf(' ') === -1;
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  const m = /^([^\s@<>()\[\],;:"\\\u0000-\u001F\u007F]{1,64})@([A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+)$/.exec(e);
+  return m !== null;
 }
 
 function sleep(ms) {
@@ -293,7 +354,7 @@ async function sendEmailWithRetry(apiKey, message, tries = 3) {
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+    headers: { 'Content-Type': 'application/json' },
   });
 }
 
@@ -314,16 +375,19 @@ async function handleEvent(request, env, ctx) {
     // drop bots — they would inflate every number
     const ua = request.headers.get('User-Agent') || '';
     if (!ua || /bot|crawl|spider|slurp|headless|lighthouse|preview|monitor|curl|wget|python|axios|node-fetch/i.test(ua)) {
-      return new Response(null, { status: 204, headers: CORS_HEADERS });
+      return new Response(null, { status: 204 });
     }
     // only accept beacons that came from our own pages
     const origin = request.headers.get('Origin') || '';
-    if (!/^https:\/\/(www\.)?denroot\.com$/.test(origin)) {
-      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    if (!ALLOWED_ORIGINS.includes(origin)) {
+      return new Response(null, { status: 204 });
     }
-    const b = await request.json();
-    const section = LP_SECTIONS.includes(b && b.section) ? b.section : null;
-    if (!section) return new Response(null, { status: 204, headers: CORS_HEADERS });
+    const b = await readJson(request);
+    const section = b && LP_SECTIONS.includes(b.section) ? b.section : null;
+    if (!section) return new Response(null, { status: 204 });
+    // 到達計測には、回数制限を付けません。回数制限は IP から計算した値を D1 に書くので、LP を見ただけの人についても
+    //   その値を書くことになります。それは、プライバシーポリシーの第2条(3)（IP から計算した値を持つのは、フォームの送信時）と、
+    //   第10条(4)（到達計測では IP アドレスを保存しない）に食い違うためです。
 
     const depth  = LP_SECTIONS.indexOf(section);
     const lang   = b.lang === 'ja' ? 'ja' : 'en';
@@ -337,7 +401,7 @@ async function handleEvent(request, env, ctx) {
 
     ctx.waitUntil(writeEvent(env, { section, depth, lang, device, ref, cta, country, now }));
   } catch (e) { /* never let measurement break the page */ }
-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+  return new Response(null, { status: 204 });
 }
 
 async function writeEvent(env, e) {
