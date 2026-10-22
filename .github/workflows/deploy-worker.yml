@@ -12,9 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - uses: actions/checkout@v4
+      # 部品（uses: の行。ほかの人が作り、GitHub で公開しているプログラム）は、コミットの番号で固定しています。
+      # 版の名前（@v4 など）で指すと、部品の作り手のアカウントが乗っ取られた時に、乗っ取った人が部品の中身を差し替えて、
+      # この設定が使う秘密の値を盗めるためです。版を上げる時は、新しい版のコミットの番号を調べて書き換えます。
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
       - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd   # v3.15.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: workers
