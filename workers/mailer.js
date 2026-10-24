@@ -127,7 +127,10 @@ async function handleWaitlist(request, env, ctx) {
     if (!isValidEmail(email)) return jsonResponse({ error: 'Email is required' }, 400);
     // 前に大文字のまま入った登録とも重ならないように、小文字にしてから比べます。
     const existing = await env.DB.prepare('SELECT id FROM waitlist WHERE lower(email) = ?').bind(email).first();
-    if (existing) return jsonResponse({ error: 'already_registered' }, 409);
+    // すでに登録されているアドレスでも、初めての登録と同じ返事を返し、メールは送りません。
+    //   返事を変えると、他人のアドレスを入れるだけで、その人が登録しているかが分かってしまうためです。
+    //   メールを送ると、他人が、同じ人へ何度も denroot のメールを届けられてしまうためです。
+    if (existing) return jsonResponse({ success: true });
     await env.DB.prepare('INSERT INTO waitlist (email, lang) VALUES (?, ?)').bind(email, lang).run();
     const isJa = lang === 'ja';
     ctx.waitUntil((async () => {
@@ -146,12 +149,14 @@ async function handleWaitlist(request, env, ctx) {
         from: 'noreply@denroot.com',
         to: 'contact@denroot.com',
         subject: '[ウェイトリスト] 新規登録',
-        text: `新規ウェイトリスト登録\nメール: ${email}\n言語: ${lang}`,
+        // 登録した人のアドレスは、この通知に入れません。お名前メールの受信箱と、転送先の Gmail に、
+        //   アドレスの写しを作らないためです（アドレスは D1 の waitlist と、Resend の送信の記録に残ります）。
+        text: `新規ウェイトリスト登録\n言語: ${lang}\n登録したアドレスは、D1 の waitlist の表にあります。`,
       });
     })().catch(e => console.error('Waitlist emails failed:', e.message)));
     return jsonResponse({ success: true });
   } catch (err) {
-    console.error(err);
+    console.error('waitlist_failed', String((err && err.name) || ''));   // 例外の種類の名前だけを残します。例外の文には、入力されたアドレスが入ることがあるためです
     return jsonResponse({ error: 'Internal server error' }, 500);
   }
 }
@@ -241,7 +246,13 @@ async function sendEmail(apiKey, { from, to, subject, html, text, headers, reply
     },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`Resend error: ${await res.text()}`);
+  // Cloudflare の記録に出す例外の文には、失敗の理由として、状態番号と、Resend が返す失敗の種類の名前（例：validation_error）だけを入れます。
+  //   Resend の返す文には、宛先のメールアドレスが入ることがあり、それを Cloudflare の記録に残さないためです。
+  if (!res.ok) {
+    let kind = '';
+    try { kind = String((await res.json()).name || ''); } catch (e) {}
+    throw new Error(`Resend error: ${res.status} ${kind}`.trim());
+  }
   return res.json();
 }
 
